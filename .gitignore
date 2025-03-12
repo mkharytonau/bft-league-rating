@@ -1,0 +1,10 @@
+.DS_Store
+target
+.bsp
+.idea
+.vscode
+*.iml
+.bloop
+.history
+.metals
+metals.sbt
