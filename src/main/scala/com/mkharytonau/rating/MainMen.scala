@@ -33,6 +33,19 @@ object MainMen extends App {
           650.0
         )
       )
+    ),
+    CompetitionConfig(
+      name = CompetitionName("Минск Индор Триатлон"),
+      events = List(
+        EventConfig[Any, Unit](
+          EventName("Индор триатлон"),
+          ResourcePath("2025/Minsk_Indoor_Triathlon/men.csv"),
+          EventResultsReader.MinskIndoorTriathlon,
+          ResourcePath("2025/Minsk_Indoor_Triathlon/men_calculated.csv"),
+          EventResultsCalculator.Standart,
+          700.0
+        ),
+      )
     )
   )
 

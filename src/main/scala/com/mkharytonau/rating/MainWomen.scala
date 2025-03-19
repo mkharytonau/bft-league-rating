@@ -33,6 +33,19 @@ object MainWomen extends App {
           650.0
         )
       )
+    ),
+    CompetitionConfig(
+      name = CompetitionName("Минск Индор Триатлон"),
+      events = List(
+        EventConfig[Any, Unit](
+          EventName("Индор триатлон"),
+          ResourcePath("2025/Minsk_Indoor_Triathlon/women.csv"),
+          EventResultsReader.MinskIndoorTriathlon,
+          ResourcePath("2025/Minsk_Indoor_Triathlon/women_calculated.csv"),
+          EventResultsCalculator.Standart,
+          700.0
+        ),
+      )
     )
   )
 

@@ -52,4 +52,38 @@ object EventResultsReader {
         value
     }
   }
+
+  object MinskIndoorTriathlon extends EventResultsReader {
+    def read(path: ResourcePath): EventResults = {
+      val reader = CSVReader.open(Source.fromResource(path.value))
+      val (rawHeader, rawResults) = reader.allWithOrderedHeaders()
+      reader.close()
+
+      val header = Header(rawHeader.map(ColumnName(_)))
+      val results = rawResults.map(fields =>
+        EventResult(
+          Nickname(fields("ФИО")),
+          parseDuration(fields("Итоговое время")),
+          fields
+        )
+      )
+
+      EventResults(header, results)
+    }
+
+    def parseDuration(str: String): FiniteDuration = Try {
+      val (mm, ss) = str match {
+        case s"$mm:$ss" => (mm, ss)
+      }
+      val minutes = mm.toInt
+      val seconds = ss.toInt
+      minutes.minutes + seconds.seconds
+    } match {
+      case Failure(exception) =>
+        println(s"Unable to parse $str as FiniteDuration");
+        throw exception
+      case Success(value) =>
+        value
+    }
+  }
 }
