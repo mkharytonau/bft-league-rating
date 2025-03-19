@@ -6,18 +6,27 @@ import scala.io.Source
 import com.mkharytonau.rating.domain._
 
 object Licenses {
-  def load(path: ResourcePath): List[License] = {
+  private def load(path: ResourcePath): List[License] = {
     val raw = CSVReader.open(Source.fromResource(path.value)).allWithHeaders()
 
-    raw.map { fields =>
-      val fioInRussian = FIOInRussian(fields("ФИО на русском").trim())
-
-      License(
-        LicenseId(fields("Номер").trim()),
-        fioInRussian,
-        FIOInEnglish(fields("ФИО на английском").trim()),
-        Club.fromString(fields("Спорт клуб"))
-      )
+    raw.flatMap { fields =>
+      if (fields("Номер").trim().startsWith("AG"))
+        Some(
+          License(
+            LicenseId(fields("Номер").trim()),
+            FIOInRussian(fields("ФИО на русском").trim()),
+            FIOInEnglish(fields("ФИО на английском").trim()),
+            Gender.fromString(fields("Пол")),
+            Club.fromString(fields("Спорт клуб")),
+            Birthday(fields("Дата рождения"))
+          )
+        )
+      else None
     }
   }
+
+  def loadMen(path: ResourcePath): List[License] =
+    load(path).filter(_.gender == Gender.Men)
+  def loadWomen(path: ResourcePath): List[License] =
+    load(path).filter(_.gender == Gender.Women)
 }

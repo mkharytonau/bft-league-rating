@@ -8,22 +8,27 @@ import scala.concurrent.duration.FiniteDuration
 import scala.util.{Try, Failure, Success}
 import scala.concurrent.duration._
 
-trait EventResults {
-  def load(path: ResourcePath): List[EventResult]
+trait EventResultsReader {
+  def read(path: ResourcePath): EventResults
 }
 
-object EventResults {
-  object OBelarus {
-    def load(path: ResourcePath): List[EventResult] = {
-      val raw = CSVReader.open(Source.fromResource(path.value)).allWithHeaders()
+object EventResultsReader {
+  object OBelarus extends EventResultsReader {
+    def read(path: ResourcePath): EventResults = {
+      val reader = CSVReader.open(Source.fromResource(path.value))
+      val (rawHeader, rawResults) = reader.allWithOrderedHeaders()
+      reader.close()
 
-      raw.map(fields =>
+      val header = Header(rawHeader.map(ColumnName(_)))
+      val results = rawResults.map(fields =>
         EventResult(
           Nickname(fields("Фамилия Имя")),
           parseDuration(fields("Время")),
           fields
         )
       )
+
+      EventResults(header, results)
     }
 
     def parseDuration(str: String): FiniteDuration = Try {
