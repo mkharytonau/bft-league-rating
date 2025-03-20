@@ -8,3 +8,4 @@ target
 .history
 .metals
 metals.sbt
+~*.xlsx

@@ -18,8 +18,8 @@ object RatingCalculator {
       val events = competitions.flatMap(_.events)
       val header = Header(
         (List(
-          "Тренд",
           "Место",
+          "Тренд",
           "ФИО",
           "Номер лицензии",
           "Год рождения",
@@ -41,7 +41,7 @@ object RatingCalculator {
                   Trend(place.value - placePrevious.value)
               }.get // licenses list is the same so it MUST present
             else Trend(0)
-          RatingRow(trend, place, license, eventsPoints, totalPoints)
+          RatingRow(place, trend, license, eventsPoints, totalPoints)
       }
 
       Rating(header, ratingRowsWithTrend)

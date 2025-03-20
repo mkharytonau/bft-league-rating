@@ -91,7 +91,7 @@ object domain {
 
   @newtype case class Trend(value: Int)
   final case class EventPoints(eventName: EventName, pointsMaybe: Option[Points])
-  final case class RatingRow(trend: Trend, place: Place, license: License, eventsPoints: List[EventPoints], totalPoints: Points) 
+  final case class RatingRow(place: Place, trend: Trend, license: License, eventsPoints: List[EventPoints], totalPoints: Points) 
 
   final case class Rating(header: Header, rows: List[RatingRow])
 

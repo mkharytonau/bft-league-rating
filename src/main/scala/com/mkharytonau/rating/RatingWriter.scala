@@ -19,8 +19,8 @@ object RatingWriter {
       rating.rows.foreach { ratingRow =>
         val license = ratingRow.license
         val row = List(
-          ratingRow.trend.value.toString,
           ratingRow.place.value.toString,
+          ratingRow.trend.value.toString,
           license.fioInRussian.value,
           license.id.value,
           license.birthday.value,
