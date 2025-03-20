@@ -18,6 +18,7 @@ object RatingCalculator {
       val events = competitions.flatMap(_.events)
       val header = Header(
         (List(
+          "Тренд",
           "Место",
           "ФИО",
           "Номер лицензии",
@@ -27,6 +28,29 @@ object RatingCalculator {
           .map(_.name.value) ++ List("Сумма очков")).map(ColumnName(_))
       )
 
+      val ratingRowsPrevious = ratingRows(licenses, competitions.dropRight(1))
+      val ratingRowsCurrent = ratingRows(licenses, competitions)
+
+      val ratingRowsWithTrend = ratingRowsCurrent.map {
+        case (place, license, eventsPoints, totalPoints) =>
+          val trend =
+            if (competitions.dropRight(1).nonEmpty)
+              ratingRowsPrevious.collectFirst {
+                case (placePrevious, licensePrevious, _, _)
+                    if licensePrevious == license =>
+                  Trend(place.value - placePrevious.value)
+              }.get // licenses list is the same so it MUST present
+            else Trend(0)
+          RatingRow(trend, place, license, eventsPoints, totalPoints)
+      }
+
+      Rating(header, ratingRowsWithTrend)
+    }
+
+    def ratingRows(
+        licenses: List[License],
+        competitions: List[CompetitionCalculated]
+    ) = {
       val ratingRows = licenses.map { license =>
         val eventsPoints: List[EventPoints] = competitions.map { competition =>
           competition.events.map { eventCalculated =>
@@ -43,14 +67,18 @@ object RatingCalculator {
         (license, eventsPoints, totalPoints)
       }
 
-      val ratingRowsSorted = ratingRows
-        .sortBy { case (_, _, totalPoints) => -totalPoints.value }
+      val ratingRowsWithPlace = ratingRows
+        .groupBy { case (_, _, totalPoints) => totalPoints }
+        .toList
+        .sortBy { case (totalPoints, _) => -totalPoints.value }
         .zipWithIndex
-        .map { case ((license, eventsPoints, totalPoints), index) =>
-          RatingRow(Place(index + 1), license, eventsPoints, totalPoints)
+        .flatMap { case ((_, rows), index) =>
+          rows.map { case (license, eventsPoints, totalPoints) =>
+            (Place(index + 1), license, eventsPoints, totalPoints)
+          }
         }
 
-      Rating(header, ratingRowsSorted)
+      ratingRowsWithPlace
     }
   }
 }

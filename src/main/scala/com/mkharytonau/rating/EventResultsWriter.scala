@@ -24,7 +24,7 @@ object EventResultsWriter {
         s"/Users/mkharytonau/Projects/bft-league-rating/src/main/resources/${path.value}" // TODO don't hardcode path to resources folder
       )
       val headerWithCalculation = calculated.results.header.value
-        .map(_.value) ++ List("Место", "Очки в рейтинг за выступление")
+        .map(_.value) ++ List("Место", "Очки в рейтинг")
 
       writer.writeRow(headerWithCalculation)
       calculated.calculated.foreach { calc =>
