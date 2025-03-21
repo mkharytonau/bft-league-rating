@@ -49,7 +49,7 @@ object EventResultsCalculator {
     }
     require(byNickname.size <= 1)
     val byAll = byFIInRussian ++ byFIOInRussian ++ byFIOInEnglish ++ byNickname
-    require(byFIInRussian.exists(_.id == LicenseId("AG123")) || byAll.size <= 1) // TODO get rid of this crutch
+    require(byAll.size <= 1)
     byAll.headOption
   }
 
