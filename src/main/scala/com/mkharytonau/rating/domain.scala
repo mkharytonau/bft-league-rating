@@ -89,7 +89,9 @@ object domain {
       events: List[EventCalculated[Unit]]
   )
 
-  @newtype case class Trend(value: Int)
+  @newtype case class Trend(value: Int) {
+    def show: String = if (value < 0) s"▲${-value}" else if (value > 0) s"▼$value" else "−0"
+  }
   final case class EventPoints(eventName: EventName, pointsMaybe: Option[Points])
   final case class RatingRow(place: Place, trend: Trend, license: License, eventsPoints: List[EventPoints], totalPoints: Points) 
 

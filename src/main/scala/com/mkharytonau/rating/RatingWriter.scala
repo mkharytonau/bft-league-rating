@@ -20,7 +20,7 @@ object RatingWriter {
         val license = ratingRow.license
         val row = List(
           ratingRow.place.value.toString,
-          ratingRow.trend.value.toString,
+          ratingRow.trend.show,
           license.fioInRussian.value,
           license.id.value,
           license.birthday.value,
