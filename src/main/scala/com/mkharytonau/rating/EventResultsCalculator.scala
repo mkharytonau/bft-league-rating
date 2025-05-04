@@ -22,22 +22,31 @@ object EventResultsCalculator {
       licenses: List[License],
       nameMapping: Map[FIOInRussian, List[Nickname]]
   ): Option[License] = {
-    val byFIInRussian = licenses.filter(
-      _.fioInRussian.value
+    val byFIInRussian = licenses.filter { license =>
+      license.fioInRussian.value.toLowerCase
         .split(" ")
         .take(2)
-        .map(_.trim)
-        .mkString(" ")
-        .toLowerCase == result.nickname.value.toLowerCase
-    ) // FI in russian present in results, the most probable case
+        .map(_.trim) match {
+        case Array(surname, name) =>
+          s"$surname $name" == result.nickname.value.toLowerCase || // both Харитонов Никита
+          s"$name $surname" == result.nickname.value.toLowerCase // and Никита Харитонов match
+      }
+    } // FI in russian present in results, the most probable case
     require(byFIInRussian.size <= 1)
     val byFIOInRussian = licenses.filter(
       _.fioInRussian.value.toLowerCase == result.nickname.value.toLowerCase
     ) // FIO in russian present in results, less probable case
     require(byFIOInRussian.size <= 1)
-    val byFIOInEnglish = licenses.filter(
-      _.fioInEnglish.value.toLowerCase == result.nickname.value.toLowerCase
-    ) // FIO in english present in results, less probable case
+    val byFIOInEnglish = licenses.filter { license =>
+      license.fioInEnglish.value.toLowerCase
+        .split(" ")
+        .take(2)
+        .map(_.trim) match {
+        case Array(surname, name) =>
+          s"$surname $name" == result.nickname.value.toLowerCase || // both Kharitonov Nikita
+          s"$name $surname" == result.nickname.value.toLowerCase // and Nikita Kharitonov match
+      }
+    } // FIO in english present in results, less probable case
     require(byFIOInEnglish.size <= 1)
     val byNickname = { // result contains custom nickname, try to map it to FIO in russian and find license for it
       val fiosInRussian = nameMapping.collect {
@@ -49,6 +58,12 @@ object EventResultsCalculator {
     }
     require(byNickname.size <= 1)
     val byAll = byFIInRussian ++ byFIOInRussian ++ byFIOInEnglish ++ byNickname
+    if (byAll.size > 1) {
+      println(s"byFIInRussian: $byFIInRussian")
+      println(s"byFIOInRussian: $byFIOInRussian")
+      println(s"byFIOInEnglish: $byFIOInEnglish")
+      println(s"byNickname: $byNickname")
+    }
     require(byAll.size <= 1)
     byAll.headOption
   }

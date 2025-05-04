@@ -15,7 +15,7 @@ object NameMapping {
 
     raw.map { fields =>
       val nicknames = fields("Альтернативы")
-        .split(";")
+        .split(",")
         .toList
         .map(str => Nickname(str.trim()))
       (FIOInRussian(fields("ФИО на русском").trim()), nicknames)

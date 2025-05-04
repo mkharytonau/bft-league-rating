@@ -27,7 +27,7 @@ object RatingWriter {
           license.club.map(_.value).getOrElse("")
         ) ++ ratingRow.eventsPoints.map(
           _.pointsMaybe.map(_.value.toString).getOrElse("")
-        ) ++ List(ratingRow.totalPoints.value.toString)
+        ) ++ List(f"${ratingRow.totalPoints.value}%.2f")
 
 				writer.writeRow(row)
       }

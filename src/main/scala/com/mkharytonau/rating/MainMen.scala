@@ -46,6 +46,19 @@ object MainMen extends App {
           700.0
         ),
       )
+    ),
+    CompetitionConfig(
+      name = CompetitionName("Дрогичин Дуатлон"),
+      events = List(
+        EventConfig[Any, Unit](
+          EventName("Дрогичин Дуатлон"),
+          ResourcePath("2025/Drogichin/men.csv"),
+          EventResultsReader.Athlinks,
+          ResourcePath("2025/Drogichin/men_calculated.csv"),
+          EventResultsCalculator.Standart,
+          700.0
+        ),
+      )
     )
   )
 
