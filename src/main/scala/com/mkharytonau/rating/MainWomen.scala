@@ -59,6 +59,19 @@ object MainWomen extends App {
           700.0
         ),
       )
+    ),
+    CompetitionConfig(
+      name = CompetitionName("МогиЛев"),
+      events = List(
+        EventConfig[Any, Unit](
+          EventName("МогиЛев"),
+          ResourcePath("2025/Mogilev/women.csv"),
+          EventResultsReader.Athlinks,
+          ResourcePath("2025/Mogilev/women_calculated.csv"),
+          EventResultsCalculator.Standart,
+          700.0
+        ),
+      )
     )
   )
 

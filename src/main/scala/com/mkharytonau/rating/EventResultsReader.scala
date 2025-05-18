@@ -96,8 +96,8 @@ object EventResultsReader {
       val header = Header(rawHeader.map(ColumnName(_)))
       val results = rawResults.map(fields =>
         EventResult(
-          Nickname(fields("ИМЯ ФАМИЛИЯ ")),
-          parseDuration(fields("РЕЗУЛЬТАТ ")),
+          Nickname(fields("ИМЯ ФАМИЛИЯ")),
+          parseDuration(fields("РЕЗУЛЬТАТ")),
           fields
         )
       )

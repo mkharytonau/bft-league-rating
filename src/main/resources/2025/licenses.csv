@@ -34,7 +34,7 @@ AG094,Жиделев Александр Владимирович, ZHIDELEV ALEXA
 AG098,Харитонов Никита Витальевич ,KHARYTONAU MIKITA,,Мужской,Male,Многобор,16.01.1999,26,AG 25-29
 AG100,Иванов Олег Григорьевич,IVANOU ALEH,,Мужской,Male,Tristyle,08.11.1980,45,AG 45-49
 AG116,Юрченко Юрий Владимирович ,YURCHANKA YURY,,Мужской,Male,Дабл Ю,29.04.1989,36,AG 35-39
-AG122,Альшевский Глеб Вячеславович,Alsheuski Hleb,,Мужской,Male,,15.02.2001,24,AG 20-24
+AG122,Альшевский Глеб Вячеславович,Alsheuski Hleb,,Мужской,Male,Tristyle,15.02.2001,24,AG 20-24
 AG124,Войтик Татьяна Николаевна,VOITSIK TATSIANA,Voitsik Tatsiana,Женский,Female,S-sportas,12.11.1982,43,AG 40-44
 AG126,Шипуль Андрей Анатольевич ,SHYPUL ANDREI,Shypul Andrei,Мужской,Male,Yellow Submarine,20.05.1991,34,AG 30-34
 AG130,Полегенький Владимир Владимирович,POLEGENKY VLADIMIR,Polegenky Vladimir,Мужской,Male,Sqminsk,08.01.1986,39,AG 35-39
@@ -171,6 +171,11 @@ AG123,Пальчех Василий Викторович ,VASILY PALCHEKH ,Vasil
 AG147,Добудько Иван Сергеевич ,DABUDZKA IVAN,Dabudzka Ivan,Мужской,Male,Tristyle,17.10.1995,30,AG 30-34
 AG153,Картун Андрей Михайлович,KARTUN ANDREI,Kartun Andrei,Мужской,Male,Tristyle,01.07.1982,43,AG 40-44
 AG161,Добровский Сергей Ильич,DOBROVSKIY SERGEY,Dobrovskiy Sergey,Мужской,Male,Altius!,09.06.1989,36,AG 35-39
-AG999,Кочержук Александр,уточнить уточнить,,Мужской,Male,ON-BIKE TEAM,уточнить,уточнить,AG 40-44
 AG037,Головаченко Денис Леонидович,GOLOVACHENKO DENIS,,Мужской,Male,NM,26.07.1980,45,AG 45-49
-AG998,Лисецкий Дмитрий уточнить,уточнить уточнить,,Мужской,Male,,18.03.2004,21,AG 18-24
+AG044,Кочержук Александр,KACHARZHUK ALIAKSANDR,,Мужской,Male,ON-BIKE TEAM,22.02.1984,41,AG 40-44
+AG189,Матвийко Надежда Геннадьевна,MATSVIYKA NADEZHDA,Matsviyka Nadezhda,Женский,Female,Tristyle,10.11.1981,44,AG 40-44
+AG190,Котенков Андрей Леонидович,KOTENKOV ANDREI,Kotenkov Andrei,Мужской,Male,Tristyle,20.03.1981,44,AG 40-44
+AG191,Лисецкий Дмитрий Денисович ,LISETSKI DZMITRY ,,Мужской,Male,,18.03.2004,21,AG 18-24
+AG061,Гацко Дмитрий Михайлович,HATSKO DZMITRY,,Мужской,Male,Tristyle,07.03.1975,50,AG 50-54
+AG192,Гуштын Никита Александрович,GUSHTYN NIKITA,Gushtyn Nikita,Мужской,Male,Tristyle,30.05.2003,22,AG 18-24
+AG036,Щербенок Игорь Александрович,SCHERBENOK IGOR,,Мужской,Male,Tristyle,05.10.1988,37,AG 35-39
