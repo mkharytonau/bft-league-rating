@@ -5,6 +5,31 @@ import scalatags.Text.TypedTag
 import scalatags.Text.tags2.{style, title}
 
 object Html {
+
+  def commonHead(pageTitle: String, stylesHref: String) =
+    head(
+      link(rel := "preconnect", href := "https://fonts.googleapis.com"),
+      link(
+        rel := "preconnect",
+        href := "https://fonts.gstatic.com",
+        attr("crossorigin") := ""
+      ),
+      link(
+        href := "https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap",
+        rel := "stylesheet"
+      ),
+      link(
+        href := stylesHref,
+        rel := "stylesheet"
+      ),
+      meta(charset := "UTF-8"),
+      meta(
+        name := "viewport",
+        content := "width=device-width, initial-scale=1.0"
+      ),
+      title(pageTitle)
+    )
+
   def resultsTable(
       header: Seq[String],
       rows: Seq[Seq[String]]
@@ -48,34 +73,7 @@ object Html {
       resultsTable: TypedTag[String]
   ) = "<!DOCTYPE html>" +
     html(
-      head(
-        meta(charset := "UTF-8"),
-        meta(
-          name := "viewport",
-          content := "width=device-width, initial-scale=1.0"
-        ),
-        title(pageTitle),
-        style("""
-				  table {
-				  width: 100%;
-				  border-collapse: collapse;
-				  }
-				  th, td {
-				  border: 1px solid #ddd;
-				  padding: 8px;
-				  text-align: left;
-				  }
-				  th {
-				  background-color: #f2f2f2;
-				  }
-				  tr:nth-child(even) {
-				  background-color: #f9f9f9;
-				  }
-				  tr:hover {
-				  background-color: #ddd;
-				  }
-				""")
-      ),
+      commonHead(pageTitle, "../../../../../styles.css"),
       body(
         a(href := "index.html", "← Все категории"),
         h1(header),
@@ -89,43 +87,7 @@ object Html {
       ratingTable: TypedTag[String]
   ) = "<!DOCTYPE html>" +
     html(
-      head(
-        meta(charset := "UTF-8"),
-        meta(
-          name := "viewport",
-          content := "width=device-width, initial-scale=1.0"
-        ),
-        title(pageTitle),
-        style("""
-          table {
-          width: 100%;
-          border-collapse: collapse;
-          }
-          th, td {
-          border: 1px solid #ddd;
-          padding: 8px;
-          text-align: left;
-          }
-          th {
-          background-color: #f2f2f2;
-          }
-          tr:nth-child(even) {
-          background-color: #f9f9f9;
-          }
-          tr:hover {
-          background-color: #ddd;
-          }
-          .red {
-          color: red;
-          }
-          .green {
-          color: green;
-          }
-          .yellow {
-          color:rgb(237, 208, 41);
-          }
-        """)
-      ),
+      commonHead(pageTitle, "../../../../styles.css"),
       body(
         a(href := "rating.html", "← Все категории"),
         h1(header),
