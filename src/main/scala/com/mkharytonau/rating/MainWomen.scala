@@ -21,6 +21,7 @@ object MainWomen extends App {
           ResourcePath("2025/Logoisk_winter_tri/women_tri_raw.csv"),
           EventResultsReader.OBelarus,
           ResourcePath("2025/Logoisk_winter_tri/women_tri_calculated.csv"),
+          ResourcePath("2025/Logoisk_winter_tri/women_tri_calculated.html"),
           EventResultsCalculator.Standart,
           700.0
         ),
@@ -29,6 +30,7 @@ object MainWomen extends App {
           ResourcePath("2025/Logoisk_winter_tri/women_duo_raw.csv"),
           EventResultsReader.OBelarus,
           ResourcePath("2025/Logoisk_winter_tri/women_duo_calculated.csv"),
+          ResourcePath("2025/Logoisk_winter_tri/women_duo_calculated.html"),
           EventResultsCalculator.Standart,
           650.0
         )
@@ -42,6 +44,7 @@ object MainWomen extends App {
           ResourcePath("2025/Minsk_Indoor_Triathlon/women.csv"),
           EventResultsReader.MinskIndoorTriathlon,
           ResourcePath("2025/Minsk_Indoor_Triathlon/women_calculated.csv"),
+          ResourcePath("2025/Minsk_Indoor_Triathlon/women_calculated.html"),
           EventResultsCalculator.Standart,
           700.0
         ),
@@ -55,6 +58,7 @@ object MainWomen extends App {
           ResourcePath("2025/Drogichin/women.csv"),
           EventResultsReader.Athlinks,
           ResourcePath("2025/Drogichin/women_calculated.csv"),
+          ResourcePath("2025/Drogichin/women_calculated.html"),
           EventResultsCalculator.Standart,
           700.0
         ),
@@ -68,6 +72,7 @@ object MainWomen extends App {
           ResourcePath("2025/Mogilev/women.csv"),
           EventResultsReader.Athlinks,
           ResourcePath("2025/Mogilev/women_calculated.csv"),
+          ResourcePath("2025/Mogilev/women_calculated.html"),
           EventResultsCalculator.Standart,
           700.0
         ),
@@ -84,9 +89,13 @@ object MainWomen extends App {
         nameMapping,
         ()
       )
-      EventResultsWriter.Standart.write( // TODO implicit side effect
+      EventResultsWriter.CSV.write( // TODO implicit side effect
         eventCalculated,
-        eventConfig.calculatedPath
+        eventConfig
+      )
+			EventResultsWriter.HTML.write( // TODO implicit side effect
+        eventCalculated,
+        eventConfig
       )
 
       EventCalculated[Unit](eventConfig.name, eventCalculated)
@@ -100,5 +109,6 @@ object MainWomen extends App {
     competitionsCalculated
   )
 
-  RatingWriter.Standart.write(rating, ResourcePath("2025/rating_women.csv"))
+  RatingWriter.CSV.write(rating, ResourcePath("2025/rating_women.csv"))
+  RatingWriter.HTML.write(rating, ResourcePath("2025/rating_women.html"))
 }

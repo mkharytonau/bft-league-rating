@@ -11,6 +11,7 @@ lazy val root = (project in file("."))
     libraryDependencies ++= Seq(
       "com.github.tototoshi" %% "scala-csv" % "2.0.0",
       "io.estatico" %% "newtype" % "0.4.4",
+      "com.lihaoyi" %% "scalatags" % "0.13.1",
       munit % Test,
     ),
     scalacOptions += "-Ymacro-annotations"

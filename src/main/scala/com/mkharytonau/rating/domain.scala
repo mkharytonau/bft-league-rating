@@ -72,7 +72,8 @@ object domain {
     name: EventName,
       resultsPath: ResourcePath,
       resultsLoader: EventResultsReader,
-      calculatedPath: ResourcePath,
+      calculatedPathCsv: ResourcePath,
+      calculatedPathHtml: ResourcePath,
       resultCalculator: EventResultsCalculator[C, A],
       ratingBase: Double
   )
