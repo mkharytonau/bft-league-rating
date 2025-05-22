@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор очков за дистанцию</title>
+    <style>
+        body {
+            margin: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input,
+        select,
+        output {
+            padding: 8px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="index.html">← Все старты</a>
+    <h1>Калькулятор очков за дистанцию</h1>
+    <form id="calculator-form">
+        <div class="form-group">
+            <label for="event-type">Дистанция:</label>
+            <select id="event-type">
+                <option value="Спринт">Спринт</option>
+                <option value="Дуатлон">Дуатлон</option>
+                <option value="Кросс">Кросс</option>
+                <option value="Олимпийка">Олимпийка</option>
+                <option value="Половинка">Половинка</option>
+                <option value="Полная">Полная</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="time1">Время победителя (часы:минуты:секунды):</label>
+            <input type="text" id="time1" placeholder="например, 01:23:45">
+        </div>
+        <div class="form-group">
+            <label for="time2">Ваше время (часы:минуты:секунды):</label>
+            <input type="text" id="time2" placeholder="например, 01:45:30">
+        </div>
+        <div class="form-group">
+            <button type="button" onclick="calculate()">Рассчитать</button>
+        </div>
+        <div class="form-group">
+            <label>Результат рассчета:</label>
+            <output id="result">-</output>
+        </div>
+    </form>
+
+    <script>
+        function timeToSeconds(time) {
+            const [hours, minutes, seconds] = time.split(':');
+            return (
+                parseInt(hours || 0) * 3600 +
+                parseInt(minutes || 0) * 60 +
+                parseInt(seconds || 0)
+            );
+        }
+
+        function calculate() {
+            const eventType = document.getElementById('event-type').value;
+            const time1 = document.getElementById('time1').value;
+            const time2 = document.getElementById('time2').value;
+
+            if (!time1 || !time2) {
+                alert('Пожалуйста, введите время победителя и свое.');
+                return;
+            }
+            const seconds1 = timeToSeconds(time1);
+            const seconds2 = timeToSeconds(time2);
+
+            if (seconds2 < seconds1) {
+                alert('Ваше время не может быть меньше времени победителя.');
+                return;
+            }
+
+            const base = {
+                "Спринт": 700.0,
+                "Дуатлон": 700.0,
+                "Кросс": 700.0,
+                "Олимпийка": 800.0,
+                "Половинка": 900.0,
+                "Полная": 1000.0
+            }[eventType]
+
+            const result = base * Math.max(
+                (1 - (seconds2 - seconds1) / 0.8 / seconds1),
+                0
+            );
+
+            document.getElementById('result').textContent =
+                `Победитель получает ${base} очков, Вы получаете ${result.toFixed(2)} очков`;
+        }
+    </script>
+</body>
+
+</html>
