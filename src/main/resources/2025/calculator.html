@@ -36,28 +36,50 @@
 <body>
     <a href="index.html">← Все старты</a>
     <h1>Калькулятор очков за дистанцию</h1>
+    <p style="max-width: 600px; width: 100%;">Калькулятор позволяет рассчитать очки за дистанцию, основываясь на дистанции, времени победителя и вашем времени
+        согласно пункта 14.7
+        <a href="https://triatlon.by/assets/images/files/2025/polozhenie-lyubitelskaya-liga-triatlona-2025.pdf"
+            target="_blank" rel="noopener noreferrer">Положения</a>
+        о Любительской Лиге:
+        <img src="img/formula.jpeg" alt="Пункт 14.7 Положения" style="max-width: 400px; width: 100%; height: auto;">
+    </p>
     <form id="calculator-form">
         <div class="form-group">
             <label for="event-type">Дистанция:</label>
             <select id="event-type">
-                <option value="Спринт">Спринт</option>
-                <option value="Дуатлон">Дуатлон</option>
-                <option value="Кросс">Кросс</option>
-                <option value="Олимпийка">Олимпийка</option>
-                <option value="Половинка">Половинка</option>
-                <option value="Полная">Полная</option>
+                <option value="Полная">Полная 3.8км 🏊‍♂️ + 180км 🚴‍♂️ + 42.2км 🏃‍♂️</option>
+                <option value="Половинка">Половинка 1.9км 🏊‍♂️ + 90км 🚴‍♂️ + 21.1км 🏃‍♂️</option>
+                <option value="Олимпийка">Олимпийка 1.5км 🏊‍♂️ + 40км 🚴‍♂️ + 10км 🏃‍♂️</option>
+                <option value="Спринт">Спринт 750м 🏊‍♂️ + 20км 🚴‍♂️ + 5км 🏃‍♂️</option>
+                <option value="Дуатлон">Дуатлон 5км 🏃‍♂️ + 20км 🚴‍♂️ + 2.5 🏃‍♂️ </option>
+                <option value="Кросс">Кросс 🌲</option>
+                <option value="Зимний дуатлон">Зимний дуатлон 3км 🏃‍♂️ + 6км ⛷️</option>
             </select>
         </div>
         <div class="form-group">
-            <label for="time1">Время победителя (часы:минуты:секунды):</label>
-            <input type="text" id="time1" placeholder="например, 01:23:45">
+            <label for="time1-hours">Время победителя:</label>
+            <div>
+                <input type="number" id="time1-hours" placeholder="часы" min="0" max="23" value="9"
+                    style="width: 60px;">
+                <span>час(ов), </span>
+                <input type="number" id="time1-minutes" placeholder="минуты" min="0" max="59" value="30"
+                    style="width: 80px;">
+                <span>минут, </span>
+                <input type="number" id="time1-seconds" placeholder="секунды" min="0" max="59" value="0"
+                    style="width: 90px;">
+                <span>секунд</span>
+            </div>
         </div>
         <div class="form-group">
-            <label for="time2">Ваше время (часы:минуты:секунды):</label>
-            <input type="text" id="time2" placeholder="например, 01:45:30">
-        </div>
-        <div class="form-group">
-            <button type="button" onclick="calculate()">Рассчитать</button>
+            <label for="time2-hours">Ваше время:</label>
+            <div>
+                <input type="number" id="time2-hours" placeholder="часы" min="0" max="23" style="width: 60px;">
+                <span>час(ов), </span>
+                <input type="number" id="time2-minutes" placeholder="минуты" min="0" max="59" style="width: 80px;">
+                <span>минут, </span>
+                <input type="number" id="time2-seconds" placeholder="секунды" min="0" max="59" style="width: 90px;">
+                <span>секунд</span>
+            </div>
         </div>
         <div class="form-group">
             <label>Результат рассчета:</label>
@@ -66,8 +88,35 @@
     </form>
 
     <script>
-        function timeToSeconds(time) {
-            const [hours, minutes, seconds] = time.split(':');
+        const predefinedTimes = {
+            "Спринт": "00:50:00",
+            "Дуатлон": "00:55:00",
+            "Зимний дуатлон": "00:35:00",
+            "Кросс": "00:45:00",
+            "Олимпийка": "02:05:00",
+            "Половинка": "04:10:00",
+            "Полная": "09:30:00"
+        };
+
+        document.getElementById('event-type').addEventListener('change', function () {
+            const selectedEvent = this.value;
+            const predefinedTime = predefinedTimes[selectedEvent];
+            const [hours, minutes, seconds] = predefinedTime.split(':');
+            document.getElementById('time1-hours').value = hours;
+            document.getElementById('time1-minutes').value = minutes;
+            document.getElementById('time1-seconds').value = seconds;
+            calculate();
+        });
+
+        const timeInputs = [
+            'time1-hours', 'time1-minutes', 'time1-seconds',
+            'time2-hours', 'time2-minutes', 'time2-seconds'
+        ];
+        timeInputs.forEach(id => {
+            document.getElementById(id).addEventListener('input', calculate);
+        });
+
+        function timeToSeconds(hours, minutes, seconds) {
             return (
                 parseInt(hours || 0) * 3600 +
                 parseInt(minutes || 0) * 60 +
@@ -77,24 +126,36 @@
 
         function calculate() {
             const eventType = document.getElementById('event-type').value;
-            const time1 = document.getElementById('time1').value;
-            const time2 = document.getElementById('time2').value;
 
-            if (!time1 || !time2) {
-                alert('Пожалуйста, введите время победителя и свое.');
+            const time1Hours = document.getElementById('time1-hours').value;
+            const time1Minutes = document.getElementById('time1-minutes').value;
+            const time1Seconds = document.getElementById('time1-seconds').value;
+
+            const time2Hours = document.getElementById('time2-hours').value;
+            const time2Minutes = document.getElementById('time2-minutes').value;
+            const time2Seconds = document.getElementById('time2-seconds').value;
+
+            const seconds1 = timeToSeconds(time1Hours, time1Minutes, time1Seconds);
+            const seconds2 = timeToSeconds(time2Hours, time2Minutes, time2Seconds);
+
+            const resultElement = document.getElementById('result');
+
+            if (seconds1 <= 0 || seconds2 <= 0) {
+                resultElement.textContent = 'Пожалуйста, введите корректное время победителя и свое.';
+                resultElement.style.color = 'red';
                 return;
             }
-            const seconds1 = timeToSeconds(time1);
-            const seconds2 = timeToSeconds(time2);
 
             if (seconds2 < seconds1) {
-                alert('Ваше время не может быть меньше времени победителя.');
+                resultElement.textContent = 'Ваше время должно быть равно или больше времени победителя.';
+                resultElement.style.color = 'red';
                 return;
             }
 
             const base = {
                 "Спринт": 700.0,
                 "Дуатлон": 700.0,
+                "Зимний дуатлон": 650.0,
                 "Кросс": 700.0,
                 "Олимпийка": 800.0,
                 "Половинка": 900.0,
@@ -106,8 +167,9 @@
                 0
             );
 
-            document.getElementById('result').textContent =
-                `Победитель получает ${base} очков, Вы получаете ${result.toFixed(2)} очков`;
+            resultElement.innerHTML =
+                `Победитель получает ${base} очков, <span style="font-weight: bold;">Вы получаете ${result.toFixed(2)} очков</span>`;
+            resultElement.style.color = '';
         }
     </script>
 </body>
