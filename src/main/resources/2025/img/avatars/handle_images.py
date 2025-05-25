@@ -53,16 +53,26 @@ def process_images(raw_directory, target_directory):
             
             # Resize the image to ensure the largest dimension is 64 pixels
             max_dimension = 64
-            # Create a new image with white background and the desired dimensions
-            new_img = Image.new('RGB', (max_dimension, max_dimension), (255, 255, 255))
             
-            # Resize the image while preserving aspect ratio
-            img.thumbnail((max_dimension, max_dimension), Image.Resampling.LANCZOS)
+            # Resize the image while preserving aspect ratio, ensuring the smallest dimension is max_dimension
+            img_ratio = img.width / img.height
+            if img_ratio > 1:  # Wider than tall
+                new_width = int(img_ratio * max_dimension)
+                new_height = max_dimension
+            else:  # Taller than wide or square
+                new_width = max_dimension
+                new_height = int(max_dimension / img_ratio)
             
-            # Center the resized image on the white background
-            offset_x = (max_dimension - img.width) // 2
-            offset_y = (max_dimension - img.height) // 2
-            new_img.paste(img, (offset_x, offset_y))
+            img = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
+            
+            # Calculate the cropping box to take a square from the center
+            left = (new_width - max_dimension) // 2
+            top = (new_height - max_dimension) // 2
+            right = left + max_dimension
+            bottom = top + max_dimension
+            
+            # Crop the image to the square
+            new_img = img.crop((left, top, right, bottom))
             
             # Replace img with the new image
             img = new_img

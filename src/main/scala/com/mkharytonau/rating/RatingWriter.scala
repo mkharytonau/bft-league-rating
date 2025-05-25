@@ -66,7 +66,8 @@ object RatingWriter {
               alt := "",
               style := "border-radius: 50%; max-height: 2em; max-width: 2em; vertical-align: middle;"
             ),
-            license.fioInRussian.value
+            raw("&nbsp;"),
+            span(license.fioInRussian.value)
           ),
           td(clubStr),
           td(license.birthday.value)
