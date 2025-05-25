@@ -9,3 +9,6 @@ target
 .metals
 metals.sbt
 ~*.xlsx
+
+src/main/resources/2025/img/avatars/raw
+src/main/resources/2025/img/avatars/.venv

@@ -45,28 +45,6 @@ object Html {
       )
     )
 
-  def ratingTable(
-      header: Seq[String],
-      rows: Seq[Seq[String]]
-  ): TypedTag[String] =
-    table(
-      thead(
-        tr(header.map(th(_)))
-      ),
-      tbody(
-        rows.map { row =>
-          tr(row.map { cell =>
-            cell.headOption match {
-              case Some('▲') => td(cls := "green")(cell)
-              case Some('▼') => td(cls := "red")(cell)
-              case Some('−') => td(cls := "yellow")(cell)
-              case _         => td(cell)
-            }
-          })
-        }
-      )
-    )
-
   def resultsPage(
       pageTitle: String,
       header: String,

@@ -21,9 +21,8 @@ object RatingCalculator {
           "Место",
           "Тренд",
           "ФИО",
-          "Номер лицензии",
+          "Клуб",
           "Год рождения",
-          "Клуб"
         ) ++ events
           .map(_.name.value) ++ List("Сумма очков")).map(ColumnName(_))
       )
