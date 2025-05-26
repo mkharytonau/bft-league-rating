@@ -60,7 +60,7 @@ object RatingWriter {
               case _         => td(ratingRow.trend.show)
             }
           },
-          td(
+          td(style := "white-space: nowrap;")(
             img(
               src := s"./img/avatars/thumbnails/${license.fioInRussian.value}.jpg",
               alt := "",

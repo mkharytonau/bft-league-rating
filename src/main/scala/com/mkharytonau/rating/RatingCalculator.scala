@@ -18,8 +18,8 @@ object RatingCalculator {
       val events = competitions.flatMap(_.events)
       val header = Header(
         (List(
-          "Место",
-          "Тренд",
+          "№",
+          "▼▲",
           "ФИО",
           "Клуб",
           "Год рождения",
