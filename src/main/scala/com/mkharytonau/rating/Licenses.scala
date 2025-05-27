@@ -17,6 +17,7 @@ object Licenses {
             FIOInRussian(fields("ФИО на русском").trim()),
             FIOInEnglish(fields("ФИО на английском").trim()),
             Gender.fromString(fields("Пол")),
+            AG.fromString(fields("Категория")).get,
             Club.fromString(fields("Спорт клуб")),
             Birthday(fields("Дата рождения"))
           )

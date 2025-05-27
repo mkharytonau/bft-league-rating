@@ -23,24 +23,26 @@ object RatingCalculator {
           "ФИО",
           "Клуб",
           "Год рождения",
+          "AG"
         ) ++ events
-          .map(_.name.value) ++ List("Сумма очков")).map(ColumnName(_))
+          .map(_.name.value) ++ List("Сумма очков", "Место в AG"))
+          .map(ColumnName(_))
       )
 
       val ratingRowsPrevious = ratingRows(licenses, competitions.dropRight(1))
       val ratingRowsCurrent = ratingRows(licenses, competitions)
 
       val ratingRowsWithTrend = ratingRowsCurrent.map {
-        case (place, license, eventsPoints, totalPoints) =>
+        case (place, license, eventsPoints, totalPoints, placeAG) =>
           val trend =
             if (competitions.dropRight(1).nonEmpty)
               ratingRowsPrevious.collectFirst {
-                case (placePrevious, licensePrevious, _, _)
+                case (placePrevious, licensePrevious, _, _, _)
                     if licensePrevious == license =>
                   Trend(place.value - placePrevious.value)
               }.get // licenses list is the same so it MUST present
             else Trend(0)
-          RatingRow(place, trend, license, eventsPoints, totalPoints)
+          RatingRow(place, trend, license, eventsPoints, totalPoints, placeAG)
       }
 
       Rating(header, ratingRowsWithTrend)
@@ -66,18 +68,27 @@ object RatingCalculator {
         (license, eventsPoints, totalPoints)
       }
 
-      val ratingRowsWithPlace = ratingRows
+      val indexInAG = ratingRows
+        .groupBy { case (license, _, _) => license.ag }
+        .view
+        .mapValues { rows =>
+          rows
+          .map { case (_, _, totalPoints) => totalPoints }
+          .toList.distinct.sortBy(-_.value).zipWithIndex.toMap
+        }
+
+      val ratingRowsWithPlaces = ratingRows
         .groupBy { case (_, _, totalPoints) => totalPoints }
         .toList
         .sortBy { case (totalPoints, _) => -totalPoints.value }
         .zipWithIndex
         .flatMap { case ((_, rows), index) =>
           rows.map { case (license, eventsPoints, totalPoints) =>
-            (Place(index + 1), license, eventsPoints, totalPoints)
+            (Place(index + 1), license, eventsPoints, totalPoints, Place(indexInAG(license.ag)(totalPoints) + 1))
           }
         }
 
-      ratingRowsWithPlace
+      ratingRowsWithPlaces
     }
   }
 }
