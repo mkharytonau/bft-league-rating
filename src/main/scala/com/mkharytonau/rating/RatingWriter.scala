@@ -28,10 +28,11 @@ object RatingWriter {
           license.fioInRussian.value,
           license.club.map(_.value).getOrElse(""),
           license.birthday.value,
-          license.ag.show
+          license.ag.show,
+          ratingRow.placeAG.value.toString
         ) ++ ratingRow.eventsPoints.map(
           _.pointsMaybe.map(_.value.toString).getOrElse("")
-        ) ++ List(f"${ratingRow.totalPoints.value}%.2f", ratingRow.placeAG.value.toString)
+        ) ++ List(f"${ratingRow.totalPoints.value}%.2f")
 
         writer.writeRow(row)
       }
@@ -72,12 +73,13 @@ object RatingWriter {
           ),
           td(clubStr),
           td(license.birthday.value),
-          td(license.ag.show)
+          td(style := "white-space: nowrap;")(license.ag.show),
+          td(ratingRow.placeAG.value.toString)
         ) ++ ratingRow.eventsPoints.map { eventPoints =>
           val pointsStr =
             eventPoints.pointsMaybe.map(_.value.toString).getOrElse("")
           td(pointsStr)
-        } ++ List(td(f"${ratingRow.totalPoints.value}%.2f"), td(ratingRow.placeAG.value.toString))
+        } ++ List(td(f"${ratingRow.totalPoints.value}%.2f"))
 
         tr(row)
       }

@@ -23,9 +23,10 @@ object RatingCalculator {
           "ФИО",
           "Клуб",
           "Год рождения",
-          "AG"
+          "AG",
+          "Место в AG"
         ) ++ events
-          .map(_.name.value) ++ List("Сумма очков", "Место в AG"))
+          .map(_.name.value) ++ List("Сумма очков"))
           .map(ColumnName(_))
       )
 
@@ -42,7 +43,7 @@ object RatingCalculator {
                   Trend(place.value - placePrevious.value)
               }.get // licenses list is the same so it MUST present
             else Trend(0)
-          RatingRow(place, trend, license, eventsPoints, totalPoints, placeAG)
+          RatingRow(place, trend, license, placeAG, eventsPoints, totalPoints)
       }
 
       Rating(header, ratingRowsWithTrend)
@@ -73,8 +74,12 @@ object RatingCalculator {
         .view
         .mapValues { rows =>
           rows
-          .map { case (_, _, totalPoints) => totalPoints }
-          .toList.distinct.sortBy(-_.value).zipWithIndex.toMap
+            .map { case (_, _, totalPoints) => totalPoints }
+            .toList
+            .distinct
+            .sortBy(-_.value)
+            .zipWithIndex
+            .toMap
         }
 
       val ratingRowsWithPlaces = ratingRows
@@ -84,7 +89,13 @@ object RatingCalculator {
         .zipWithIndex
         .flatMap { case ((_, rows), index) =>
           rows.map { case (license, eventsPoints, totalPoints) =>
-            (Place(index + 1), license, eventsPoints, totalPoints, Place(indexInAG(license.ag)(totalPoints) + 1))
+            (
+              Place(index + 1),
+              license,
+              eventsPoints,
+              totalPoints,
+              Place(indexInAG(license.ag)(totalPoints) + 1)
+            )
           }
         }
 
