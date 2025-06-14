@@ -34,7 +34,7 @@ AG094,Жиделев Александр Владимирович, ZHIDELEV ALEXA
 AG098,Харитонов Никита Витальевич ,KHARYTONAU MIKITA,,Мужской,Male,Многобор,16.01.1999,26,AG 25-29
 AG100,Иванов Олег Григорьевич,IVANOU ALEH,,Мужской,Male,Tristyle,08.11.1980,45,AG 45-49
 AG116,Юрченко Юрий Владимирович ,YURCHANKA YURY,,Мужской,Male,Дабл Ю,29.04.1989,36,AG 35-39
-AG122,Альшевский Глеб Вячеславович,Alsheuski Hleb,,Мужской,Male,Tristyle,15.02.2001,24,AG 20-24
+AG122,Альшевский Глеб Вячеславович,Alsheuski Hleb,,Мужской,Male,Tristyle,15.02.2001,24,AG 18-24
 AG124,Войтик Татьяна Николаевна,VOITSIK TATSIANA,Voitsik Tatsiana,Женский,Female,S-sportas,12.11.1982,43,AG 40-44
 AG126,Шипуль Андрей Анатольевич ,SHYPUL ANDREI,Shypul Andrei,Мужской,Male,Yellow Submarine,20.05.1991,34,AG 30-34
 AG130,Полегенький Владимир Владимирович,POLEGENKY VLADIMIR,Polegenky Vladimir,Мужской,Male,Sqminsk,08.01.1986,39,AG 35-39
@@ -68,7 +68,7 @@ BR004,Мышепуд Валерия Дмитриевна ,MYSHAPUD VALERYA,,Же
 BR006,Дубейко Юлия Григорьевна ,DUBEIKO JULIYA,,Женский,Female,УОР Брест,29.07.2005,20,Elite/U23
 BR008,Колб Алексей Николаевич ,KOLB ALIKSEI,,Мужской,Male,УОР Брест,14.04.2009,16,Юниоры (16-19 лет)
 BR009,Бушуев Вячеслав Александрович,BUSHUYEU VIACHASLAU,,Мужской,Male,,12.01.2007,18,Юниоры (16-19 лет)
-BR011,Галка Дмитрий Валерьевич,HALKA DZMITRY,,Мужской,Male,,24.02.1988,37,Тренер
+BR011,Галка Дмитрий Васильевич,HALKA DZMITRY,,Мужской,Male,,24.02.1988,37,Тренер
 BR012,Цибульскас Павел Сергеевич ,TSYBULSKAS PAVEL,TSYBULSKAS Pavel,Мужской,Male,СДЮСШОР №2,31.03.2011,14,Дети до 15 лет
 BR014,Римша Михаил Георгиевич ,RYMSHA MIKHAIL,,Мужской,Male,СДЮШОР №2 г.Брест,09.08.2008,17,Юниоры (16-19 лет)
 BR018,Круглик Владислав Викторович ,KRUHLIK ULADZISLAU,,Мужской,Male,УОР Брест,25.01.2007,18,Юниоры (16-19 лет)
@@ -173,9 +173,25 @@ AG153,Картун Андрей Михайлович,KARTUN ANDREI,Kartun Andrei
 AG161,Добровский Сергей Ильич,DOBROVSKIY SERGEY,Dobrovskiy Sergey,Мужской,Male,Altius!,09.06.1989,36,AG 35-39
 AG037,Головаченко Денис Леонидович,GOLOVACHENKO DENIS,,Мужской,Male,NM,26.07.1980,45,AG 45-49
 AG044,Кочержук Александр Владимирович,KACHARZHUK ALIAKSANDR,,Мужской,Male,ON-BIKE TEAM,22.02.1984,41,AG 40-44
-AG189,Матвийко Надежда Геннадьевна,MATSVIYKA NADEZHDA,Matsviyka Nadezhda,Женский,Female,Tristyle,10.11.1981,44,AG 40-44
-AG190,Котенков Андрей Леонидович,KOTENKOV ANDREI,Kotenkov Andrei,Мужской,Male,Tristyle,20.03.1981,44,AG 40-44
-AG191,Лисецкий Дмитрий Денисович ,LISETSKI DZMITRY ,,Мужской,Male,,18.03.2004,21,AG 18-24
+AG188,Матвийко Надежда Геннадьевна,MATSVIYKA NADEZHDA,Matsviyka Nadezhda,Женский,Female,Tristyle,10.11.1981,44,AG 40-44
+AG189,Котенков Андрей Леонидович,KOTENKOV ANDREI,Kotenkov Andrei,Мужской,Male,Tristyle,20.03.1981,44,AG 40-44
+AG190,Лисецкий Дмитрий Денисович ,LISETSKI DZMITRY ,,Мужской,Male,,18.03.2004,21,AG 18-24
 AG061,Гацко Дмитрий Михайлович,HATSKO DZMITRY,,Мужской,Male,Tristyle,07.03.1975,50,AG 50-54
-AG192,Гуштын Никита Александрович,GUSHTYN NIKITA,Gushtyn Nikita,Мужской,Male,Tristyle,30.05.2003,22,AG 18-24
+AG191,Гуштын Никита Александрович,GUSHTYN NIKITA,Gushtyn Nikita,Мужской,Male,Tristyle,30.05.2003,22,AG 18-24
 AG036,Щербенок Игорь Александрович,SCHERBENOK IGOR,,Мужской,Male,Tristyle,05.10.1988,37,AG 35-39
+AG192,Мелях Дмитрий Николаевич,MELIAKH DZMITRY,,Мужской,Male,Tristyle,02.07.1979,46,AG 45-49
+AG193,Гребенчук Максим Юрьевич ,GREBENCHUK MAKSIM ,Grebenchuk Maksim ,Мужской,Male,Grebenstar ,19.01.1989,36,AG 35-39
+AG194,Зубович Евгения Александровна ,ZUBOVICH YAUHENIYA ,Zubovich Yauheniya ,Женский,Female,Tristyle,08.01.1989,36,AG 35-39
+AG195,Лютаревич Александра Ивановна,LIUTAREVICH ALIAKSANDRA,LIUTAREVICH ALIAKSANDRA,Женский,Female,Tristyle,05.09.1987,38,AG 35-39
+MG043,Загуменная София Константиновна,ZAHUMENNAYA SAFIYA,,Женский,Female,,21.03.2011,14,Дети до 15 лет
+MG013,Полозкова Нелли Николаевна ,PALAZKOVA NELI ,,Женский,Female,МГ СДЮШОР ,15.09.2011,14,Дети до 15 лет
+MN044,Будаева Наталья Сергеевна,BUDAYEVA NATALLIA,Budayeva Natallia,Женский,Female,,23.06.2011,14,Дети до 15 лет
+MG014,Карпеченко Данила Андреевич,KARPECHANKA DANILA,,Мужской,Male,,01.02.2011,14,Дети до 15 лет
+MO009,Веретенников Марат Русланович,VERATSENNIKAU MARAT,,Мужской,Male,,15.04.2008,17,Юниоры (16-19 лет)
+MN004,Викентьев Фёдор Алексеевич,VIKENTIEV FYODOR,,Мужской,Male,,23.03.2009,16,Юниоры (16-19 лет)
+MN017,Божок Дарья Сергеевна,BOZHOK DASHA,,Женский,Female,,25.06.2007,18,Юниоры (16-19 лет)
+MG040,Дроздова Руслана Павловна,DROZDOVA RUSLANA,,Женский,Female,Mogilev Triathlon Team ,20.05.2009,16,Юниоры (16-19 лет)
+MN024,Шкулева Ангелина Александровна,SHKULEVA ANHELINA ,,Женский,Female,,17.06.2008,17,Юниоры (16-19 лет)
+MO010,Романчик Анастасия Максимовна ,RAMANCHYK ANASTASIA ,Ramanchyk Anastasia ,Женский,Female,,22.11.2006,19,Юниоры (16-19 лет)
+MG046,Алексейчиков Иван Владимирович,ALEKSEICHIKOV IVAN,Alekseichikov Ivan,Мужской,Male,Mogilev Thriathlon Team ,18.09.1976,49,Тренер
+AG139,Державец Александр Марьянович,DZERZHAVETS ALIAKSANDR,Dzerzhavets Aliaksandr,Мужской,Male,Tristyle,04.05.1982,43,AG 40-44
