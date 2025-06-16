@@ -53,6 +53,10 @@ object RatingWriter {
       val rows = rating.rows.map { ratingRow =>
         val license = ratingRow.license
         val clubStr = license.club.map(_.value).getOrElse("")
+        val jsCaluclatorPath = ratingRow.eventsPoints.map(eventPoints =>
+          s"${eventPoints.eventName.jsCalculatorName}=${eventPoints.pointsMaybe.map(_.value.toString).getOrElse("")}"
+        ).mkString("&")
+        val totalPointsStr = f"${ratingRow.totalPoints.value}%.2f"
         val row = List(
           td(ratingRow.place.value.toString), {
             ratingRow.trend.show.headOption match {
@@ -79,7 +83,7 @@ object RatingWriter {
           val pointsStr =
             eventPoints.pointsMaybe.map(_.value.toString).getOrElse("")
           td(pointsStr)
-        } ++ List(td(f"${ratingRow.totalPoints.value}%.2f"))
+        } ++ List(td(a(href := s"./rating_points_calculator.html?$jsCaluclatorPath&scalaTotalValue=$totalPointsStr")(totalPointsStr)))
 
         tr(row)
       }

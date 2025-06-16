@@ -17,7 +17,8 @@ object MainWomen extends App {
       name = CompetitionName("Зимний триатлон. Логойск"),
       events = List(
         EventConfig[Any, Unit](
-          EventName("Зимний триатлон"),
+          EventName("Зимний триатлон", "LogoiskWinterTri"),
+          EventCategory.Kross,
           ResourcePath("2025/Logoisk_winter_tri/women_tri_raw.csv"),
           EventResultsReader.OBelarus,
           ResourcePath("2025/Logoisk_winter_tri/women_tri_calculated.csv"),
@@ -26,7 +27,8 @@ object MainWomen extends App {
           700.0
         ),
         EventConfig[Any, Unit](
-          EventName("Зимний дуатлон"),
+          EventName("Зимний дуатлон", "LogoiskWinterDuo"),
+          EventCategory.Kross,
           ResourcePath("2025/Logoisk_winter_tri/women_duo_raw.csv"),
           EventResultsReader.OBelarus,
           ResourcePath("2025/Logoisk_winter_tri/women_duo_calculated.csv"),
@@ -40,7 +42,8 @@ object MainWomen extends App {
       name = CompetitionName("Минск Индор Триатлон"),
       events = List(
         EventConfig[Any, Unit](
-          EventName("Индор триатлон"),
+          EventName("Индор триатлон", "MinskIndoorTriathlon"),
+          EventCategory.Kross,
           ResourcePath("2025/Minsk_Indoor_Triathlon/women.csv"),
           EventResultsReader.MinskIndoorTriathlon,
           ResourcePath("2025/Minsk_Indoor_Triathlon/women_calculated.csv"),
@@ -54,7 +57,8 @@ object MainWomen extends App {
       name = CompetitionName("Дрогичин Дуатлон"),
       events = List(
         EventConfig[Any, Unit](
-          EventName("Дрогичин Дуатлон"),
+          EventName("Дрогичин Дуатлон", "DuathlonDrogichin"),
+          EventCategory.Duathlon,
           ResourcePath("2025/Drogichin/women.csv"),
           EventResultsReader.Athlinks,
           ResourcePath("2025/Drogichin/women_calculated.csv"),
@@ -68,11 +72,27 @@ object MainWomen extends App {
       name = CompetitionName("МогиЛев"),
       events = List(
         EventConfig[Any, Unit](
-          EventName("МогиЛев"),
+          EventName("МогиЛев", "TriathlonMogiLev"),
+          EventCategory.Sprint,
           ResourcePath("2025/Mogilev/women.csv"),
           EventResultsReader.Athlinks,
           ResourcePath("2025/Mogilev/women_calculated.csv"),
           ResourcePath("2025/Mogilev/women_calculated.html"),
+          EventResultsCalculator.Standart,
+          700.0
+        ),
+      )
+    ),
+    CompetitionConfig(
+      name = CompetitionName("Браслав"),
+      events = List(
+        EventConfig[Any, Unit](
+          EventName("Браслав", "KrossTriathlonBraslav"),
+          EventCategory.Sprint,
+          ResourcePath("2025/BraslavKross/women.csv"),
+          EventResultsReader.OBelarus2,
+          ResourcePath("2025/BraslavKross/women_calculated.csv"),
+          ResourcePath("2025/BraslavKross/women_calculated.html"),
           EventResultsCalculator.Standart,
           700.0
         ),
@@ -98,7 +118,7 @@ object MainWomen extends App {
         eventConfig
       )
 
-      EventCalculated[Unit](eventConfig.name, eventCalculated)
+      EventCalculated[Unit](eventConfig.name, eventConfig.eventCategory, eventCalculated)
     }
 
     CompetitionCalculated(eventsCalculated)

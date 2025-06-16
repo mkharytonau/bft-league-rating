@@ -97,6 +97,7 @@ object domain {
 
   final case class EventConfig[C, A](
       name: EventName,
+      eventCategory: EventCategory,
       resultsPath: ResourcePath,
       resultsLoader: EventResultsReader,
       calculatedPathCsv: ResourcePath,
@@ -111,9 +112,21 @@ object domain {
 
   // rating
   @newtype case class CompetitionName(value: String)
-  @newtype case class EventName(value: String)
+  case class EventName(ratingName: String, jsCalculatorName: String)
+
+  sealed trait EventCategory
+  object EventCategory {
+    case object Sprint extends EventCategory
+    case object Olympic extends EventCategory
+    case object Duathlon extends EventCategory
+    case object Kross extends EventCategory
+    case object HalfIronmen extends EventCategory
+    case object Ironmen extends EventCategory
+  }
+
   final case class EventCalculated[A](
       name: EventName,
+      eventCategory: EventCategory,
       results: EventResultsCalculated[Unit]
   )
   final case class CompetitionCalculated(
@@ -126,6 +139,7 @@ object domain {
   }
   final case class EventPoints(
       eventName: EventName,
+      eventCategory: EventCategory,
       pointsMaybe: Option[Points]
   )
   final case class RatingRow(

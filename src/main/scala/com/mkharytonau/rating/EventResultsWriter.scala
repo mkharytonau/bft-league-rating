@@ -63,8 +63,8 @@ object EventResultsWriter {
       }
 
       val htmlString = Html.resultsPage(
-        pageTitle = eventConfig.name.value,
-        header = eventConfig.name.value,
+        pageTitle = eventConfig.name.ratingName,
+        header = eventConfig.name.ratingName,
         resultsTable = Html.resultsTable(
           headerWithCalculation,
           rows
