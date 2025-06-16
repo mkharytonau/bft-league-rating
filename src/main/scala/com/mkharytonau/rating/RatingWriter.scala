@@ -5,7 +5,6 @@ import com.github.tototoshi.csv.CSVWriter
 import com.mkharytonau.rating.html.Html
 import scalatags.Text.all._
 import scalatags.Text.TypedTag
-import scalatags.Text.tags2.{title}
 
 trait RatingWriter {
   def write(rating: Rating, path: ResourcePath): Unit
@@ -47,15 +46,25 @@ object RatingWriter {
         s"/Users/mkharytonau/Projects/bft-league-rating/src/main/resources/${path.value}" // TODO don't hardcode path to resources folder
       val writer = new java.io.PrintWriter(filePath)
 
-      val header = rating.header.value
-        .map(_.value)
+      val header = rating.header.value.map(_.value)
+      val headerHtml = {
+        val last = header.last
+        header.init
+          .map(th(_)) :+ th(
+          span(last),
+          raw("&nbsp;"),
+          span(title := "Нажмите на очки, чтобы перейти в калькулятор и получить объяснения по формуле")("ℹ️")
+        )
+      }
 
       val rows = rating.rows.map { ratingRow =>
         val license = ratingRow.license
         val clubStr = license.club.map(_.value).getOrElse("")
-        val jsCaluclatorPath = ratingRow.eventsPoints.map(eventPoints =>
-          s"${eventPoints.eventName.jsCalculatorName}=${eventPoints.pointsMaybe.map(_.value.toString).getOrElse("")}"
-        ).mkString("&")
+        val jsCaluclatorPath = ratingRow.eventsPoints
+          .map(eventPoints =>
+            s"${eventPoints.eventName.jsCalculatorName}=${eventPoints.pointsMaybe.map(_.value.toString).getOrElse("")}"
+          )
+          .mkString("&")
         val totalPointsStr = f"${ratingRow.totalPoints.value}%.2f"
         val row = List(
           td(ratingRow.place.value.toString), {
@@ -83,14 +92,20 @@ object RatingWriter {
           val pointsStr =
             eventPoints.pointsMaybe.map(_.value.toString).getOrElse("")
           td(pointsStr)
-        } ++ List(td(a(href := s"./rating_points_calculator.html?$jsCaluclatorPath&scalaTotalValue=$totalPointsStr")(totalPointsStr)))
+        } ++ List(
+          td(
+            a(
+              href := s"./rating_points_calculator.html?$jsCaluclatorPath&scalaTotalValue=$totalPointsStr"
+            )(totalPointsStr)
+          )
+        )
 
         tr(row)
       }
 
       val htmlTable = table(
         thead(
-          tr(header.map(th(_)))
+          tr(headerHtml)
         ),
         tbody(rows)
       )

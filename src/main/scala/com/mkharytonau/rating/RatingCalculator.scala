@@ -26,7 +26,7 @@ object RatingCalculator {
           "AG",
           "Место в AG"
         ) ++ events
-          .map(_.name.ratingName) ++ List("Сумма очков"))
+          .map(_.name.ratingName) ++ List("Сумма"))
           .map(ColumnName(_))
       )
 
