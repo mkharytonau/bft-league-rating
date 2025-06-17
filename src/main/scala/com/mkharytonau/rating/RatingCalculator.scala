@@ -43,10 +43,26 @@ object RatingCalculator {
                   Trend(place.value - placePrevious.value)
               }.get // licenses list is the same so it MUST present
             else Trend(0)
-          RatingRow(place, trend, license, placeAG, eventsPoints, totalPoints)
+          (place, trend, license, placeAG, eventsPoints, totalPoints)
+      }
+      val theBestTrend = ratingRowsWithTrend
+        .map { case (_, trend, _, _, _, _) => trend.value }
+        .minOption
+      
+      val ratingRows0 = ratingRowsWithTrend.map {
+        case (place, trend, license, placeAG, eventsPoints, totalPoints) =>
+          RatingRow(
+            place,
+            trend,
+            license,
+            placeAG,
+            eventsPoints,
+            totalPoints,
+            theBestTrend.contains(trend.value) && trend.value < 0
+          )
       }
 
-      Rating(header, ratingRowsWithTrend)
+      Rating(header, ratingRows0)
     }
 
     def ratingRows(
@@ -72,7 +88,15 @@ object RatingCalculator {
         (license, eventsPoints, totalPoints)
       }
 
-      val indexInAG = ratingRows
+      val ratingRowsWithIndex = ratingRows
+        .groupBy { case (_, _, totalPoints) => totalPoints }
+        .toList
+        .sortBy { case (totalPoints, _) => -totalPoints.value }
+        .zipWithIndex
+
+      val indexInAG = ratingRowsWithIndex
+        .filter { case (_, index) => index + 1 > 3 } // exclude top 3
+        .flatMap { case ((_, rows), index) => rows }
         .groupBy { case (license, _, _) => license.ag }
         .view
         .mapValues { rows =>
@@ -85,19 +109,18 @@ object RatingCalculator {
             .toMap
         }
 
-      val ratingRowsWithPlaces = ratingRows
-        .groupBy { case (_, _, totalPoints) => totalPoints }
-        .toList
-        .sortBy { case (totalPoints, _) => -totalPoints.value }
-        .zipWithIndex
+      val ratingRowsWithPlaces = ratingRowsWithIndex
         .flatMap { case ((_, rows), index) =>
           rows.map { case (license, eventsPoints, totalPoints) =>
+            val absolutePlace = Place(index + 1)
             (
-              Place(index + 1),
+              absolutePlace,
               license,
               eventsPoints,
               totalPoints,
-              Place(indexInAG(license.ag)(totalPoints) + 1)
+              Option.when(absolutePlace.value > 3)(
+                Place(indexInAG(license.ag)(totalPoints) + 1)
+              )
             )
           }
         }
@@ -167,14 +190,14 @@ object RatingCalculator {
         bestKrossMaybe.flatMap(_.pointsMaybe).getOrElse(Points(0d)).value
       val otherPoints = other.flatMap(_.pointsMaybe).map(_.value).sum
 
-      println(
-        s"${license.fioInRussian.value} -- " +
-          s"Sprint: ${bestSprintMaybe.map(a => (a.eventName.ratingName, a.pointsMaybe))}, " +
-          s"Olympic: ${bestOlympicMaybe.map(a => (a.eventName.ratingName, a.pointsMaybe))}, " +
-          s"Duathlon: ${bestDuathlonMaybe.map(a => (a.eventName.ratingName, a.pointsMaybe))}, " +
-          s"Kross: ${bestKrossMaybe.map(a => (a.eventName.ratingName, a.pointsMaybe))}, " +
-          s"Other: ${other.map(ep => (ep.eventName.ratingName, ep.pointsMaybe))}"
-      )
+      // println(
+      //   s"${license.fioInRussian.value} -- " +
+      //     s"Sprint: ${bestSprintMaybe.map(a => (a.eventName.ratingName, a.pointsMaybe))}, " +
+      //     s"Olympic: ${bestOlympicMaybe.map(a => (a.eventName.ratingName, a.pointsMaybe))}, " +
+      //     s"Duathlon: ${bestDuathlonMaybe.map(a => (a.eventName.ratingName, a.pointsMaybe))}, " +
+      //     s"Kross: ${bestKrossMaybe.map(a => (a.eventName.ratingName, a.pointsMaybe))}, " +
+      //     s"Other: ${other.map(ep => (ep.eventName.ratingName, ep.pointsMaybe))}"
+      // )
 
       val totalPoints =
         bestSprint + bestOlympic + bestDuathlon + bestKross + otherPoints

@@ -146,9 +146,10 @@ object domain {
       place: Place,
       trend: Trend,
       license: License,
-      placeAG: Place,
+      placeAG: Option[Place],
       eventsPoints: List[EventPoints],
       totalPoints: Points,
+      theBestTrend: Boolean,
   )
 
   final case class Rating(header: Header, rows: List[RatingRow])

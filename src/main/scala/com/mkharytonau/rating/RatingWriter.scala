@@ -28,7 +28,7 @@ object RatingWriter {
           license.club.map(_.value).getOrElse(""),
           license.birthday.value,
           license.ag.show,
-          ratingRow.placeAG.value.toString
+          ratingRow.placeAG.map(_.value.toString).getOrElse("")
         ) ++ ratingRow.eventsPoints.map(
           _.pointsMaybe.map(_.value.toString).getOrElse("")
         ) ++ List(f"${ratingRow.totalPoints.value}%.2f")
@@ -52,22 +52,44 @@ object RatingWriter {
         header.init
           .map(th(_)) :+ th(
           span(last),
+          br(),
+          span(
+            style := "font-size: 0.5em; color: gray;"
+          )("Нажмите,"),
           raw("&nbsp;"),
-          span(title := "Нажмите на очки, чтобы перейти в калькулятор и получить объяснения по формуле")("ℹ️")
+          span(
+            style := "font-size: 0.5em; color: gray;"
+          )("чтобы получить"),
+          raw("&nbsp;"),
+          span(
+            style := "font-size: 0.5em; color: gray;"
+          )("объяснение")
         )
       }
 
       val rows = rating.rows.map { ratingRow =>
         val license = ratingRow.license
         val clubStr = license.club.map(_.value).getOrElse("")
+        val agPlace = ratingRow.placeAG
+          .map(p => span(p.value.toString))
+          .getOrElse(
+            span(style := "font-size: 0.5em;")("Награждается в абсолюте")
+          )
         val jsCaluclatorPath = ratingRow.eventsPoints
           .map(eventPoints =>
             s"${eventPoints.eventName.jsCalculatorName}=${eventPoints.pointsMaybe.map(_.value.toString).getOrElse("")}"
           )
           .mkString("&")
         val totalPointsStr = f"${ratingRow.totalPoints.value}%.2f"
+        val place = ratingRow.place.value match {
+          case 1                           => span("🥇")
+          case 2                           => span("🥈")
+          case 3                           => span("🥉")
+          case _ if ratingRow.theBestTrend => span("🚀")
+          case _ => span(ratingRow.place.value.toString)
+        }
         val row = List(
-          td(ratingRow.place.value.toString), {
+          td(place), {
             ratingRow.trend.show.headOption match {
               case Some('▲') => td(cls := "green")(ratingRow.trend.show)
               case Some('▼') => td(cls := "red")(ratingRow.trend.show)
@@ -87,7 +109,7 @@ object RatingWriter {
           td(clubStr),
           td(license.birthday.value),
           td(style := "white-space: nowrap;")(license.ag.show),
-          td(ratingRow.placeAG.value.toString)
+          td(agPlace)
         ) ++ ratingRow.eventsPoints.map { eventPoints =>
           val pointsStr =
             eventPoints.pointsMaybe.map(_.value.toString).getOrElse("")
