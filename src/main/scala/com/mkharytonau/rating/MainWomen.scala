@@ -97,6 +97,21 @@ object MainWomen extends App {
           700.0
         ),
       )
+    ),
+    CompetitionConfig(
+      name = CompetitionName("Брест акватлон"),
+      events = List(
+        EventConfig[Any, Unit](
+          EventName("Брест акватлон", "BrestAquathlon"),
+          EventCategory.Duathlon,
+          ResourcePath("2025/BrestAquathlon/women.csv"),
+          EventResultsReader.OBelarus,
+          ResourcePath("2025/BrestAquathlon/women_calculated.csv"),
+          ResourcePath("2025/BrestAquathlon/women_calculated.html"),
+          EventResultsCalculator.Standart,
+          700.0
+        ),
+      )
     )
   )
 
