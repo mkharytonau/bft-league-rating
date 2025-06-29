@@ -112,6 +112,21 @@ object MainWomen extends App {
           700.0
         ),
       )
+    ),
+    CompetitionConfig(
+      name = CompetitionName("Заславль мультитриатлон"),
+      events = List(
+        EventConfig[Any, Unit](
+          EventName("Заславль мультитриатлон", "ZaslavlMultitriathlon"),
+          EventCategory.Sprint,
+          ResourcePath("2025/Zaslavl_Multitriathlon/women.csv"),
+          EventResultsReader.ZaslavlMultitriathlon,
+          ResourcePath("2025/Zaslavl_Multitriathlon/women_calculated.csv"),
+          ResourcePath("2025/Zaslavl_Multitriathlon/women_calculated.html"),
+          EventResultsCalculator.Standart,
+          700.0
+        ),
+      )
     )
   )
 

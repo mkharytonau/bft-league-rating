@@ -112,6 +112,21 @@ object MainMen extends App {
           700.0
         ),
       )
+    ),
+    CompetitionConfig(
+      name = CompetitionName("Заславль мультитриатлон"),
+      events = List(
+        EventConfig[Any, Unit](
+          EventName("Заславль мультитриатлон", "ZaslavlMultitriathlon"),
+          EventCategory.Sprint,
+          ResourcePath("2025/Zaslavl_Multitriathlon/men.csv"),
+          EventResultsReader.ZaslavlMultitriathlon,
+          ResourcePath("2025/Zaslavl_Multitriathlon/men_calculated.csv"),
+          ResourcePath("2025/Zaslavl_Multitriathlon/men_calculated.html"),
+          EventResultsCalculator.Standart,
+          700.0
+        ),
+      )
     )
   )
 
