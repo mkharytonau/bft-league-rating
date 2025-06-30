@@ -22,7 +22,6 @@ object RatingCalculator {
           "▼▲",
           "ФИО",
           "Клуб",
-          "Год рождения",
           "AG",
           "Место в AG"
         ) ++ events

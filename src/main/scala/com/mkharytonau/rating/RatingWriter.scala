@@ -26,7 +26,6 @@ object RatingWriter {
           ratingRow.trend.show,
           license.fioInRussian.value,
           license.club.map(_.value).getOrElse(""),
-          license.birthday.value,
           license.ag.show,
           ratingRow.placeAG.map(_.value.toString).getOrElse("")
         ) ++ ratingRow.eventsPoints.map(
@@ -107,7 +106,6 @@ object RatingWriter {
             span(license.fioInRussian.value)
           ),
           td(clubStr),
-          td(license.birthday.value),
           td(style := "white-space: nowrap;")(license.ag.show),
           td(agPlace)
         ) ++ ratingRow.eventsPoints.map { eventPoints =>
