@@ -127,6 +127,21 @@ object MainMen extends App {
           700.0
         ),
       )
+    ),
+    CompetitionConfig(
+      name = CompetitionName("Гомель спринт"),
+      events = List(
+        EventConfig[Any, Unit](
+          EventName("Гомель спринт", "KubokPolesiaGomel"),
+          EventCategory.Sprint,
+          ResourcePath("2025/KubokPolesiaGomel/men.csv"),
+          EventResultsReader.OBelarus,
+          ResourcePath("2025/KubokPolesiaGomel/men_calculated.csv"),
+          ResourcePath("2025/KubokPolesiaGomel/men_calculated.html"),
+          EventResultsCalculator.Standart,
+          700.0
+        ),
+      )
     )
   )
 
