@@ -122,7 +122,7 @@ object EventResultsReader {
     }
   }
 
-  object Athlinks extends EventResultsReader {
+  class Athlinks (nicknameField: String, resultField: String) extends EventResultsReader {
     def read(path: ResourcePath): EventResults = {
       val reader = CSVReader.open(Source.fromResource(path.value))
       val (rawHeader, rawResults) = reader.allWithOrderedHeaders()
@@ -131,8 +131,8 @@ object EventResultsReader {
       val header = Header(rawHeader.map(ColumnName(_)))
       val results = rawResults.map(fields =>
         EventResult(
-          Nickname(fields("ИМЯ ФАМИЛИЯ")),
-          parseDuration(fields("РЕЗУЛЬТАТ")),
+          Nickname(fields(nicknameField)),
+          parseDuration(fields(resultField)),
           fields
         )
       )

@@ -60,7 +60,7 @@ object MainMen extends App {
           EventName("Дрогичин Дуатлон", "DuathlonDrogichin"),
           EventCategory.Duathlon,
           ResourcePath("2025/Drogichin/men.csv"),
-          EventResultsReader.Athlinks,
+          new EventResultsReader.Athlinks("ИМЯ ФАМИЛИЯ", "РЕЗУЛЬТАТ"),
           ResourcePath("2025/Drogichin/men_calculated.csv"),
           ResourcePath("2025/Drogichin/men_calculated.html"),
           EventResultsCalculator.Standart,
@@ -75,7 +75,7 @@ object MainMen extends App {
           EventName("МогиЛев", "TriathlonMogiLev"),
           EventCategory.Sprint,
           ResourcePath("2025/Mogilev/men.csv"),
-          EventResultsReader.Athlinks,
+          new EventResultsReader.Athlinks("ИМЯ ФАМИЛИЯ", "РЕЗУЛЬТАТ"),
           ResourcePath("2025/Mogilev/men_calculated.csv"),
           ResourcePath("2025/Mogilev/men_calculated.html"),
           EventResultsCalculator.Standart,
@@ -141,6 +141,31 @@ object MainMen extends App {
           EventResultsCalculator.Standart,
           700.0
         ),
+      )
+    ),
+    CompetitionConfig(
+      name = CompetitionName("Святск"),
+      events = List(
+        EventConfig[Any, Unit](
+          EventName("Святск спринт", "SvyatskSprint"),
+          EventCategory.Sprint,
+          ResourcePath("2025/Svyatsk/men_sprint.csv"),
+          new EventResultsReader.Athlinks("Участник", "Результат"),
+          ResourcePath("2025/Svyatsk/men_sprint_calculated.csv"),
+          ResourcePath("2025/Svyatsk/men_sprint_calculated.html"),
+          EventResultsCalculator.Standart,
+          700.0
+        ),
+        EventConfig[Any, Unit](
+          EventName("Святск олимпийка", "SvyatskOlympic"),
+          EventCategory.Olympic,
+          ResourcePath("2025/Svyatsk/men_olympic.csv"),
+          new EventResultsReader.Athlinks("Участник", "Результат"),
+          ResourcePath("2025/Svyatsk/men_olympic_calculated.csv"),
+          ResourcePath("2025/Svyatsk/men_olympic_calculated.html"),
+          EventResultsCalculator.Standart,
+          800.0
+        )
       )
     )
   )
