@@ -167,7 +167,22 @@ object MainWomen extends App {
           800.0
         )
       )
-    )
+    ),
+    CompetitionConfig(
+      name = CompetitionName("Брест олимпийка"),
+      events = List(
+        EventConfig[Any, Unit](
+          EventName("Брест олимпийка", "BrestOlympic"),
+          EventCategory.Olympic,
+          ResourcePath("2025/BrestOlympic/women.csv"),
+          new EventResultsReader.Athlinks("Участник", "Результат"),
+          ResourcePath("2025/BrestOlympic/women_calculated.csv"),
+          ResourcePath("2025/BrestOlympic/women_calculated.html"),
+          EventResultsCalculator.Standart,
+          800.0
+        ),
+      )
+    ),
   )
 
   val competitionsCalculated = competitionConfigs.map { competitionConfig =>
