@@ -183,6 +183,41 @@ object MainWomen extends App {
         ),
       )
     ),
+    CompetitionConfig(
+      name = CompetitionName("Минский Триатлон"),
+      events = List(
+        EventConfig[Any, Unit](
+          EventName("МТ половинка", "MinskTriathlonHalfIronmen"),
+          EventCategory.HalfIronmen,
+          ResourcePath("2025/MinskTriathlon/women_113.csv"),
+          EventResultsReader.MT,
+          ResourcePath("2025/MinskTriathlon/women_113_calculated.csv"),
+          ResourcePath("2025/MinskTriathlon/women_113_calculated.html"),
+          EventResultsCalculator.Standart,
+          900.0
+        ),
+        EventConfig[Any, Unit](
+          EventName("МТ олимпийка", "MinskTriathlonOlympic"),
+          EventCategory.Olympic,
+          ResourcePath("2025/MinskTriathlon/women_olympic.csv"),
+          EventResultsReader.MT,
+          ResourcePath("2025/MinskTriathlon/women_olympic_calculated.csv"),
+          ResourcePath("2025/MinskTriathlon/women_olympic_calculated.html"),
+          EventResultsCalculator.Standart,
+          800.0
+        ),
+        EventConfig[Any, Unit](
+          EventName("МТ спринт", "MinskTriathlonSprint"),
+          EventCategory.Sprint,
+          ResourcePath("2025/MinskTriathlon/women_sprint.csv"),
+          EventResultsReader.MT,
+          ResourcePath("2025/MinskTriathlon/women_sprint_calculated.csv"),
+          ResourcePath("2025/MinskTriathlon/women_sprint_calculated.html"),
+          EventResultsCalculator.Standart,
+          700.0
+        )
+      )
+    )
   )
 
   val competitionsCalculated = competitionConfigs.map { competitionConfig =>

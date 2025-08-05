@@ -50,7 +50,7 @@ object MainMen extends App {
           ResourcePath("2025/Minsk_Indoor_Triathlon/men_calculated.html"),
           EventResultsCalculator.Standart,
           700.0
-        ),
+        )
       )
     ),
     CompetitionConfig(
@@ -65,7 +65,7 @@ object MainMen extends App {
           ResourcePath("2025/Drogichin/men_calculated.html"),
           EventResultsCalculator.Standart,
           700.0
-        ),
+        )
       )
     ),
     CompetitionConfig(
@@ -80,7 +80,7 @@ object MainMen extends App {
           ResourcePath("2025/Mogilev/men_calculated.html"),
           EventResultsCalculator.Standart,
           700.0
-        ),
+        )
       )
     ),
     CompetitionConfig(
@@ -95,7 +95,7 @@ object MainMen extends App {
           ResourcePath("2025/BraslavKross/men_calculated.html"),
           EventResultsCalculator.Standart,
           700.0
-        ),
+        )
       )
     ),
     CompetitionConfig(
@@ -110,7 +110,7 @@ object MainMen extends App {
           ResourcePath("2025/BrestAquathlon/men_calculated.html"),
           EventResultsCalculator.Standart,
           700.0
-        ),
+        )
       )
     ),
     CompetitionConfig(
@@ -125,7 +125,7 @@ object MainMen extends App {
           ResourcePath("2025/Zaslavl_Multitriathlon/men_calculated.html"),
           EventResultsCalculator.Standart,
           700.0
-        ),
+        )
       )
     ),
     CompetitionConfig(
@@ -140,7 +140,7 @@ object MainMen extends App {
           ResourcePath("2025/KubokPolesiaGomel/men_calculated.html"),
           EventResultsCalculator.Standart,
           700.0
-        ),
+        )
       )
     ),
     CompetitionConfig(
@@ -180,9 +180,44 @@ object MainMen extends App {
           ResourcePath("2025/BrestOlympic/men_calculated.html"),
           EventResultsCalculator.Standart,
           800.0
-        ),
+        )
       )
     ),
+    CompetitionConfig(
+      name = CompetitionName("Минский Триатлон"),
+      events = List(
+        EventConfig[Any, Unit](
+          EventName("МТ половинка", "MinskTriathlonHalfIronmen"),
+          EventCategory.HalfIronmen,
+          ResourcePath("2025/MinskTriathlon/men_113.csv"),
+          EventResultsReader.MT,
+          ResourcePath("2025/MinskTriathlon/men_113_calculated.csv"),
+          ResourcePath("2025/MinskTriathlon/men_113_calculated.html"),
+          EventResultsCalculator.Standart,
+          900.0
+        ),
+        EventConfig[Any, Unit](
+          EventName("МТ олимпийка", "MinskTriathlonOlympic"),
+          EventCategory.Olympic,
+          ResourcePath("2025/MinskTriathlon/men_olympic.csv"),
+          EventResultsReader.MT,
+          ResourcePath("2025/MinskTriathlon/men_olympic_calculated.csv"),
+          ResourcePath("2025/MinskTriathlon/men_olympic_calculated.html"),
+          EventResultsCalculator.Standart,
+          800.0
+        ),
+        EventConfig[Any, Unit](
+          EventName("МТ спринт", "MinskTriathlonSprint"),
+          EventCategory.Sprint,
+          ResourcePath("2025/MinskTriathlon/men_sprint.csv"),
+          EventResultsReader.MT,
+          ResourcePath("2025/MinskTriathlon/men_sprint_calculated.csv"),
+          ResourcePath("2025/MinskTriathlon/men_sprint_calculated.html"),
+          EventResultsCalculator.Standart,
+          700.0
+        )
+      )
+    )
   )
 
   val competitionsCalculated = competitionConfigs.map { competitionConfig =>
@@ -203,7 +238,11 @@ object MainMen extends App {
         eventConfig
       )
 
-      EventCalculated[Unit](eventConfig.name, eventConfig.eventCategory, eventCalculated)
+      EventCalculated[Unit](
+        eventConfig.name,
+        eventConfig.eventCategory,
+        eventCalculated
+      )
     }
 
     CompetitionCalculated(eventsCalculated)
