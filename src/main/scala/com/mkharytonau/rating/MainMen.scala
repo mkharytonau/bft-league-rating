@@ -217,7 +217,32 @@ object MainMen extends App {
           700.0
         )
       )
-    )
+    ),
+    CompetitionConfig(
+      name = CompetitionName("Гомель кросс"),
+      events = List(
+        EventConfig[Any, Unit](
+          EventName("Гомель кросс триатлон", "KubokPolesiaKrossGomel"),
+          EventCategory.Kross,
+          ResourcePath("2025/KubokPolesiaKrossGomel/men_tri.csv"),
+          EventResultsReader.OBelarus,
+          ResourcePath("2025/KubokPolesiaKrossGomel/men_tri_calculated.csv"),
+          ResourcePath("2025/KubokPolesiaKrossGomel/men_tri_calculated.html"),
+          EventResultsCalculator.Standart,
+          700.0
+        ),
+        EventConfig[Any, Unit](
+          EventName("Гомель кросс дуатлон", "KubokPolesiaKrossGomel"),
+          EventCategory.Kross,
+          ResourcePath("2025/KubokPolesiaKrossGomel/men_duo.csv"),
+          EventResultsReader.OBelarus,
+          ResourcePath("2025/KubokPolesiaKrossGomel/men_duo_calculated.csv"),
+          ResourcePath("2025/KubokPolesiaKrossGomel/men_duo_calculated.html"),
+          EventResultsCalculator.Standart,
+          700.0
+        )
+      )
+    ),
   )
 
   val competitionsCalculated = competitionConfigs.map { competitionConfig =>
