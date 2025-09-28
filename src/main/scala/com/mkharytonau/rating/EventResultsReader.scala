@@ -162,6 +162,41 @@ object EventResultsReader {
     }
   }
 
+  class AthlinksRaubichi (nicknameField: String, resultField: String) extends EventResultsReader {
+    def read(path: ResourcePath): EventResults = {
+      val reader = CSVReader.open(Source.fromResource(path.value))
+      val (rawHeader, rawResults) = reader.allWithOrderedHeaders()
+      reader.close()
+
+      val header = Header(rawHeader.map(ColumnName(_)))
+      val results = rawResults.map(fields =>
+        EventResult(
+          Nickname(fields(nicknameField)),
+          parseDuration(fields(resultField)),
+          fields
+        )
+      )
+
+      EventResults(header, results)
+    }
+
+    def parseDuration(str: String): FiniteDuration = Try {
+      val (hh, mm, ss) = str match {
+        case s"$hh:$mm:$ss" => (hh, mm, ss)
+      }
+      val hours = hh.toInt
+      val minutes = mm.toInt
+      val seconds = ss.toInt
+      hours.hours + minutes.minutes + seconds.seconds
+    } match {
+      case Failure(exception) =>
+        println(s"Unable to parse $str as FiniteDuration");
+        throw exception
+      case Success(value) =>
+        value
+    }
+  }
+
   object ZaslavlMultitriathlon extends EventResultsReader {
     def read(path: ResourcePath): EventResults = {
       val reader = CSVReader.open(Source.fromResource(path.value))

@@ -243,6 +243,21 @@ object MainWomen extends App {
         )
       )
     ),
+    CompetitionConfig(
+      name = CompetitionName("Раубичи дуатлон"),
+      events = List(
+        EventConfig[Any, Unit](
+          EventName("Раубичи дуатлон", "DuathlonRaubichi"),
+          EventCategory.Duathlon,
+          ResourcePath("2025/DuathlonRaubichi/women.csv"),
+          new EventResultsReader.AthlinksRaubichi("Участник", "Результат"),
+          ResourcePath("2025/DuathlonRaubichi/women_calculated.csv"),
+          ResourcePath("2025/DuathlonRaubichi/women_calculated.html"),
+          EventResultsCalculator.Standart,
+          700.0
+        )
+      )
+    )
   )
 
   val competitionsCalculated = competitionConfigs.map { competitionConfig =>
