@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap"
+		rel="stylesheet">
+	<link rel="stylesheet" href="../../../../styles.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Статистика 2025</title>
+	<script src="https://cdn.plot.ly/plotly-2.24.2.min.js"></script>
+</head>
+
+<body>
+	<a href="../../../../index.html">← Все года</a>
+	<h1>Статистика 2025</h1>
+
+	<div id="plot-overall" style="width: 100%; height: 500px;"></div>
+	<div id="plot-sex" style="width: 100%; height: 500px;"></div>
+	<div id="plot-license" style="width: 100%; height: 500px;"></div>
+	<div id="plot-ageGroup" style="width: 100%; height: 500px;"></div>
+
+	<script>
+		// Load data from both JSON files
+		Promise.all([
+			fetch('statistics_men.json').then(response => response.json()),
+			fetch('statistics_women.json').then(response => response.json())
+		])
+			.then(([menData, womenData]) => {
+				// Merge men and women data
+				const mergedEvents = menData.events.map((menEvent, index) => {
+					const womenEvent = womenData.events[index];
+					return {
+						name: menEvent.name,
+						participants: menEvent.participants + womenEvent.participants,
+						categories: {
+							sex: {
+								male: menEvent.participants,
+								female: womenEvent.participants
+							},
+							license: {
+								licensed: menEvent.categories.license.licensed + womenEvent.categories.license.licensed,
+								unlicensed: menEvent.categories.license.unlicensed + womenEvent.categories.license.unlicensed
+							},
+							ageGroup: (() => {
+								const allKeys = Array.from(new Set([
+									...Object.keys(menEvent.categories.ageGroup),
+									...Object.keys(womenEvent.categories.ageGroup)
+								]));
+								return allKeys.reduce((acc, key) => {
+									acc[key] = (menEvent.categories.ageGroup[key] || 0) + (womenEvent.categories.ageGroup[key] || 0);
+									return acc;
+								}, {});
+							})()
+						}
+					};
+				});
+
+				// Extract event names
+				const eventNames = mergedEvents.map(event => event.name);
+
+				// Overall participants plot
+				const overallCounts = mergedEvents.map(event => event.participants);
+				Plotly.newPlot('plot-overall', [{
+					x: eventNames,
+					y: overallCounts,
+					type: 'bar',
+					marker: { color: 'steelblue' }
+				}], {
+					title: 'Общее количество участников',
+					xaxis: { title: 'События' },
+					yaxis: { title: 'Количество участников' }
+				});
+
+				// Participants by sex
+				const maleCounts = mergedEvents.map(event => event.categories.sex.male);
+				const femaleCounts = mergedEvents.map(event => event.categories.sex.female);
+				Plotly.newPlot('plot-sex', [
+					{ x: eventNames, y: maleCounts, name: 'Мужчины', type: 'bar' },
+					{ x: eventNames, y: femaleCounts, name: 'Женщины', type: 'bar' }
+				], {
+					title: 'Участники по полу',
+					xaxis: { title: 'События' },
+					yaxis: { title: 'Количество участников' },
+					barmode: 'stack'
+				});
+
+				// Participants by license
+				const licensedCounts = mergedEvents.map(event => event.categories.license.licensed);
+				const unlicensedCounts = mergedEvents.map(event => event.categories.license.unlicensed);
+				Plotly.newPlot('plot-license', [
+					{ x: eventNames, y: licensedCounts, name: 'Лицензированные', type: 'bar' },
+					{ x: eventNames, y: unlicensedCounts, name: 'Нелицензированные', type: 'bar' }
+				], {
+					title: 'Участники по лицензии',
+					xaxis: { title: 'События' },
+					yaxis: { title: 'Количество участников' },
+					barmode: 'stack'
+				});
+
+				// Participants by age group
+				const ageGroupKeys = Array.from(new Set(mergedEvents.flatMap(event => Object.keys(event.categories.ageGroup))))
+					.sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+				const ageGroupTraces = ageGroupKeys.map(key => ({
+					x: eventNames,
+					y: mergedEvents.map(event => event.categories.ageGroup[key]),
+					name: key, // Use the key as the legend name
+					type: 'bar'
+				}));
+
+				Plotly.newPlot('plot-ageGroup', ageGroupTraces, {
+					title: 'Участники по возрастным группам',
+					xaxis: { title: 'События' },
+					yaxis: { title: 'Количество участников' },
+					barmode: 'stack'
+				});
+			})
+			.catch(error => console.error('Error loading data:', error));
+	</script>
+</body>
+
+</html>

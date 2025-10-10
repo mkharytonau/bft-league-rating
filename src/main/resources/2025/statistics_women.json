@@ -1,0 +1,272 @@
+{
+  "events" : [
+    {
+      "name" : "Зимний триатлон",
+      "participants" : 3,
+      "categories" : {
+        "license" : {
+          "licensed" : 2,
+          "unlicensed" : 1
+        },
+        "ageGroup" : {
+          "AG 40-44" : 1,
+          "AG 35-39" : 1
+        }
+      }
+    },
+    {
+      "name" : "Зимний дуатлон",
+      "participants" : 8,
+      "categories" : {
+        "license" : {
+          "licensed" : 0,
+          "unlicensed" : 8
+        },
+        "ageGroup" : {
+          
+        }
+      }
+    },
+    {
+      "name" : "Индор триатлон",
+      "participants" : 42,
+      "categories" : {
+        "license" : {
+          "licensed" : 11,
+          "unlicensed" : 31
+        },
+        "ageGroup" : {
+          "AG 40-44" : 3,
+          "AG 35-39" : 4,
+          "AG 45-49" : 1,
+          "AG 25-29" : 1,
+          "AG 55-59" : 1,
+          "AG 50-54" : 1
+        }
+      }
+    },
+    {
+      "name" : "Дрогичин Дуатлон",
+      "participants" : 12,
+      "categories" : {
+        "license" : {
+          "licensed" : 7,
+          "unlicensed" : 5
+        },
+        "ageGroup" : {
+          "AG 40-44" : 3,
+          "AG 35-39" : 2,
+          "AG 45-49" : 1,
+          "AG 25-29" : 1
+        }
+      }
+    },
+    {
+      "name" : "МогиЛев",
+      "participants" : 12,
+      "categories" : {
+        "license" : {
+          "licensed" : 6,
+          "unlicensed" : 6
+        },
+        "ageGroup" : {
+          "AG 40-44" : 2,
+          "AG 35-39" : 2,
+          "AG 45-49" : 1,
+          "AG 50-54" : 1
+        }
+      }
+    },
+    {
+      "name" : "Браслав",
+      "participants" : 2,
+      "categories" : {
+        "license" : {
+          "licensed" : 0,
+          "unlicensed" : 2
+        },
+        "ageGroup" : {
+          
+        }
+      }
+    },
+    {
+      "name" : "Брест акватлон",
+      "participants" : 2,
+      "categories" : {
+        "license" : {
+          "licensed" : 1,
+          "unlicensed" : 1
+        },
+        "ageGroup" : {
+          "AG 40-44" : 1
+        }
+      }
+    },
+    {
+      "name" : "Заславль мультитриатлон",
+      "participants" : 11,
+      "categories" : {
+        "license" : {
+          "licensed" : 4,
+          "unlicensed" : 7
+        },
+        "ageGroup" : {
+          "AG 40-44" : 1,
+          "AG 35-39" : 1,
+          "AG 45-49" : 1,
+          "AG 25-29" : 1
+        }
+      }
+    },
+    {
+      "name" : "Гомель спринт",
+      "participants" : 13,
+      "categories" : {
+        "license" : {
+          "licensed" : 5,
+          "unlicensed" : 8
+        },
+        "ageGroup" : {
+          "AG 40-44" : 1,
+          "AG 35-39" : 2,
+          "AG 45-49" : 1,
+          "AG 25-29" : 1
+        }
+      }
+    },
+    {
+      "name" : "Святск спринт",
+      "participants" : 15,
+      "categories" : {
+        "license" : {
+          "licensed" : 6,
+          "unlicensed" : 9
+        },
+        "ageGroup" : {
+          "AG 40-44" : 3,
+          "AG 35-39" : 1,
+          "AG 45-49" : 1,
+          "AG 25-29" : 1
+        }
+      }
+    },
+    {
+      "name" : "Святск олимпийка",
+      "participants" : 2,
+      "categories" : {
+        "license" : {
+          "licensed" : 2,
+          "unlicensed" : 0
+        },
+        "ageGroup" : {
+          "AG 40-44" : 1,
+          "AG 35-39" : 1
+        }
+      }
+    },
+    {
+      "name" : "Брест олимпийка",
+      "participants" : 4,
+      "categories" : {
+        "license" : {
+          "licensed" : 3,
+          "unlicensed" : 1
+        },
+        "ageGroup" : {
+          "AG 40-44" : 1,
+          "AG 35-39" : 1,
+          "AG 45-49" : 1
+        }
+      }
+    },
+    {
+      "name" : "МТ половинка",
+      "participants" : 28,
+      "categories" : {
+        "license" : {
+          "licensed" : 5,
+          "unlicensed" : 23
+        },
+        "ageGroup" : {
+          "AG 40-44" : 3,
+          "AG 35-39" : 1,
+          "AG 45-49" : 1
+        }
+      }
+    },
+    {
+      "name" : "МТ олимпийка",
+      "participants" : 46,
+      "categories" : {
+        "license" : {
+          "licensed" : 3,
+          "unlicensed" : 43
+        },
+        "ageGroup" : {
+          "AG 35-39" : 1,
+          "AG 25-29" : 1,
+          "AG 55-59" : 1
+        }
+      }
+    },
+    {
+      "name" : "МТ спринт",
+      "participants" : 63,
+      "categories" : {
+        "license" : {
+          "licensed" : 4,
+          "unlicensed" : 59
+        },
+        "ageGroup" : {
+          "AG 40-44" : 1,
+          "AG 35-39" : 2,
+          "AG 55-59" : 1
+        }
+      }
+    },
+    {
+      "name" : "Гомель кросс триатлон",
+      "participants" : 9,
+      "categories" : {
+        "license" : {
+          "licensed" : 3,
+          "unlicensed" : 6
+        },
+        "ageGroup" : {
+          "AG 35-39" : 2,
+          "AG 45-49" : 1
+        }
+      }
+    },
+    {
+      "name" : "Гомель кросс дуатлон",
+      "participants" : 3,
+      "categories" : {
+        "license" : {
+          "licensed" : 1,
+          "unlicensed" : 2
+        },
+        "ageGroup" : {
+          "AG 40-44" : 1
+        }
+      }
+    },
+    {
+      "name" : "Раубичи дуатлон",
+      "participants" : 9,
+      "categories" : {
+        "license" : {
+          "licensed" : 6,
+          "unlicensed" : 3
+        },
+        "ageGroup" : {
+          "AG 40-44" : 3,
+          "AG 35-39" : 1,
+          "AG 45-49" : 1,
+          "AG 25-29" : 1
+        }
+      }
+    }
+  ]
+}

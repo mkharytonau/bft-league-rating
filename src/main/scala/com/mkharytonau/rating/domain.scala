@@ -5,6 +5,9 @@ import io.estatico.newtype.ops._
 import com.mkharytonau.rating.domain.License.FIOInRussian
 import com.mkharytonau.rating.domain.License.FIOInEnglish
 import scala.concurrent.duration.FiniteDuration
+import derevo.derive
+import derevo.circe.encoder
+import io.circe._
 
 object domain {
 
@@ -44,6 +47,10 @@ object domain {
           AG(Age(from), Age(to))
         }
       }
+    }
+
+    implicit val agShowEncoder: Encoder[AG] = Encoder.instance { ag =>
+      Json.fromString(ag.show)
     }
   }
 
@@ -113,6 +120,11 @@ object domain {
   // rating
   @newtype case class CompetitionName(value: String)
   case class EventName(ratingName: String, jsCalculatorName: String)
+  object EventName {
+    implicit val eventNameEncoder: Encoder[EventName] = Encoder.instance { en =>
+      Json.fromString(en.ratingName)
+    }
+  }
 
   sealed trait EventCategory
   object EventCategory {
@@ -149,9 +161,33 @@ object domain {
       placeAG: Option[Place],
       eventsPoints: List[EventPoints],
       totalPoints: Points,
-      theBestTrend: Boolean,
+      theBestTrend: Boolean
   )
 
   final case class Rating(header: Header, rows: List[RatingRow])
+
+  // statistics
+  @derive(encoder)
+  final case class EventStatistics(
+      name: EventName,
+      participants: Int,
+      categories: EventStatistics.StatisticsCategories
+  )
+  object EventStatistics {
+    @derive(encoder)
+    final case class StatisticsCategories(
+        license: StatisticsCategories.ByLicense,
+        ageGroup: Map[AG, Int]
+    )
+    object StatisticsCategories {
+      @derive(encoder)
+      final case class ByLicense(licensed: Int, unlicensed: Int)
+
+      implicit val agKeyEncoder: KeyEncoder[AG] = KeyEncoder.instance(_.show)
+    }
+  }
+
+  @derive(encoder)
+  final case class Statistics(events: List[EventStatistics])
 
 }
