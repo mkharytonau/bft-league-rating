@@ -120,7 +120,10 @@ object RatingWriter {
           )
         )
 
-        tr(row)
+        val gradientPct = rating.winnerPoints.map(winnerPoints =>
+          ratingRow.totalPoints.value / winnerPoints.value * 100.0
+        )
+        tr(attr("style") := s"--bar:${gradientPct.getOrElse(0)}%")(row)
       }
 
       val htmlTable = table(

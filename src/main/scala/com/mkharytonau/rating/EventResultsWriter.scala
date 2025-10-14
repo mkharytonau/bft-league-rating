@@ -48,18 +48,26 @@ object EventResultsWriter {
         calculated: EventResultsCalculated[Unit],
         eventConfig: EventConfig[Any, Unit]
     ): Unit = {
-      val filePath = s"/Users/mkharytonau/Projects/bft-league-rating/src/main/resources/${eventConfig.calculatedPathHtml.value}" // TODO don't hardcode path to resources folder
+      val filePath =
+        s"/Users/mkharytonau/Projects/bft-league-rating/src/main/resources/${eventConfig.calculatedPathHtml.value}" // TODO don't hardcode path to resources folder
       val writer = new PrintWriter(filePath)
 
       val headerWithCalculation = calculated.results.header.value
         .map(_.value) ++ List("Место", "Очки в рейтинг")
 
+      val maxPoints = calculated.calculated
+        .flatMap(_.calculation.map(_.points.value))
+        .maxOption
       val rows = calculated.calculated.map { calc =>
-        calculated.results.header.value.map(columnName =>
+        val row = calculated.results.header.value.map(columnName =>
           calc.result.rawFields(columnName.value)
         ) ++ calc.calculation
           .map(c => List(c.place.value.toString, c.points.value.toString))
           .getOrElse(List.empty)
+        val gradient = calc.calculation.flatMap(c =>
+          maxPoints.map(m => (c.points.value / m) * 100)
+        )
+        (gradient, row)
       }
 
       val htmlString = Html.resultsPage(

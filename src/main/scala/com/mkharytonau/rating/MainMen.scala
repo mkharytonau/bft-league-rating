@@ -296,6 +296,6 @@ object MainMen extends App {
   RatingWriter.CSV.write(rating, ResourcePath("2025/rating_men.csv"))
   RatingWriter.HTML.write(rating, ResourcePath("2025/rating_men.html"))
 
-  val statistics = StatisticsCaclulator.calculate(competitionsCalculated)
+  val statistics = StatisticsCaclulator.calculate(licenses, competitionsCalculated)
   StatisticsWriter.write(statistics, ResourcePath("2025/statistics_men.json"))
 }

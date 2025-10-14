@@ -1,4 +1,54 @@
 {
+  "unique" : {
+    "licenses" : 99
+  },
+  "total" : {
+    "participants" : 1280,
+    "categories" : {
+      "license" : {
+        "licensed" : 426,
+        "unlicensed" : 854
+      },
+      "ageGroup" : {
+        "AG 40-44" : 98,
+        "AG 18-24" : 31,
+        "AG 35-39" : 86,
+        "AG 45-49" : 66,
+        "AG 25-29" : 29,
+        "AG 65-69" : 8,
+        "AG 55-59" : 18,
+        "AG 30-34" : 60,
+        "AG 50-54" : 30
+      },
+      "club" : {
+        "NM" : 8,
+        "Runstudio" : 4,
+        "Sqminsk" : 2,
+        "TRIVIDA" : 5,
+        "СК Каяк" : 4,
+        "Grebenstar" : 6,
+        "BikeTourist.club" : 8,
+        "БелГУТ" : 2,
+        "Solpi - M" : 6,
+        "Clown's Triathlon Team" : 6,
+        "Крыница" : 5,
+        "ON-BIKE TEAM" : 23,
+        "AIST" : 5,
+        "S-sportas" : 6,
+        "NeGrusTeam" : 1,
+        "ALTIUS!" : 31,
+        "Tristyle" : 85,
+        "KravtsovTeam" : 3,
+        "HOT cappuccino" : 3,
+        "Без клуба" : 137,
+        "POSEIDON" : 8,
+        "Yellow Submarine" : 14,
+        "Многобор" : 42,
+        "Mogilev Triathlon Team" : 9,
+        "ГрГУ" : 3
+      }
+    }
+  },
   "events" : [
     {
       "name" : "Зимний триатлон",
@@ -16,6 +66,16 @@
           "AG 55-59" : 1,
           "AG 30-34" : 5,
           "AG 50-54" : 4
+        },
+        "club" : {
+          "NM" : 1,
+          "Tristyle" : 1,
+          "Без клуба" : 6,
+          "Многобор" : 6,
+          "Mogilev Triathlon Team" : 1,
+          "СК Каяк" : 1,
+          "ON-BIKE TEAM" : 1,
+          "AIST" : 1
         }
       }
     },
@@ -31,6 +91,11 @@
           "AG 40-44" : 1,
           "AG 55-59" : 1,
           "AG 30-34" : 1
+        },
+        "club" : {
+          "ON-BIKE TEAM" : 1,
+          "Tristyle" : 1,
+          "Solpi - M" : 1
         }
       }
     },
@@ -51,6 +116,23 @@
           "AG 55-59" : 1,
           "AG 30-34" : 7,
           "AG 50-54" : 1
+        },
+        "club" : {
+          "NM" : 1,
+          "S-sportas" : 1,
+          "Runstudio" : 1,
+          "Без клуба" : 15,
+          "BikeTourist.club" : 1,
+          "ON-BIKE TEAM" : 2,
+          "AIST" : 1,
+          "ALTIUS!" : 3,
+          "Tristyle" : 14,
+          "KravtsovTeam" : 1,
+          "HOT cappuccino" : 1,
+          "Yellow Submarine" : 1,
+          "Многобор" : 4,
+          "Mogilev Triathlon Team" : 1,
+          "ГрГУ" : 1
         }
       }
     },
@@ -72,6 +154,21 @@
           "AG 55-59" : 1,
           "AG 30-34" : 6,
           "AG 50-54" : 1
+        },
+        "club" : {
+          "ON-BIKE TEAM" : 3,
+          "NM" : 1,
+          "S-sportas" : 1,
+          "KravtsovTeam" : 1,
+          "Mogilev Triathlon Team" : 1,
+          "BikeTourist.club" : 1,
+          "Clown's Triathlon Team" : 1,
+          "ALTIUS!" : 2,
+          "Tristyle" : 10,
+          "Без клуба" : 13,
+          "POSEIDON" : 1,
+          "Yellow Submarine" : 1,
+          "Многобор" : 5
         }
       }
     },
@@ -93,6 +190,21 @@
           "AG 55-59" : 2,
           "AG 30-34" : 6,
           "AG 50-54" : 4
+        },
+        "club" : {
+          "NM" : 1,
+          "Runstudio" : 1,
+          "Без клуба" : 14,
+          "Многобор" : 5,
+          "TRIVIDA" : 1,
+          "Mogilev Triathlon Team" : 1,
+          "СК Каяк" : 1,
+          "Solpi - M" : 1,
+          "Крыница" : 1,
+          "ON-BIKE TEAM" : 1,
+          "AIST" : 1,
+          "ALTIUS!" : 3,
+          "Tristyle" : 9
         }
       }
     },
@@ -113,6 +225,12 @@
           "AG 55-59" : 2,
           "AG 30-34" : 1,
           "AG 50-54" : 1
+        },
+        "club" : {
+          "ON-BIKE TEAM" : 3,
+          "Tristyle" : 5,
+          "Без клуба" : 5,
+          "Solpi - M" : 1
         }
       }
     },
@@ -129,6 +247,13 @@
           "AG 18-24" : 1,
           "AG 35-39" : 1,
           "AG 30-34" : 3
+        },
+        "club" : {
+          "Без клуба" : 2,
+          "Yellow Submarine" : 2,
+          "TRIVIDA" : 1,
+          "ALTIUS!" : 1,
+          "Tristyle" : 1
         }
       }
     },
@@ -150,6 +275,24 @@
           "AG 55-59" : 2,
           "AG 30-34" : 5,
           "AG 50-54" : 3
+        },
+        "club" : {
+          "ON-BIKE TEAM" : 2,
+          "NM" : 1,
+          "TRIVIDA" : 1,
+          "Mogilev Triathlon Team" : 1,
+          "СК Каяк" : 1,
+          "Grebenstar" : 1,
+          "BikeTourist.club" : 1,
+          "Solpi - M" : 1,
+          "Clown's Triathlon Team" : 1,
+          "Крыница" : 1,
+          "ALTIUS!" : 3,
+          "Tristyle" : 7,
+          "Без клуба" : 14,
+          "POSEIDON" : 1,
+          "Yellow Submarine" : 1,
+          "Многобор" : 3
         }
       }
     },
@@ -171,6 +314,22 @@
           "AG 55-59" : 2,
           "AG 30-34" : 5,
           "AG 50-54" : 1
+        },
+        "club" : {
+          "ON-BIKE TEAM" : 1,
+          "NM" : 1,
+          "Без клуба" : 9,
+          "TRIVIDA" : 1,
+          "Grebenstar" : 1,
+          "BikeTourist.club" : 1,
+          "БелГУТ" : 1,
+          "Solpi - M" : 1,
+          "Clown's Triathlon Team" : 1,
+          "Крыница" : 1,
+          "ALTIUS!" : 4,
+          "Tristyle" : 1,
+          "Yellow Submarine" : 2,
+          "Многобор" : 4
         }
       }
     },
@@ -190,6 +349,13 @@
           "AG 65-69" : 1,
           "AG 55-59" : 1,
           "AG 30-34" : 2
+        },
+        "club" : {
+          "HOT cappuccino" : 1,
+          "Без клуба" : 5,
+          "Yellow Submarine" : 1,
+          "ALTIUS!" : 1,
+          "Tristyle" : 5
         }
       }
     },
@@ -210,6 +376,16 @@
           "AG 55-59" : 1,
           "AG 30-34" : 2,
           "AG 50-54" : 2
+        },
+        "club" : {
+          "ON-BIKE TEAM" : 1,
+          "Многобор" : 2,
+          "ГрГУ" : 1,
+          "Clown's Triathlon Team" : 1,
+          "ALTIUS!" : 3,
+          "Tristyle" : 4,
+          "Без клуба" : 5,
+          "POSEIDON" : 1
         }
       }
     },
@@ -231,6 +407,22 @@
           "AG 55-59" : 1,
           "AG 30-34" : 4,
           "AG 50-54" : 1
+        },
+        "club" : {
+          "S-sportas" : 1,
+          "Sqminsk" : 1,
+          "Mogilev Triathlon Team" : 1,
+          "Grebenstar" : 1,
+          "BikeTourist.club" : 1,
+          "Clown's Triathlon Team" : 1,
+          "ON-BIKE TEAM" : 3,
+          "AIST" : 1,
+          "ALTIUS!" : 2,
+          "Tristyle" : 3,
+          "Без клуба" : 11,
+          "POSEIDON" : 2,
+          "Yellow Submarine" : 2,
+          "Многобор" : 1
         }
       }
     },
@@ -250,6 +442,22 @@
           "AG 55-59" : 1,
           "AG 30-34" : 4,
           "AG 50-54" : 2
+        },
+        "club" : {
+          "AIST" : 1,
+          "S-sportas" : 1,
+          "Runstudio" : 1,
+          "Grebenstar" : 1,
+          "BikeTourist.club" : 1,
+          "БелГУТ" : 1,
+          "ALTIUS!" : 1,
+          "Tristyle" : 9,
+          "Без клуба" : 10,
+          "POSEIDON" : 2,
+          "Yellow Submarine" : 1,
+          "Многобор" : 4,
+          "Mogilev Triathlon Team" : 1,
+          "ГрГУ" : 1
         }
       }
     },
@@ -271,6 +479,17 @@
           "AG 55-59" : 2,
           "AG 30-34" : 2,
           "AG 50-54" : 3
+        },
+        "club" : {
+          "NM" : 1,
+          "NeGrusTeam" : 1,
+          "Без клуба" : 12,
+          "Yellow Submarine" : 1,
+          "Sqminsk" : 1,
+          "Solpi - M" : 1,
+          "Крыница" : 1,
+          "ALTIUS!" : 2,
+          "Tristyle" : 4
         }
       }
     },
@@ -288,6 +507,13 @@
           "AG 35-39" : 4,
           "AG 45-49" : 2,
           "AG 30-34" : 1
+        },
+        "club" : {
+          "HOT cappuccino" : 1,
+          "Без клуба" : 1,
+          "СК Каяк" : 1,
+          "ALTIUS!" : 2,
+          "Tristyle" : 4
         }
       }
     },
@@ -306,6 +532,18 @@
           "AG 25-29" : 1,
           "AG 30-34" : 2,
           "AG 50-54" : 3
+        },
+        "club" : {
+          "ON-BIKE TEAM" : 2,
+          "S-sportas" : 1,
+          "Без клуба" : 5,
+          "Mogilev Triathlon Team" : 1,
+          "Grebenstar" : 1,
+          "BikeTourist.club" : 1,
+          "ALTIUS!" : 1,
+          "Tristyle" : 2,
+          "Yellow Submarine" : 1,
+          "Многобор" : 4
         }
       }
     },
@@ -320,6 +558,10 @@
         "ageGroup" : {
           "AG 40-44" : 1,
           "AG 35-39" : 1
+        },
+        "club" : {
+          "ON-BIKE TEAM" : 1,
+          "KravtsovTeam" : 1
         }
       }
     },
@@ -340,6 +582,24 @@
           "AG 65-69" : 1,
           "AG 30-34" : 4,
           "AG 50-54" : 4
+        },
+        "club" : {
+          "ON-BIKE TEAM" : 2,
+          "NM" : 1,
+          "S-sportas" : 1,
+          "Runstudio" : 1,
+          "TRIVIDA" : 1,
+          "Mogilev Triathlon Team" : 1,
+          "Grebenstar" : 1,
+          "BikeTourist.club" : 1,
+          "Clown's Triathlon Team" : 1,
+          "Крыница" : 1,
+          "ALTIUS!" : 3,
+          "Tristyle" : 5,
+          "Без клуба" : 10,
+          "POSEIDON" : 1,
+          "Yellow Submarine" : 1,
+          "Многобор" : 4
         }
       }
     }

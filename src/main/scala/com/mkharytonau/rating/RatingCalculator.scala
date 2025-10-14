@@ -60,8 +60,9 @@ object RatingCalculator {
             theBestTrend.contains(trend.value) && trend.value < 0
           )
       }
+      val winnerPoints = ratingRows0.headOption.map(_.totalPoints)
 
-      Rating(header, ratingRows0)
+      Rating(header, ratingRows0, winnerPoints)
     }
 
     def ratingRows(

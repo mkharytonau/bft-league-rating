@@ -17,108 +17,325 @@
 	<a href="../../../../index.html">← Все года</a>
 	<h1>Статистика 2025</h1>
 
-	<div id="plot-overall" style="width: 100%; height: 500px;"></div>
-	<div id="plot-sex" style="width: 100%; height: 500px;"></div>
-	<div id="plot-license" style="width: 100%; height: 500px;"></div>
-	<div id="plot-ageGroup" style="width: 100%; height: 500px;"></div>
+	<!-- Table of Contents -->
+	<div class="toc">
+		<ul>
+			<li><a href="#general">Общее за сезон</a></li>
+			<li>
+				<a href="#by-category-2025">Статистика по категориям за сезон</a>
+				<ul>
+					<li><a href="#plot-by-sex">Количество участников за сезон по полу</a></li>
+					<li><a href="#plot-by-license">Количество участников за сезон по наличию лицензии</a></li>
+					<li><a href="#plot-by-ag">Количество участников за сезон по возрастным группам (среди лицензиатов)</a></li>
+					<li><a href="#plot-by-club">Количество участников за сезон по клубам (среди лицензиатов)</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="#by-event-category-2025">Статистика по отдельным соревнованиям</a>
+				<ul>
+					<li><a href="#plot-by-event">Количество участников на соревновании</a></li>
+					<li><a href="#plot-by-event-sex">Количество участников на соревновании по полу</a></li>
+					<li><a href="#plot-by-event-license">Количество участников на соревновании по наличию лицензии</a></li>
+					<li><a href="#plot-by-event-ag">Количество участников на соревновании по возрасту (среди лицензиатов)</a></li>
+					<li><a href="#plot-by-event-club">Количество участников на соревновании по клубу (среди лицензиатов)</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="#comparison">🚀 Сравнение 2023, 2024 и 2025 </a>
+				<ul>
+					<li><a href="#comparison-licenses">Количество выданных лицензий по годам</a></li>
+					<li><a href="#comparison-participants">Количество участников по годам</a></li>
+			</li>
+		</ul>
 
-	<script>
-		// Load data from both JSON files
-		Promise.all([
-			fetch('statistics_men.json').then(response => response.json()),
-			fetch('statistics_women.json').then(response => response.json())
-		])
-			.then(([menData, womenData]) => {
-				// Merge men and women data
-				const mergedEvents = menData.events.map((menEvent, index) => {
-					const womenEvent = womenData.events[index];
-					return {
-						name: menEvent.name,
-						participants: menEvent.participants + womenEvent.participants,
+		<h2 id="general">Общее за сезон</h2>
+		<p>Всего участников на всех соревнованиях: <span id="general-total-participants"></span></p>
+		<p>Всего выдано лицензий: <span id="general-total-licenses"></span></p>
+
+		<h2 id="by-category-2025">Статистика по категориям за сезон</h2>
+		<div id="plot-by-sex" style="width: 100%; height: 500px;"></div>
+		<div id="plot-by-license" style="width: 100%; height: 500px;"></div>
+		<div id="plot-by-ag" style="width: 100%; height: 500px;"></div>
+		<div id="plot-by-club" style="width: 100%; height: 500px;"></div>
+
+		<h2 id="by-event-category-2025">Статистика по отдельным соревнованиям</h2>
+		<div id="plot-by-event" style="width: 100%; height: 500px;"></div>
+		<div id="plot-by-event-sex" style="width: 100%; height: 500px;"></div>
+		<div id="plot-by-event-license" style="width: 100%; height: 500px;"></div>
+		<div id="plot-by-event-ag" style="width: 100%; height: 500px;"></div>
+		<div id="plot-by-event-club" style="width: 100%; height: 500px;"></div>
+
+		<h2 id="comparison">🚀 Сравнение 2023, 2024 и 2025</h2>
+		<div id="comparison-licenses" style="width: 100%; height: 500px;"></div>
+		<div id="comparison-participants" style="width: 100%; height: 500px;"></div>
+
+		<script>
+			// Load data from both JSON files
+			Promise.all([
+				fetch('statistics_men.json').then(response => response.json()),
+				fetch('statistics_women.json').then(response => response.json())
+			])
+				.then(([menData, womenData]) => {
+					// Merge total data
+					const totalData = {
+						participants: menData.total.participants + womenData.total.participants,
 						categories: {
 							sex: {
-								male: menEvent.participants,
-								female: womenEvent.participants
+								'Мужчины': menData.total.participants,
+								'Женщины': womenData.total.participants
 							},
 							license: {
-								licensed: menEvent.categories.license.licensed + womenEvent.categories.license.licensed,
-								unlicensed: menEvent.categories.license.unlicensed + womenEvent.categories.license.unlicensed
+								'С лицензией': menData.total.categories.license.licensed + womenData.total.categories.license.licensed,
+								'Без лицензии': menData.total.categories.license.unlicensed + womenData.total.categories.license.unlicensed
 							},
 							ageGroup: (() => {
 								const allKeys = Array.from(new Set([
-									...Object.keys(menEvent.categories.ageGroup),
-									...Object.keys(womenEvent.categories.ageGroup)
+									...Object.keys(menData.total.categories.ageGroup),
+									...Object.keys(womenData.total.categories.ageGroup)
 								]));
 								return allKeys.reduce((acc, key) => {
-									acc[key] = (menEvent.categories.ageGroup[key] || 0) + (womenEvent.categories.ageGroup[key] || 0);
+									acc[key] = (menData.total.categories.ageGroup[key] || 0) + (womenData.total.categories.ageGroup[key] || 0);
 									return acc;
 								}, {});
-							})()
+							})(),
+							club: (() => {
+								const allKeys = Array.from(new Set([
+									...Object.keys(menData.total.categories.club),
+									...Object.keys(womenData.total.categories.club)
+								]));
+								return allKeys.reduce((acc, key) => {
+									acc[key] = (menData.total.categories.club[key] || 0) + (womenData.total.categories.club[key] || 0);
+									return acc;
+								}, {});
+							})(),
 						}
 					};
-				});
 
-				// Extract event names
-				const eventNames = mergedEvents.map(event => event.name);
+					document.getElementById('general-total-participants').textContent = totalData.participants;
+					document.getElementById('general-total-licenses').textContent = `${menData.unique.licenses + womenData.unique.licenses} (мужчины: ${menData.unique.licenses}, женщины: ${womenData.unique.licenses})`;
 
-				// Overall participants plot
-				const overallCounts = mergedEvents.map(event => event.participants);
-				Plotly.newPlot('plot-overall', [{
-					x: eventNames,
-					y: overallCounts,
-					type: 'bar',
-					marker: { color: 'steelblue' }
-				}], {
-					title: 'Общее количество участников',
-					xaxis: { title: 'События' },
-					yaxis: { title: 'Количество участников' }
-				});
 
-				// Participants by sex
-				const maleCounts = mergedEvents.map(event => event.categories.sex.male);
-				const femaleCounts = mergedEvents.map(event => event.categories.sex.female);
-				Plotly.newPlot('plot-sex', [
-					{ x: eventNames, y: maleCounts, name: 'Мужчины', type: 'bar' },
-					{ x: eventNames, y: femaleCounts, name: 'Женщины', type: 'bar' }
-				], {
-					title: 'Участники по полу',
-					xaxis: { title: 'События' },
-					yaxis: { title: 'Количество участников' },
-					barmode: 'stack'
-				});
+					// Draw total stacked bar chart by sex
+					const sexTraces = Object.keys(totalData.categories.sex).map(key => ({
+						y: [''],
+						x: [totalData.categories.sex[key]],
+						name: key,
+						type: 'bar',
+						orientation: 'h'
+					}));
 
-				// Participants by license
-				const licensedCounts = mergedEvents.map(event => event.categories.license.licensed);
-				const unlicensedCounts = mergedEvents.map(event => event.categories.license.unlicensed);
-				Plotly.newPlot('plot-license', [
-					{ x: eventNames, y: licensedCounts, name: 'Лицензированные', type: 'bar' },
-					{ x: eventNames, y: unlicensedCounts, name: 'Нелицензированные', type: 'bar' }
-				], {
-					title: 'Участники по лицензии',
-					xaxis: { title: 'События' },
-					yaxis: { title: 'Количество участников' },
-					barmode: 'stack'
-				});
+					Plotly.newPlot('plot-by-sex', sexTraces, {
+						title: 'Количество участников за сезон по полу',
+						yaxis: { title: 'Категория' },
+						xaxis: { title: 'Количество участников' },
+						barmode: 'stack'
+					});
 
-				// Participants by age group
-				const ageGroupKeys = Array.from(new Set(mergedEvents.flatMap(event => Object.keys(event.categories.ageGroup))))
-					.sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
-				const ageGroupTraces = ageGroupKeys.map(key => ({
-					x: eventNames,
-					y: mergedEvents.map(event => event.categories.ageGroup[key]),
-					name: key, // Use the key as the legend name
-					type: 'bar'
-				}));
+					// Draw total stacked bar chart by license
+					const licenseTraces = Object.keys(totalData.categories.license).map(key => ({
+						y: [''],
+						x: [totalData.categories.license[key]],
+						name: key,
+						type: 'bar',
+						orientation: 'h'
+					}));
 
-				Plotly.newPlot('plot-ageGroup', ageGroupTraces, {
-					title: 'Участники по возрастным группам (среди лицензированных)',
-					xaxis: { title: 'События' },
-					yaxis: { title: 'Количество участников' },
-					barmode: 'stack'
-				});
-			})
-			.catch(error => console.error('Error loading data:', error));
-	</script>
+					Plotly.newPlot('plot-by-license', licenseTraces, {
+						title: 'Количество участников за сезон по наличию лицензии',
+						yaxis: { title: 'Категория' },
+						xaxis: { title: 'Количество участников' },
+						barmode: 'stack'
+					});
+
+					// Draw total stacked bar chart by age group
+					const ageGroupTotalKeys = Object.keys(totalData.categories.ageGroup).sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+					const ageGroupTotalTraces = ageGroupTotalKeys.map(key => ({
+						y: [''],
+						x: [totalData.categories.ageGroup[key]],
+						name: key,
+						type: 'bar',
+						orientation: 'h'
+					}));
+
+					Plotly.newPlot('plot-by-ag', ageGroupTotalTraces, {
+						title: 'Количество участников за сезон по возрастным группам (среди лицензиатов)',
+						yaxis: { title: 'Категория' },
+						xaxis: { title: 'Количество участников' },
+						barmode: 'stack'
+					});
+
+					// Draw total stacked bar chart by club
+					const clubTotalKeys = Object.keys(totalData.categories.club)
+						.sort((a, b) => totalData.categories.club[b] - totalData.categories.club[a]);
+					const clubTotalTraces = clubTotalKeys.map(key => ({
+						y: [''],
+						x: [totalData.categories.club[key]],
+						name: key,
+						type: 'bar',
+						orientation: 'h'
+					}));
+
+					Plotly.newPlot('plot-by-club', clubTotalTraces, {
+						title: 'Количество участников за сезон по клубам (среди лицензиатов)',
+						yaxis: { title: 'Клуб' },
+						xaxis: { title: 'Количество участников' },
+						barmode: 'stack'
+					});
+
+					// Merge men and women data
+					const mergedEvents = menData.events.map((menEvent, index) => {
+						const womenEvent = womenData.events[index];
+						return {
+							name: menEvent.name,
+							participants: menEvent.participants + womenEvent.participants,
+							categories: {
+								sex: {
+									male: menEvent.participants,
+									female: womenEvent.participants
+								},
+								license: {
+									licensed: menEvent.categories.license.licensed + womenEvent.categories.license.licensed,
+									unlicensed: menEvent.categories.license.unlicensed + womenEvent.categories.license.unlicensed
+								},
+								ageGroup: (() => {
+									const allKeys = Array.from(new Set([
+										...Object.keys(menEvent.categories.ageGroup),
+										...Object.keys(womenEvent.categories.ageGroup)
+									]));
+									return allKeys.reduce((acc, key) => {
+										acc[key] = (menEvent.categories.ageGroup[key] || 0) + (womenEvent.categories.ageGroup[key] || 0);
+										return acc;
+									}, {});
+								})(),
+								club: (() => {
+									const allKeys = Array.from(new Set([
+										...Object.keys(menEvent.categories.club),
+										...Object.keys(womenEvent.categories.club)
+									]));
+									return allKeys.reduce((acc, key) => {
+										acc[key] = (menEvent.categories.club[key] || 0) + (womenEvent.categories.club[key] || 0);
+										return acc;
+									}, {});
+								})()
+							}
+						};
+					});
+
+					// Extract event names
+					const eventNames = mergedEvents.map(event => event.name);
+
+					// Overall participants plot
+					const overallCounts = mergedEvents.map(event => event.participants);
+					Plotly.newPlot('plot-by-event', [{
+						x: eventNames,
+						y: overallCounts,
+						type: 'bar',
+						marker: { color: 'steelblue' }
+					}], {
+						title: 'Количество участников на соревновании',
+						xaxis: { title: 'События' },
+						yaxis: { title: 'Количество участников' }
+					});
+
+					// Participants by sex
+					const maleCounts = mergedEvents.map(event => event.categories.sex.male);
+					const femaleCounts = mergedEvents.map(event => event.categories.sex.female);
+					Plotly.newPlot('plot-by-event-sex', [
+						{ x: eventNames, y: maleCounts, name: 'Мужчины', type: 'bar' },
+						{ x: eventNames, y: femaleCounts, name: 'Женщины', type: 'bar' }
+					], {
+						title: 'Количество участников на соревновании по полу',
+						xaxis: { title: 'События' },
+						yaxis: { title: 'Количество участников' },
+						barmode: 'stack'
+					});
+
+					// Participants by license
+					const licensedCounts = mergedEvents.map(event => event.categories.license.licensed);
+					const unlicensedCounts = mergedEvents.map(event => event.categories.license.unlicensed);
+					Plotly.newPlot('plot-by-event-license', [
+						{ x: eventNames, y: licensedCounts, name: 'Лицензированные', type: 'bar' },
+						{ x: eventNames, y: unlicensedCounts, name: 'Нелицензированные', type: 'bar' }
+					], {
+						title: 'Количество участников на соревновании по наличию лицензии',
+						xaxis: { title: 'События' },
+						yaxis: { title: 'Количество участников' },
+						barmode: 'stack'
+					});
+
+					// Participants by age group
+					const ageGroupKeys = Array.from(new Set(mergedEvents.flatMap(event => Object.keys(event.categories.ageGroup))))
+						.sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+					const ageGroupTraces = ageGroupKeys.map(key => ({
+						x: eventNames,
+						y: mergedEvents.map(event => event.categories.ageGroup[key]),
+						name: key, // Use the key as the legend name
+						type: 'bar'
+					}));
+
+					Plotly.newPlot('plot-by-event-ag', ageGroupTraces, {
+						title: 'Количество участников на соревновании по возрасту (среди лицензиатов)',
+						xaxis: { title: 'События' },
+						yaxis: { title: 'Количество участников' },
+						barmode: 'stack'
+					});
+
+					// Participants by club
+					const clubKeys = clubTotalKeys;
+					const clubTraces = clubKeys.map(key => ({
+						x: eventNames,
+						y: mergedEvents.map(event => event.categories.club[key]),
+						name: key, // Use the key as the legend name
+						type: 'bar'
+					}));
+
+					Plotly.newPlot('plot-by-event-club', clubTraces, {
+						title: 'Количество участников на соревновании по клубу (среди лицензиатов)',
+						xaxis: { title: 'События' },
+						yaxis: { title: 'Количество участников' },
+						barmode: 'stack'
+					});
+
+					// Comparison
+					const licensesComparisonTraces = [{
+						x: [2023, 2024, 2025],
+						y: [103, 97, menData.unique.licenses],
+						name: 'Мужчины',
+						type: 'bar'
+					}, {
+						x: [2023, 2024, 2025],
+						y: [14, 16, womenData.unique.licenses],
+						name: 'Женщины',
+						type: 'bar'
+					}];
+
+					Plotly.newPlot('comparison-licenses', licensesComparisonTraces, {
+						title: 'Количество выданных лицензий по годам (нет роста)',
+						xaxis: { title: 'Год' },
+						yaxis: { title: 'Количество выданных лицензий' },
+						barmode: 'stack'
+					});
+
+					const participantsComparisonTraces = [{
+						x: [2023, 2024, 2025],
+						y: [382, 430, totalData.categories.license['С лицензией']], // 2023 and 2024 calculated in corresponding ratings Excels as an amount of non-zero cells
+						name: 'Лицензированные',
+						type: 'bar'
+					}, {
+						x: [2023, 2024, 2025],
+						y: [1211, 1410, totalData.participants], // 2023 and 2024 was calculated by @tylindus manually, so I'm just taking this from his presentation
+						name: 'Всего',
+						type: 'bar'
+					}];
+
+					Plotly.newPlot('comparison-participants', participantsComparisonTraces, {
+						title: 'Количество участников по годам (есть рост 100-200 человек в год)',
+						xaxis: { title: 'Год' },
+						yaxis: { title: 'Количество участников' }
+					});
+				})
+				.catch(error => console.error('Error loading data:', error));
+		</script>
 </body>
 
 </html>

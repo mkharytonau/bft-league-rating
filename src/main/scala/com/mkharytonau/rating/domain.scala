@@ -48,10 +48,6 @@ object domain {
         }
       }
     }
-
-    implicit val agShowEncoder: Encoder[AG] = Encoder.instance { ag =>
-      Json.fromString(ag.show)
-    }
   }
 
   final case class License(
@@ -164,30 +160,44 @@ object domain {
       theBestTrend: Boolean
   )
 
-  final case class Rating(header: Header, rows: List[RatingRow])
+  final case class Rating(header: Header, rows: List[RatingRow], winnerPoints: Option[Points])
 
   // statistics
+  @derive(encoder)
+  final case class TotalStatistics(
+      participants: Int,
+      categories: Categories
+  )
+  @derive(encoder)
+  final case class Categories(
+      license: Categories.ByLicense,
+      ageGroup: Map[AG, Int],
+      club: Map[Club, Int]
+  )
+  object Categories {
+    @derive(encoder)
+    final case class ByLicense(licensed: Int, unlicensed: Int)
+
+    implicit val agKeyEncoder: KeyEncoder[AG] = KeyEncoder.instance(_.show)
+    implicit val clubKeyEncoder: KeyEncoder[Club] = KeyEncoder.instance(_.value)
+  }
+
   @derive(encoder)
   final case class EventStatistics(
       name: EventName,
       participants: Int,
-      categories: EventStatistics.StatisticsCategories
+      categories: Categories
   )
-  object EventStatistics {
-    @derive(encoder)
-    final case class StatisticsCategories(
-        license: StatisticsCategories.ByLicense,
-        ageGroup: Map[AG, Int]
-    )
-    object StatisticsCategories {
-      @derive(encoder)
-      final case class ByLicense(licensed: Int, unlicensed: Int)
-
-      implicit val agKeyEncoder: KeyEncoder[AG] = KeyEncoder.instance(_.show)
-    }
-  }
 
   @derive(encoder)
-  final case class Statistics(events: List[EventStatistics])
+  final case class UniqueStatistics(
+      licenses: Int
+  )
 
+  @derive(encoder)
+  final case class Statistics(
+      unique: UniqueStatistics,
+      total: TotalStatistics,
+      events: List[EventStatistics]
+  )
 }

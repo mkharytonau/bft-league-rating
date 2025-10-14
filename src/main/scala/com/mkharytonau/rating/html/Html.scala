@@ -32,15 +32,15 @@ object Html {
 
   def resultsTable(
       header: Seq[String],
-      rows: Seq[Seq[String]]
+      rows: Seq[(Option[Double], Seq[String])]
   ): TypedTag[String] =
     table(
       thead(
         tr(header.map(th(_)))
       ),
       tbody(
-        rows.map { row =>
-          tr(row.map(td(_)))
+        rows.map { case (gradientPct, row) =>
+          tr(attr("style") := s"--bar:${gradientPct.getOrElse(0)}%")(row.map(td(_)))
         }
       )
     )
