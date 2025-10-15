@@ -603,5 +603,43 @@
         }
       }
     }
-  ]
+  ],
+  "amountOfParticipations" : {
+    "histogram" : {
+      "0" : 12,
+      "5" : 7,
+      "10" : 3,
+      "1" : 10,
+      "6" : 8,
+      "9" : 6,
+      "2" : 12,
+      "7" : 7,
+      "3" : 11,
+      "11" : 1,
+      "8" : 11,
+      "4" : 11
+    },
+    "bestParticipants" : [
+      {
+        "fioInRussian" : "Куприянов Никита Сергеевич",
+        "participations" : 11
+      },
+      {
+        "fioInRussian" : "Харитонов Никита Витальевич",
+        "participations" : 10
+      },
+      {
+        "fioInRussian" : "Харитонов Виталий Сергеевич",
+        "participations" : 10
+      },
+      {
+        "fioInRussian" : "Викентьев Алексей Эдуардович",
+        "participations" : 10
+      },
+      {
+        "fioInRussian" : "Ракович Андрей Владимирович",
+        "participations" : 9
+      }
+    ]
+  }
 }

@@ -6,8 +6,13 @@ import com.mkharytonau.rating.domain.Categories.ByLicense
 object StatisticsCaclulator {
   def calculate(
       licenses: List[License],
-      competitions: List[CompetitionCalculated]
+      competitions: List[CompetitionCalculated],
+      rating: Rating
   ): Statistics = {
+    val unique = UniqueStatistics(
+      licenses = licenses.distinct.size
+    )
+
     val eventsStatistics =
       competitions.flatMap(_.events).map { eventCalculated =>
         val participants = eventCalculated.results.calculated.size
@@ -62,10 +67,23 @@ object StatisticsCaclulator {
       )
     )
 
-    val unique = UniqueStatistics(
-      licenses = licenses.distinct.size
+    val participations = rating.rows.map(r =>
+      r.license.fioInRussian -> r.eventsPoints.count(_.pointsMaybe.isDefined)
     )
+    val bestParticipants = participations.sortBy(-_._2).take(5).map {
+      case (fioInRussian, participations) =>
+        AmountOfParticipations.BestParticipant(fioInRussian, participations)
+    }
+    val histogram: Map[Int, Int] =
+      participations.groupBy(_._2).view.mapValues(_.size).toMap
+    val amountOfParticipations =
+      AmountOfParticipations(histogram, bestParticipants)
 
-    Statistics(unique, totalStatistics, eventsStatistics)
+    Statistics(
+      unique,
+      totalStatistics,
+      eventsStatistics,
+      amountOfParticipations
+    )
   }
 }

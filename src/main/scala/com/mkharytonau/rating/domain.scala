@@ -8,6 +8,7 @@ import scala.concurrent.duration.FiniteDuration
 import derevo.derive
 import derevo.circe.encoder
 import io.circe._
+import com.mkharytonau.rating.domain.AmountOfParticipations.BestParticipant
 
 object domain {
 
@@ -60,6 +61,7 @@ object domain {
       birthday: Birthday
   )
   object License {
+    @derive(encoder)
     @newtype case class FIOInRussian(value: String)
     @newtype case class FIOInEnglish(value: String)
   }
@@ -160,7 +162,11 @@ object domain {
       theBestTrend: Boolean
   )
 
-  final case class Rating(header: Header, rows: List[RatingRow], winnerPoints: Option[Points])
+  final case class Rating(
+      header: Header,
+      rows: List[RatingRow],
+      winnerPoints: Option[Points]
+  )
 
   // statistics
   @derive(encoder)
@@ -195,9 +201,20 @@ object domain {
   )
 
   @derive(encoder)
+  final case class AmountOfParticipations(
+      histogram: Map[Int, Int], // key = amount of participations, value = amount of athletes with such amount of participations,
+      bestParticipants: List[BestParticipant] // top N athletes with the most participations
+  )
+  object AmountOfParticipations {
+    @derive(encoder)
+    final case class BestParticipant(fioInRussian: FIOInRussian, participations: Int)
+  }
+
+  @derive(encoder)
   final case class Statistics(
       unique: UniqueStatistics,
       total: TotalStatistics,
-      events: List[EventStatistics]
+      events: List[EventStatistics],
+      amountOfParticipations: AmountOfParticipations
   )
 }

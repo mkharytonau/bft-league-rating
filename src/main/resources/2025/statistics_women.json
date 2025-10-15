@@ -384,5 +384,41 @@
         }
       }
     }
-  ]
+  ],
+  "amountOfParticipations" : {
+    "histogram" : {
+      "0" : 1,
+      "10" : 1,
+      "1" : 1,
+      "6" : 1,
+      "2" : 1,
+      "12" : 1,
+      "7" : 2,
+      "3" : 4,
+      "8" : 1,
+      "4" : 1
+    },
+    "bestParticipants" : [
+      {
+        "fioInRussian" : "Моисеева Вероника Сергеевна",
+        "participations" : 12
+      },
+      {
+        "fioInRussian" : "Викентьева Елена Александровна",
+        "participations" : 10
+      },
+      {
+        "fioInRussian" : "Врублевская Юлия Николаевна",
+        "participations" : 8
+      },
+      {
+        "fioInRussian" : "Клебанович Виктория Николаевна",
+        "participations" : 7
+      },
+      {
+        "fioInRussian" : "Черемисинова Анна Александровна",
+        "participations" : 7
+      }
+    ]
+  }
 }
