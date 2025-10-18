@@ -300,6 +300,7 @@
 				Plotly.newPlot('plot-by-event', [{
 					x: eventNames,
 					y: overallCounts,
+					text: overallCounts,
 					type: 'bar',
 					marker: { color: 'steelblue' }
 				}], {
@@ -324,8 +325,8 @@
 				const maleCounts = mergedEvents.map(event => event.categories.sex.male);
 				const femaleCounts = mergedEvents.map(event => event.categories.sex.female);
 				Plotly.newPlot('plot-by-event-sex', [
-					{ x: eventNames, y: maleCounts, name: 'Мужчины', type: 'bar' },
-					{ x: eventNames, y: femaleCounts, name: 'Женщины', type: 'bar' }
+					{ x: eventNames, y: maleCounts, text: maleCounts, name: 'Мужчины', type: 'bar' },
+					{ x: eventNames, y: femaleCounts, text: femaleCounts, name: 'Женщины', type: 'bar' }
 				], {
 					title: {
 						text: 'Количество участников на соревновании по полу',
@@ -350,8 +351,8 @@
 				const licensedCounts = mergedEvents.map(event => event.categories.license.licensed);
 				const unlicensedCounts = mergedEvents.map(event => event.categories.license.unlicensed);
 				Plotly.newPlot('plot-by-event-license', [
-					{ x: eventNames, y: licensedCounts, name: 'Лицензированные', type: 'bar' },
-					{ x: eventNames, y: unlicensedCounts, name: 'Нелицензированные', type: 'bar' }
+					{ x: eventNames, y: licensedCounts, text: licensedCounts, name: 'Лицензированные', type: 'bar' },
+					{ x: eventNames, y: unlicensedCounts, text: unlicensedCounts, name: 'Нелицензированные', type: 'bar' }
 				], {
 					title: {
 						text: 'Количество участников на соревновании <br> по наличию лицензии',
