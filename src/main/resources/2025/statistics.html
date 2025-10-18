@@ -433,11 +433,13 @@
 				const licensesComparisonTraces = [{
 					x: [2023, 2024, 2025],
 					y: [103, 97, menData.unique.licenses],
+					text: [103, 97, menData.unique.licenses],
 					name: 'Мужчины',
 					type: 'bar'
 				}, {
 					x: [2023, 2024, 2025],
 					y: [14, 16, womenData.unique.licenses],
+					text: [14, 16, womenData.unique.licenses],
 					name: 'Женщины',
 					type: 'bar'
 				}];
@@ -464,11 +466,13 @@
 				const participantsComparisonTraces = [{
 					x: [2023, 2024, 2025],
 					y: [382, 430, totalData.categories.license['С лицензией']], // 2023 and 2024 calculated in corresponding ratings Excels as an amount of non-zero cells
+					text: [382, 430, totalData.categories.license['С лицензией']],
 					name: 'Лицензированные',
 					type: 'bar'
 				}, {
 					x: [2023, 2024, 2025],
 					y: [1211, 1410, totalData.participants], // 2023 and 2024 was calculated by @tylindus manually, so I'm just taking this from his presentation
+					text: [1211, 1410, totalData.participants], 
 					name: 'Всего',
 					type: 'bar'
 				}];
