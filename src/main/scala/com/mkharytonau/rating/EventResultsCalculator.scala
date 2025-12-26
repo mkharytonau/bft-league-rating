@@ -87,23 +87,45 @@ object EventResultsCalculator {
         case (result, _) => result
       }
 
-      val calculated = sorted.map { case (result, licenseMaybe) =>
-        EventResultWithCalculation(
-          result,
-          calculation = licenseMaybe.flatMap { license =>
-            licensedWinnerResultMaybe.map { licensedWinnerResult =>
-              val place = licensedAndSorted.indexWhere { case (_, lic) =>
-                license == lic
-              } + 1
-              val points = calculatePoints(
-                result.result,
-                licensedWinnerResult.result,
-                eventConfig.ratingBase
-              )
-              EventResultCalculation(license, Place(place), points, ())
+      val calculated = sorted.zipWithIndex.map {
+        case ((result, licenseMaybe), index) =>
+          licensedWinnerResultMaybe.foreach { licensedWinnerResult =>
+            val points2 = calculatePoints(
+              result.result,
+              licensedWinnerResult.result,
+              eventConfig.ratingBase
+            )
+            def formatTime(duration: FiniteDuration): String = {
+              val totalSeconds = duration.toSeconds
+              val hours = totalSeconds / 3600
+              val minutes = (totalSeconds % 3600) / 60
+              val seconds = totalSeconds % 60
+              f"$hours%02d:$minutes%02d:$seconds%02d"
+            }
+
+            if (points2.value < 0.1) {
+              println(s"Очков: ${points2.value}, ФИО: ${result.nickname.value}, Время: ${formatTime(result.result)}, Время победителя: ${formatTime(
+                  licensedWinnerResult.result
+                )}, Место: ${index + 1} из ${sorted.size}, Старт: ${eventConfig.name.ratingName}")
             }
           }
-        )
+
+          EventResultWithCalculation(
+            result,
+            calculation = licenseMaybe.flatMap { license =>
+              licensedWinnerResultMaybe.map { licensedWinnerResult =>
+                val place = licensedAndSorted.indexWhere { case (_, lic) =>
+                  license == lic
+                } + 1
+                val points = calculatePoints(
+                  result.result,
+                  licensedWinnerResult.result,
+                  eventConfig.ratingBase
+                )
+                EventResultCalculation(license, Place(place), points, ())
+              }
+            }
+          )
       }
 
       EventResultsCalculated(results, calculated)
@@ -115,7 +137,7 @@ object EventResultsCalculator {
         competitionPoints: Double
     ): Points = {
       val points = competitionPoints * scala.math.max(
-        (1 - (athleteResult - championResult) / 0.8 / championResult),
+        (1 - (athleteResult - championResult) / 0.9 / championResult),
         0
       )
       val pointsRounded =
