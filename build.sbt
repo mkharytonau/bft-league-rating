@@ -17,6 +17,8 @@ lazy val root = (project in file("."))
       "io.circe" %% "circe-generic" % "0.14.14",
       "io.circe" %% "circe-parser" % "0.14.14",
       "tf.tofu" %% "derevo-circe" % "0.14.0",
+      "com.ibm.icu" % "icu4j" % "78.2",
+      "org.apache.commons" % "commons-text" % "1.15.0",
       munit % Test
     ),
     scalacOptions += "-Ymacro-annotations"
