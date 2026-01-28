@@ -9,22 +9,26 @@ import com.mkharytonau.rating.domain.EventResultsCalculated
 import java.io.PrintWriter
 import com.mkharytonau.rating.html.Html
 import com.mkharytonau.rating.domain.EventConfig
+import com.mkharytonau.rating.domain.Gender
+import cats.syntax.show._
 
-trait EventResultsWriter[C, A] {
+trait EventResultsWriter {
   def write(
-      calculated: EventResultsCalculated[A],
-      eventConfig: EventConfig[C, A]
+      calculated: EventResultsCalculated,
+      eventConfig: EventConfig,
+      filename: String
   ): Unit
 }
 
 object EventResultsWriter {
-  object CSV extends EventResultsWriter[Any, Unit] {
+  object CSV extends EventResultsWriter {
     def write(
-        calculated: EventResultsCalculated[Unit],
-        eventConfig: EventConfig[Any, Unit]
+        calculated: EventResultsCalculated,
+        eventConfig: EventConfig,
+        filename: String
     ): Unit = {
       val writer = CSVWriter.open(
-        s"/Users/mkharytonau/Projects/bft-league-rating/src/main/resources/${eventConfig.calculatedPathCsv.value}" // TODO don't hardcode path to resources folder
+        s"/Users/mkharytonau/Projects/bft-league-rating/src/main/resources/${eventConfig.resultsPath.value}/$filename.csv" // TODO don't hardcode path to resources folder
       )
       val headerWithCalculation = calculated.results.header.value
         .map(_.value) ++ List("Место", "Очки в рейтинг")
@@ -43,13 +47,15 @@ object EventResultsWriter {
     }
   }
 
-  object HTML extends EventResultsWriter[Any, Unit] {
+  object HTML extends EventResultsWriter {
     def write(
-        calculated: EventResultsCalculated[Unit],
-        eventConfig: EventConfig[Any, Unit]
+        calculated: EventResultsCalculated,
+        eventConfig: EventConfig,
+        filename: String
     ): Unit = {
+
       val filePath =
-        s"/Users/mkharytonau/Projects/bft-league-rating/src/main/resources/${eventConfig.calculatedPathHtml.value}" // TODO don't hardcode path to resources folder
+        s"/Users/mkharytonau/Projects/bft-league-rating/src/main/resources/${eventConfig.resultsPath.value}/$filename.html" // TODO don't hardcode path to resources folder
       val writer = new PrintWriter(filePath)
 
       val headerWithCalculation = calculated.results.header.value

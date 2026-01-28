@@ -10,5 +10,5 @@ target
 metals.sbt
 ~*.xlsx
 
-src/main/resources/2025/img/avatars/raw
-src/main/resources/2025/img/avatars/.venv
+**/img/avatars/raw
+**/img/avatars/.venv

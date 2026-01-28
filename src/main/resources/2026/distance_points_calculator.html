@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../../../../styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор очков за дистанцию</title>
+    <style>
+        body {
+            margin: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input,
+        select,
+        output {
+            padding: 8px;
+            font-size: 16px;
+        }
+    </style>
+    <script src="https://cdn.plot.ly/plotly-2.30.0.min.js"></script>
+</head>
+
+<body>
+    <a href="index.html">← Все старты</a>
+    <h1>Калькулятор очков за дистанцию</h1>
+    <p style="max-width: 600px; width: 100%;">Калькулятор позволяет рассчитать очки за дистанцию, основываясь на
+        дистанции, времени победителя и вашем времени
+        согласно пункта 14.7
+        <a href="https://triatlon.by/assets/images/files/federation/polozhenie-lyubitelskaya-liga-2026-podpisano.pdf"
+            target="_blank" rel="noopener noreferrer">Положения</a>
+        о Любительской Лиге:
+        <img src="img/distance_points_formula.png" alt="Пункт 14.7 Положения"
+            style="max-width: 400px; width: 100%; height: auto;">
+    </p>
+    <form id="calculator-form">
+        <div class="form-group">
+            <label for="event-type">Дистанция:</label>
+            <select id="event-type">
+                <option value="Полная">Полная 3.8км 🏊‍♂️ + 180км 🚴‍♂️ + 42.2км 🏃‍♂️</option>
+                <option value="Половинка">Половинка 1.9км 🏊‍♂️ + 90км 🚴‍♂️ + 21.1км 🏃‍♂️</option>
+                <option value="Олимпийка">Олимпийка 1.5км 🏊‍♂️ + 40км 🚴‍♂️ + 10км 🏃‍♂️</option>
+                <option value="Спринт">Спринт 750м 🏊‍♂️ + 20км 🚴‍♂️ + 5км 🏃‍♂️</option>
+                <option value="Дуатлон">Дуатлон 5км 🏃‍♂️ + 20км 🚴‍♂️ + 2.5км 🏃‍♂️</option>
+                <option value="Акватлон">Акватлон 1км 🏊‍♂️ + 5км 🏃‍♂️</option>
+                <option value="Кросс">Кросс 🌲</option>
+                <option value="Индор">Индор 300м 🏊‍♂️ + 8км 🚴‍♂️ + 2км 🏃‍♂️</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="time1-hours">Время победителя:</label>
+            <div>
+                <input type="number" id="time1-hours" placeholder="часы" min="0" max="23" value="9"
+                    style="width: 60px;">
+                <span>час(ов), </span>
+                <input type="number" id="time1-minutes" placeholder="мин." min="0" max="59" value="30"
+                    style="width: 60px;">
+                <span>мин. </span>
+                <input type="number" id="time1-seconds" placeholder="сек." min="0" max="59" value="0"
+                    style="width: 60px;">
+                <span>сек.</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="time2-hours">Ваше время:</label>
+            <div>
+                <input type="number" id="time2-hours" placeholder="часы" min="0" max="23" style="width: 60px;">
+                <span>час(ов), </span>
+                <input type="number" id="time2-minutes" placeholder="мин." min="0" max="59" style="width: 60px;">
+                <span>мин. </span>
+                <input type="number" id="time2-seconds" placeholder="сек." min="0" max="59" style="width: 60px;">
+                <span>сек.</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Результат рассчета:</label>
+            <div id="points-plot" style="max-width: 600px; width: 100%;"></div>
+            <output id="result"></output>
+        </div>
+    </form>
+
+    <script>
+        function timeToSeconds(hours, minutes, seconds) {
+            return (
+                parseInt(hours || 0) * 3600 +
+                parseInt(minutes || 0) * 60 +
+                parseInt(seconds || 0)
+            );
+        }
+
+        function calculate() {
+            const eventType = document.getElementById('event-type').value;
+
+            const time1Hours = document.getElementById('time1-hours').value;
+            const time1Minutes = document.getElementById('time1-minutes').value;
+            const time1Seconds = document.getElementById('time1-seconds').value;
+
+            const time2Hours = document.getElementById('time2-hours').value;
+            const time2Minutes = document.getElementById('time2-minutes').value;
+            const time2Seconds = document.getElementById('time2-seconds').value;
+
+            const seconds1 = timeToSeconds(time1Hours, time1Minutes, time1Seconds);
+            const seconds2 = timeToSeconds(time2Hours, time2Minutes, time2Seconds);
+
+            const resultElement = document.getElementById('result');
+
+            if (seconds1 <= 0 || seconds2 <= 0) {
+                // resultElement.textContent = 'Пожалуйста, введите корректное время победителя и свое.';
+                // resultElement.style.color = 'red';
+                // resetPlot()
+                showErrorInPlot('Пожалуйста, введите корректное время победителя и свое.');
+                return;
+            }
+
+            if (seconds2 < seconds1) {
+                // resultElement.textContent = 'Ваше время должно быть равно или больше времени победителя.';
+                // resultElement.style.color = 'red';
+                // resetPlot()
+                showErrorInPlot('Ваше время должно быть равно или больше времени победителя.');
+                return;
+            }
+
+            const base = {
+                "Индор": 700,
+                "Акватлон": 700,
+                "Кросс": 700,
+                "Спринт": 700.0,
+                "Дуатлон": 700.0,
+                "Олимпийка": 800.0,
+                "Половинка": 900.0,
+                "Полная": 1000.0
+            }[eventType]
+
+            const result = base * Math.max(
+                (1 - (seconds2 - seconds1) / 0.9 / seconds1),
+                0
+            );
+
+            // resultElement.innerHTML =
+            //     `Победитель получает ${base} очков, <span style="font-weight: bold;">Вы получаете ${result.toFixed(2)} очков</span>`;
+            // resultElement.style.color = '';
+
+            drawPlot(seconds1, seconds2, base);
+        }
+
+        function formatTime(seconds) {
+            const h = Math.floor(seconds / 3600);
+            const m = Math.floor((seconds % 3600) / 60);
+            const s = Math.floor(seconds % 60);
+
+            return [
+                h > 0 ? String(h).padStart(2, '0') : null,
+                String(m).padStart(2, '0'),
+                String(s).padStart(2, '0')
+            ].filter(Boolean).join(':');
+        }
+
+        function resetPlot() {
+            Plotly.newPlot('points-plot', [], {
+                xaxis: { visible: false },
+                yaxis: { visible: false },
+                annotations: [{
+                    text: 'Введите данные для отображения результата',
+                    x: 0.5,
+                    y: 0.5,
+                    xref: 'paper',
+                    yref: 'paper',
+                    showarrow: false,
+                    font: { size: 12 }
+                }]
+            });
+        }
+
+        function showErrorInPlot(msg) {
+            Plotly.newPlot('points-plot', [], {
+                xaxis: { visible: false },
+                yaxis: { visible: false },
+                annotations: [{
+                    text: msg,
+                    x: 0.5,
+                    y: 0.5,
+                    xref: 'paper',
+                    yref: 'paper',
+                    showarrow: false,
+                    font: { size: 12, color: 'red' }
+                }]
+            });
+        }
+
+        function drawPlot(seconds1, seconds2, base) {
+            const x = [];
+            const y = [];
+
+            const maxTime = Math.max(seconds1 * 2, seconds2);
+            const step = seconds1 / 120;
+
+            for (let t = seconds1; t <= maxTime; t += step) {
+                x.push(t);
+                y.push(
+                    base * Math.max(
+                        1 - (t - seconds1) / (0.9 * seconds1),
+                        0
+                    )
+                );
+            }
+
+            const curve = {
+                x,
+                y,
+                mode: 'lines',
+                name: 'Формула начисления очков',
+                hovertemplate:
+                    'Время: %{customdata}<br>' +
+                    'Очки: %{y:.2f}<extra></extra>',
+                customdata: x.map(formatTime),
+                line: { width: 3 }
+            };
+
+            const winnerPoint = {
+                x: [seconds1],
+                y: [base],
+                mode: 'markers+text',
+                name: 'Победитель',
+                marker: { size: 10 },
+                hovertemplate:
+                    'Победитель<br>' +
+                    'Время: %{customdata}<br>' +
+                    'Очки: %{y:.2f}<extra></extra>',
+                customdata: [formatTime(seconds1)],
+                text: [`Победитель получает ${base} очков`],
+                textposition: 'top right',
+            };
+
+            const participantPoints = base * Math.max(
+                1 - (seconds2 - seconds1) / (0.9 * seconds1),
+                0
+            );
+
+            const participantPoint = {
+                x: [seconds2],
+                y: [participantPoints],
+                mode: 'markers+text',
+                name: 'Вы',
+                marker: { size: 10 },
+                hovertemplate:
+                    'Вы<br>' +
+                    'Время: %{customdata}<br>' +
+                    'Очки: %{y:.2f}<extra></extra>',
+                customdata: [formatTime(seconds2)],
+                text: [`Вы получаете ${participantPoints.toFixed(2)} очков`],
+                textposition: 'right',
+            };
+
+            const tickStep = (maxTime - seconds1) / 10;
+            const tickvals = [];
+            const ticktext = [];
+
+            for (let t = seconds1; t <= maxTime; t += tickStep) {
+                tickvals.push(t);
+                ticktext.push(formatTime(t));
+            }
+
+            const layout = {
+                xaxis: {
+                    title: 'Время',
+                    tickvals,
+                    ticktext
+                },
+                yaxis: {
+                    title: 'Очки',
+                    rangemode: 'tozero',
+                    dtick: 50
+                },
+                margin: {
+                    t: 30,
+                    r: 10,
+                    l: 50
+                },
+                showlegend: false
+            };
+
+            Plotly.newPlot(
+                'points-plot',
+                [curve, winnerPoint, participantPoint],
+                layout,
+                { responsive: true }
+            );
+        }
+    </script>
+
+    <script>
+        const predefinedTimes = {
+            "Индор": "00:22:00",
+            "Акватлон": "00:35:00",
+            "Кросс": "00:45:00",
+            "Спринт": "00:50:00",
+            "Дуатлон": "00:55:00",
+            "Олимпийка": "02:05:00",
+            "Половинка": "04:10:00",
+            "Полная": "09:30:00"
+        };
+
+        document.getElementById('event-type').addEventListener('change', function () {
+            const selectedEvent = this.value;
+            const predefinedTime = predefinedTimes[selectedEvent];
+            const [hours, minutes, seconds] = predefinedTime.split(':');
+            document.getElementById('time1-hours').value = hours;
+            document.getElementById('time1-minutes').value = minutes;
+            document.getElementById('time1-seconds').value = seconds;
+
+            document.getElementById('time2-hours').value = '';
+            document.getElementById('time2-minutes').value = '';
+            document.getElementById('time2-seconds').value = '';
+            
+            resetPlot();
+        });
+
+        const timeInputs = [
+            'time1-hours', 'time1-minutes', 'time1-seconds',
+            'time2-hours', 'time2-minutes', 'time2-seconds'
+        ];
+        timeInputs.forEach(id => {
+            document.getElementById(id).addEventListener('input', calculate);
+        });
+
+        resetPlot();
+    </script>
+</body>
+
+</html>

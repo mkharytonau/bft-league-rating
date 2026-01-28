@@ -7,269 +7,124 @@ import com.mkharytonau.rating.domain._
 import scala.concurrent.duration.FiniteDuration
 import scala.util.{Try, Failure, Success}
 import scala.concurrent.duration._
+import com.mkharytonau.rating.domain.Gender.Women
+import com.mkharytonau.rating.domain.Gender.Men
 
 trait EventResultsReader {
-  def read(path: ResourcePath): EventResults
+  def read(path: ResourcePath, gender: Gender): EventResults
 }
 
 object EventResultsReader {
-  object OBelarus extends EventResultsReader {
-    def read(path: ResourcePath): EventResults = {
-      val reader = CSVReader.open(Source.fromResource(path.value))
+  trait ParseResult {
+    def parseResult(fields: Map[String, String]): FiniteDuration
+  }
+
+  object ParseResult {
+    class HoursMinutesSecondsMillisOrTens(resultField: String)
+        extends ParseResult {
+      def parseResult(fields: Map[String, String]): FiniteDuration = {
+        Try {
+          val (hh, mm, ss, millisOrTens) = fields(resultField) match {
+            case s"$hh:$mm:$ss.$millisOrTens" => (hh, mm, ss, millisOrTens)
+          }
+          val hours = hh.toInt
+          val minutes = mm.toInt
+          val seconds = ss.toInt
+          val millis = millisOrTens.length() match {
+            case 1 => millisOrTens.toInt * 100
+            case 2 => millisOrTens.toInt * 10
+            case 3 => millisOrTens.toInt * 1
+          }
+          hours.hours + minutes.minutes + seconds.seconds + millis.millis
+        } match {
+          case Failure(exception) =>
+            println(
+              s"Unable to parse ${fields(resultField)} as FiniteDuration"
+            );
+            throw exception
+          case Success(value) =>
+            value
+        }
+      }
+
+      def apply(resultField: String): HoursMinutesSecondsMillisOrTens =
+        new HoursMinutesSecondsMillisOrTens(resultField)
+    }
+
+    object IndoorTriathlon extends ParseResult {
+      def parseResult(fields: Map[String, String]): FiniteDuration = {
+        Try {
+          val (mm, ss) = fields("Итоговое время") match {
+            case s"$mm:$ss" => (mm, ss)
+          }
+          val minutes = mm.toInt
+          val seconds = ss.toInt
+          minutes.minutes + seconds.seconds
+        } match {
+          case Failure(exception) =>
+            println(
+              s"Unable to parse ${fields("Итоговое время")} as FiniteDuration"
+            );
+            throw exception
+          case Success(value) =>
+            value
+        }
+      }
+    }
+  }
+
+  trait ParseGender {
+    def parseGender(fields: Map[String, String]): Gender
+  }
+
+  object ParseGender {
+    class ByField(genderField: String, men: String, women: String)
+        extends ParseGender {
+      def parseGender(fields: Map[String, String]): Gender = {
+        fields(genderField) match {
+          case `men`   => Men
+          case `women` => Women
+        }
+      }
+    }
+
+    object ByField {
+      def apply(genderField: String, men: String, women: String): ByField =
+        new ByField(genderField, men, women)
+    }
+  }
+
+  class Configured(
+      nicknameField: String,
+      parseResult: ParseResult,
+      parseGender: ParseGender
+  ) extends EventResultsReader {
+    def read(path: ResourcePath, gender: Gender): EventResults = {
+      val reader = CSVReader.open(Source.fromResource(path.value + "/results.csv"))
       val (rawHeader, rawResults) = reader.allWithOrderedHeaders()
       reader.close()
 
       val header = Header(rawHeader.map(ColumnName(_)))
-      val results = rawResults.map(fields =>
-        EventResult(
-          Nickname(fields("Фамилия Имя")),
-          parseDuration(fields("Время")),
-          fields
+      val results = rawResults.flatMap(fields =>
+        Option.when(parseGender.parseGender(fields) == gender)(
+          EventResult(
+            Nickname(fields(nicknameField)),
+            parseResult.parseResult(fields),
+            fields
+          )
         )
       )
 
       EventResults(header, results)
     }
-
-    def parseDuration(str: String): FiniteDuration = Try {
-      val (hh, mm, ss, millisOrTens) = str match {
-        case s"$hh:$mm:$ss.$millisOrTens" => (hh, mm, ss, millisOrTens)
-      }
-      val hours = hh.toInt
-      val minutes = mm.toInt
-      val seconds = ss.toInt
-      val millis = millisOrTens.length() match {
-        case 1 => millisOrTens.toInt * 100
-        case 2 => millisOrTens.toInt * 10
-        case 3 => millisOrTens.toInt * 1
-      }
-      hours.hours + minutes.minutes + seconds.seconds + millis.millis
-    } match {
-      case Failure(exception) =>
-        println(s"Unable to parse $str as FiniteDuration");
-        throw exception
-      case Success(value) =>
-        value
-    }
   }
 
-  object OBelarus2 extends EventResultsReader { // the same as OBelarus, but with Результат instead of Время and different time format
-    def read(path: ResourcePath): EventResults = {
-      val reader = CSVReader.open(Source.fromResource(path.value))
-      val (rawHeader, rawResults) = reader.allWithOrderedHeaders()
-      reader.close()
-
-      val header = Header(rawHeader.map(ColumnName(_)))
-      val results = rawResults.map(fields =>
-        EventResult(
-          Nickname(fields("Фамилия Имя")),
-          parseDuration(fields("Результат")),
-          fields
-        )
-      )
-
-      EventResults(header, results)
-    }
-
-    def parseDuration(str: String): FiniteDuration = Try {
-      val (hh, mm, ss) = str match {
-        case s"$hh:$mm:$ss" => (hh, mm, ss)
-      }
-      val hours = hh.toInt
-      val minutes = mm.toInt
-      val seconds = ss.toInt
-      hours.hours + minutes.minutes + seconds.seconds
-    } match {
-      case Failure(exception) =>
-        println(s"Unable to parse $str as FiniteDuration");
-        throw exception
-      case Success(value) =>
-        value
-    }
+  object Configured {
+    def apply(
+        nicknameField: String,
+        parseResult: ParseResult,
+        parseGender: ParseGender
+    ): Configured =
+      new Configured(nicknameField, parseResult, parseGender)
   }
-
-  object MinskIndoorTriathlon extends EventResultsReader {
-    def read(path: ResourcePath): EventResults = {
-      val reader = CSVReader.open(Source.fromResource(path.value))
-      val (rawHeader, rawResults) = reader.allWithOrderedHeaders()
-      reader.close()
-
-      val header = Header(rawHeader.map(ColumnName(_)))
-      val results = rawResults.map(fields =>
-        EventResult(
-          Nickname(fields("ФИО")),
-          parseDuration(fields("Итоговое время")),
-          fields
-        )
-      )
-
-      EventResults(header, results)
-    }
-
-    def parseDuration(str: String): FiniteDuration = Try {
-      val (mm, ss) = str match {
-        case s"$mm:$ss" => (mm, ss)
-      }
-      val minutes = mm.toInt
-      val seconds = ss.toInt
-      minutes.minutes + seconds.seconds
-    } match {
-      case Failure(exception) =>
-        println(s"Unable to parse $str as FiniteDuration");
-        throw exception
-      case Success(value) =>
-        value
-    }
-  }
-
-  class Athlinks (nicknameField: String, resultField: String) extends EventResultsReader {
-    def read(path: ResourcePath): EventResults = {
-      val reader = CSVReader.open(Source.fromResource(path.value))
-      val (rawHeader, rawResults) = reader.allWithOrderedHeaders()
-      reader.close()
-
-      val header = Header(rawHeader.map(ColumnName(_)))
-      val results = rawResults.map(fields =>
-        EventResult(
-          Nickname(fields(nicknameField)),
-          parseDuration(fields(resultField)),
-          fields
-        )
-      )
-
-      EventResults(header, results)
-    }
-
-    def parseDuration(str: String): FiniteDuration = Try {
-      val (hh, mm, ss, millisOrTens) = str match {
-        case s"$hh:$mm:$ss.$millisOrTens" => (hh, mm, ss, millisOrTens)
-      }
-      val hours = hh.toInt
-      val minutes = mm.toInt
-      val seconds = ss.toInt
-      val millis = millisOrTens.length() match {
-        case 1 => millisOrTens.toInt * 100
-        case 2 => millisOrTens.toInt * 10
-        case 3 => millisOrTens.toInt * 1
-      }
-      hours.hours + minutes.minutes + seconds.seconds + millis.millis
-    } match {
-      case Failure(exception) =>
-        println(s"Unable to parse $str as FiniteDuration");
-        throw exception
-      case Success(value) =>
-        value
-    }
-  }
-
-  class AthlinksRaubichi (nicknameField: String, resultField: String) extends EventResultsReader {
-    def read(path: ResourcePath): EventResults = {
-      val reader = CSVReader.open(Source.fromResource(path.value))
-      val (rawHeader, rawResults) = reader.allWithOrderedHeaders()
-      reader.close()
-
-      val header = Header(rawHeader.map(ColumnName(_)))
-      val results = rawResults.map(fields =>
-        EventResult(
-          Nickname(fields(nicknameField)),
-          parseDuration(fields(resultField)),
-          fields
-        )
-      )
-
-      EventResults(header, results)
-    }
-
-    def parseDuration(str: String): FiniteDuration = Try {
-      val (hh, mm, ss) = str match {
-        case s"$hh:$mm:$ss" => (hh, mm, ss)
-      }
-      val hours = hh.toInt
-      val minutes = mm.toInt
-      val seconds = ss.toInt
-      hours.hours + minutes.minutes + seconds.seconds
-    } match {
-      case Failure(exception) =>
-        println(s"Unable to parse $str as FiniteDuration");
-        throw exception
-      case Success(value) =>
-        value
-    }
-  }
-
-  object ZaslavlMultitriathlon extends EventResultsReader {
-    def read(path: ResourcePath): EventResults = {
-      val reader = CSVReader.open(Source.fromResource(path.value))
-      val (rawHeader, rawResults) = reader.allWithOrderedHeaders()
-      reader.close()
-
-      val header = Header(rawHeader.map(ColumnName(_)))
-      val results = rawResults.map(fields =>
-        EventResult(
-          Nickname(fields("Участник")),
-          parseDuration(fields("Итоговое время")),
-          fields
-        )
-      )
-
-      EventResults(header, results)
-    }
-
-    def parseDuration(str: String): FiniteDuration = Try {
-      val (hh, mm, ss, millisOrTens) = str match {
-        case s"$hh:$mm:$ss.$millisOrTens" => (hh, mm, ss, millisOrTens)
-      }
-      val hours = hh.toInt
-      val minutes = mm.toInt
-      val seconds = ss.toInt
-      val millis = millisOrTens.length() match {
-        case 1 => millisOrTens.toInt * 100
-        case 2 => millisOrTens.toInt * 10
-        case 3 => millisOrTens.toInt * 1
-      }
-      hours.hours + minutes.minutes + seconds.seconds + millis.millis
-    } match {
-      case Failure(exception) =>
-        println(s"Unable to parse $str as FiniteDuration");
-        throw exception
-      case Success(value) =>
-        value
-    }
-  }
-
-  object MT extends EventResultsReader { 
-    def read(path: ResourcePath): EventResults = {
-      val reader = CSVReader.open(Source.fromResource(path.value))
-      val (rawHeader, rawResults) = reader.allWithOrderedHeaders()
-      reader.close()
-
-      val header = Header(rawHeader.map(ColumnName(_)))
-      val results = rawResults.map(fields =>
-        EventResult(
-          Nickname(fields("FullName")),
-          parseDuration(fields("Time")),
-          fields
-        )
-      )
-
-      EventResults(header, results)
-    }
-
-    def parseDuration(str: String): FiniteDuration = Try {
-      val (hh, mm, ss) = str match {
-        case s"$hh:$mm:$ss" => (hh, mm, ss)
-      }
-      val hours = hh.toInt
-      val minutes = mm.toInt
-      val seconds = ss.toInt
-      hours.hours + minutes.minutes + seconds.seconds
-    } match {
-      case Failure(exception) =>
-        println(s"Unable to parse $str as FiniteDuration");
-        throw exception
-      case Success(value) =>
-        value
-    }
-  }
-  
 }

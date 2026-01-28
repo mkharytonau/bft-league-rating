@@ -4,15 +4,15 @@ import com.mkharytonau.rating.domain._
 import com.mkharytonau.rating.domain.License.FIOInRussian
 import com.mkharytonau.rating.domain.License.FIOInEnglish
 import scala.concurrent.duration.FiniteDuration
+import java.awt.Event
 
-trait EventResultsCalculator[Context, A] {
+trait EventResultsCalculator {
   def calculate(
       results: EventResults,
-      eventConfig: EventConfig[Context, A],
+      eventConfig: EventConfig,
       licenses: List[License],
-      nameMapping: Map[FIOInRussian, List[Nickname]],
-      context: Context
-  ): EventResultsCalculated[A]
+      nameMapping: Map[FIOInRussian, List[Nickname]]
+  ): EventResultsCalculated
 }
 
 object EventResultsCalculator {
@@ -45,6 +45,9 @@ object EventResultsCalculator {
         case Array(surname, name) =>
           s"$surname $name" == result.nickname.value.toLowerCase || // both Kharitonov Nikita
           s"$name $surname" == result.nickname.value.toLowerCase // and Nikita Kharitonov match
+        case other =>
+          println(s"WARNING: Unexpected format in FIOInEnglish: ${other.mkString(" ")}, $license")
+          false
       }
     } // FIO in english present in results, less probable case
     require(byFIOInEnglish.size <= 1)
@@ -68,15 +71,14 @@ object EventResultsCalculator {
     byAll.headOption
   }
 
-  object Standart extends EventResultsCalculator[Any, Unit] {
+  object Standart extends EventResultsCalculator {
 
     def calculate(
         results: EventResults,
-        eventConfig: EventConfig[Any, Unit],
+        eventConfig: EventConfig,
         licenses: List[License],
-        nameMapping: Map[FIOInRussian, List[Nickname]],
-        context: Any
-    ): EventResultsCalculated[Unit] = {
+        nameMapping: Map[FIOInRussian, List[Nickname]]
+    ): EventResultsCalculated = {
       val sorted = results.results
         .map(result => (result, findLicense(result, licenses, nameMapping)))
         .sortBy { case (result, _) => result.result }
@@ -100,7 +102,7 @@ object EventResultsCalculator {
                 licensedWinnerResult.result,
                 eventConfig.ratingBase
               )
-              EventResultCalculation(license, Place(place), points, ())
+              EventResultCalculation(license, Place(place), points)
             }
           }
         )
@@ -115,7 +117,7 @@ object EventResultsCalculator {
         competitionPoints: Double
     ): Points = {
       val points = competitionPoints * scala.math.max(
-        (1 - (athleteResult - championResult) / 0.8 / championResult),
+        (1 - (athleteResult - championResult) / 0.9 / championResult),
         0
       )
       val pointsRounded =

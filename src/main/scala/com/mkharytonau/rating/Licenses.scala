@@ -6,28 +6,29 @@ import scala.io.Source
 import com.mkharytonau.rating.domain._
 
 object Licenses {
-  private def load(path: ResourcePath): List[License] = {
+  def load(path: ResourcePath, gender: Gender): List[License] = {
     val raw = CSVReader.open(Source.fromResource(path.value)).allWithHeaders()
 
-    raw.flatMap { fields =>
-      if (fields("Номер").trim().startsWith("AG"))
+    val licenses = raw.flatMap { fields =>
+      if (fields("Номер лицензии").trim().startsWith("AG"))
+      {
+        if (AG.fromString(fields("Возрастная категория")).isEmpty) println(s"Can't parse AG for ${fields("ФИО на русском")}")
+        if (Gender.fromString(fields("Пол")).isEmpty) println(s"Can't parse Gender for ${fields("ФИО на русском")}")
+
         Some(
           License(
-            LicenseId(fields("Номер").trim()),
+            LicenseId(fields("Номер лицензии").trim()),
             FIOInRussian(fields("ФИО на русском").trim()),
             FIOInEnglish(fields("ФИО на английском").trim()),
-            Gender.fromString(fields("Пол")),
-            AG.fromString(fields("Категория")).get,
-            Club.fromString(fields("Спорт клуб")),
-            Birthday(fields("Дата рождения"))
+            Gender.fromString(fields("Пол")).get,
+            AG.fromString(fields("Возрастная категория")).get,
+            Club.fromString(fields("Спорт клуб"))
           )
         )
+      }
       else None
     }
-  }
 
-  def loadMen(path: ResourcePath): List[License] =
-    load(path).filter(_.gender == Gender.Men)
-  def loadWomen(path: ResourcePath): List[License] =
-    load(path).filter(_.gender == Gender.Women)
+    licenses.filter(_.gender == gender)
+  }
 }

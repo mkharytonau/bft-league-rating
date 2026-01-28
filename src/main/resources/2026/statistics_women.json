@@ -1,0 +1,82 @@
+{
+  "unique" : {
+    "licenses" : 16
+  },
+  "total" : {
+    "participants" : 22,
+    "categories" : {
+      "license" : {
+        "licensed" : 9,
+        "unlicensed" : 13
+      },
+      "ageGroup" : {
+        "40-49" : 2,
+        "18-29" : 1,
+        "30-39" : 4,
+        "50+" : 2
+      },
+      "club" : {
+        "RunStudio" : 1,
+        "Прочерк" : 1,
+        "Виктория/DRC" : 1,
+        "-" : 3,
+        "Tristyle" : 2,
+        "Altius" : 1
+      }
+    }
+  },
+  "events" : [
+    {
+      "name" : "Империал Индор Триатлон",
+      "participants" : 22,
+      "categories" : {
+        "license" : {
+          "licensed" : 9,
+          "unlicensed" : 13
+        },
+        "ageGroup" : {
+          "40-49" : 2,
+          "18-29" : 1,
+          "30-39" : 4,
+          "50+" : 2
+        },
+        "club" : {
+          "RunStudio" : 1,
+          "Прочерк" : 1,
+          "Виктория/DRC" : 1,
+          "-" : 3,
+          "Tristyle" : 2,
+          "Altius" : 1
+        }
+      }
+    }
+  ],
+  "amountOfParticipations" : {
+    "histogram" : {
+      "0" : 7,
+      "1" : 9
+    },
+    "bestParticipants" : [
+      {
+        "fioInRussian" : "Клебанович Виктория Николаевна",
+        "participations" : 1
+      },
+      {
+        "fioInRussian" : "Ковалёва Диана Васильевна",
+        "participations" : 1
+      },
+      {
+        "fioInRussian" : "Кузнецова Марина Алексеевна",
+        "participations" : 1
+      },
+      {
+        "fioInRussian" : "Науменко Анна Александровна",
+        "participations" : 1
+      },
+      {
+        "fioInRussian" : "Адамович Ирина Антоновна",
+        "participations" : 1
+      }
+    ]
+  }
+}

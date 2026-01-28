@@ -1,0 +1,108 @@
+{
+  "unique" : {
+    "licenses" : 58
+  },
+  "total" : {
+    "participants" : 68,
+    "categories" : {
+      "license" : {
+        "licensed" : 26,
+        "unlicensed" : 42
+      },
+      "ageGroup" : {
+        "30-34" : 1,
+        "40-44" : 10,
+        "35-39" : 6,
+        "50-54" : 1,
+        "18-24" : 1,
+        "25-29" : 4,
+        "45-49" : 3
+      },
+      "club" : {
+        "SQMINSK" : 1,
+        "Tristyle" : 5,
+        "Grebenstar" : 1,
+        "Жёлтая Субмарина" : 1,
+        "Biketourist.club" : 1,
+        "ON-BIKE" : 1,
+        "Yellow submarine" : 1,
+        "tristale.club" : 1,
+        "RUN4FUN.BY" : 1,
+        "Runstudio" : 1,
+        "Yellow Submarine" : 1,
+        "СК Сож" : 1,
+        "Altius!" : 1,
+        "TRIVIDA" : 1,
+        "Runonline.by" : 1,
+        "-" : 7
+      }
+    }
+  },
+  "events" : [
+    {
+      "name" : "Империал Индор Триатлон",
+      "participants" : 68,
+      "categories" : {
+        "license" : {
+          "licensed" : 26,
+          "unlicensed" : 42
+        },
+        "ageGroup" : {
+          "30-34" : 1,
+          "40-44" : 10,
+          "35-39" : 6,
+          "50-54" : 1,
+          "18-24" : 1,
+          "25-29" : 4,
+          "45-49" : 3
+        },
+        "club" : {
+          "SQMINSK" : 1,
+          "Tristyle" : 5,
+          "Grebenstar" : 1,
+          "Жёлтая Субмарина" : 1,
+          "Biketourist.club" : 1,
+          "ON-BIKE" : 1,
+          "Yellow submarine" : 1,
+          "tristale.club" : 1,
+          "RUN4FUN.BY" : 1,
+          "Runstudio" : 1,
+          "Yellow Submarine" : 1,
+          "СК Сож" : 1,
+          "Altius!" : 1,
+          "TRIVIDA" : 1,
+          "Runonline.by" : 1,
+          "-" : 7
+        }
+      }
+    }
+  ],
+  "amountOfParticipations" : {
+    "histogram" : {
+      "0" : 32,
+      "1" : 26
+    },
+    "bestParticipants" : [
+      {
+        "fioInRussian" : "Шинкарёв Алексей Васильевич",
+        "participations" : 1
+      },
+      {
+        "fioInRussian" : "Кость Максим Александрович",
+        "participations" : 1
+      },
+      {
+        "fioInRussian" : "Мостовский Николай Янович",
+        "participations" : 1
+      },
+      {
+        "fioInRussian" : "Шипуль Андрей Анатольевич",
+        "participations" : 1
+      },
+      {
+        "fioInRussian" : "Петровичев Валентин Сергеевич",
+        "participations" : 1
+      }
+    ]
+  }
+}

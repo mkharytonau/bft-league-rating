@@ -9,6 +9,8 @@ import derevo.derive
 import derevo.circe.encoder
 import io.circe._
 import com.mkharytonau.rating.domain.AmountOfParticipations.BestParticipant
+import cats.Show
+import cats.syntax.option._
 
 object domain {
 
@@ -17,9 +19,14 @@ object domain {
     case object Men extends Gender
     case object Women extends Gender
 
-    def fromString(str: String): Gender = str match {
-      case "Мужской" => Men
-      case "Женский" => Women
+    def fromString(str: String): Option[Gender] = PartialFunction.condOpt(str.toLowerCase) {
+      case "мужской" => Men
+      case "женский" => Women
+    }
+
+    implicit val genderShow: Show[Gender] = Show.show {
+      case Men   => "men"
+      case Women => "women"
     }
   }
 
@@ -36,18 +43,37 @@ object domain {
   }
   @newtype case class Birthday(value: String)
   @newtype case class Age(value: Int)
-  final case class AG(from: Age, to: Age) {
-    def show: String = s"AG ${from.value}-${to.value}"
+  final case class AG(from: Age, to: Option[Age]) {
+    def show: String = s"${from.value}" + to
+      .map(toAge => s"-${toAge.value}")
+      .getOrElse("+")
   }
   object AG {
     def fromString(str: String): Option[AG] = {
       val trimmed = str.trim()
-      val s"AG $fromStr-$toStr" = trimmed
-      fromStr.toIntOption.flatMap { from =>
-        toStr.toIntOption.map { to =>
-          AG(Age(from), Age(to))
+
+      def fromTo(fromStr: String, toStr: Option[String]): Option[AG] =
+        toStr match {
+          case Some(toStr) =>
+            toStr.toIntOption.flatMap(to =>
+              fromStr.toIntOption.map { from =>
+                AG(Age(from), Some(Age(to)))
+              }
+            )
+          case None =>
+            fromStr.toIntOption.map { from =>
+              AG(Age(from), None)
+            }
         }
-      }
+
+      PartialFunction
+        .condOpt(trimmed) {
+          case s"М$fromStr-$toStr" => fromTo(fromStr, toStr.some)
+          case s"Ж$fromStr-$toStr" => fromTo(fromStr, toStr.some)
+          case s"М$fromStr+"       => fromTo(fromStr, None)
+          case s"Ж$fromStr+"       => fromTo(fromStr, None)
+        }
+        .flatten
     }
   }
 
@@ -57,8 +83,7 @@ object domain {
       fioInEnglish: FIOInEnglish,
       gender: Gender,
       ag: AG,
-      club: Option[Club],
-      birthday: Birthday
+      club: Option[Club]
   )
   object License {
     @derive(encoder)
@@ -83,36 +108,33 @@ object domain {
   @newtype case class Place(value: Int)
   @newtype case class Points(value: Double)
 
-  final case class EventResultCalculation[A](
+  final case class EventResultCalculation(
       license: License,
       place: Place,
-      points: Points,
-      additionalCalculation: A
+      points: Points
   )
 
-  final case class EventResultWithCalculation[A](
+  final case class EventResultWithCalculation(
       result: EventResult,
-      calculation: Option[EventResultCalculation[A]]
+      calculation: Option[EventResultCalculation]
   )
 
-  final case class EventResultsCalculated[A](
+  final case class EventResultsCalculated(
       results: EventResults,
-      calculated: List[EventResultWithCalculation[A]]
+      calculated: List[EventResultWithCalculation]
   )
 
-  final case class EventConfig[C, A](
+  final case class EventConfig(
       name: EventName,
       eventCategory: EventCategory,
       resultsPath: ResourcePath,
       resultsLoader: EventResultsReader,
-      calculatedPathCsv: ResourcePath,
-      calculatedPathHtml: ResourcePath,
-      resultCalculator: EventResultsCalculator[C, A],
+      resultCalculator: EventResultsCalculator,
       ratingBase: Double
   )
-  final case class CompetitionConfig[C, A](
+  final case class CompetitionConfig(
       name: CompetitionName,
-      events: List[EventConfig[C, A]]
+      events: List[EventConfig]
   )
 
   // rating
@@ -127,20 +149,18 @@ object domain {
   sealed trait EventCategory
   object EventCategory {
     case object Sprint extends EventCategory
-    case object Olympic extends EventCategory
+    case object Stayer extends EventCategory
     case object Duathlon extends EventCategory
-    case object Kross extends EventCategory
-    case object HalfIronmen extends EventCategory
-    case object Ironmen extends EventCategory
+    case object Multi extends EventCategory
   }
 
-  final case class EventCalculated[A](
+  final case class EventCalculated(
       name: EventName,
       eventCategory: EventCategory,
-      results: EventResultsCalculated[Unit]
+      results: EventResultsCalculated
   )
   final case class CompetitionCalculated(
-      events: List[EventCalculated[Unit]]
+      events: List[EventCalculated]
   )
 
   @newtype case class Trend(value: Int) {
@@ -203,11 +223,16 @@ object domain {
   @derive(encoder)
   final case class AmountOfParticipations(
       histogram: Map[Int, Int], // key = amount of participations, value = amount of athletes with such amount of participations,
-      bestParticipants: List[BestParticipant] // top N athletes with the most participations
+      bestParticipants: List[
+        BestParticipant
+      ] // top N athletes with the most participations
   )
   object AmountOfParticipations {
     @derive(encoder)
-    final case class BestParticipant(fioInRussian: FIOInRussian, participations: Int)
+    final case class BestParticipant(
+        fioInRussian: FIOInRussian,
+        participations: Int
+    )
   }
 
   @derive(encoder)

@@ -1,6 +1,8 @@
 package com.mkharytonau.rating
 
 import com.mkharytonau.rating.domain._
+import com.mkharytonau.rating.domain.Gender.Men
+import com.mkharytonau.rating.domain.Gender.Women
 
 trait RatingCalculator {
   def calculate(
@@ -10,7 +12,7 @@ trait RatingCalculator {
 }
 
 object RatingCalculator {
-  object Standart2025 extends RatingCalculator {
+  object Standart2026 extends RatingCalculator {
     def calculate(
         licenses: List[License],
         competitions: List[CompetitionCalculated]
@@ -132,16 +134,19 @@ object RatingCalculator {
         license: License,
         eventsPoints: List[EventPoints]
     ): Points = {
-      // see p.14.8 of https://triatlon.by/assets/images/files/2025/polozhenie-lyubitelskaya-liga-triatlona-2025.pdf
-      val otherCount = 4 // 14 * 0.6 = 8.4 (округляем до 8) - 4 = 4
+      // see p.14.7 of https://triatlon.by/assets/images/files/federation/polozhenie-lyubitelskaya-liga-2026-podpisano.pdf
+      val otherCount = license.gender match {
+        case Men => 3
+        case Women => 1
+      }
 
       val bestSprintMaybe = eventsPoints
         .filter(_.eventCategory == EventCategory.Sprint)
         .sortBy(-_.pointsMaybe.map(_.value).getOrElse(0d))
         .headOption
 
-      val bestOlympicMaybe = eventsPoints
-        .filter(_.eventCategory == EventCategory.Olympic)
+      val bestStayerMaybe = eventsPoints
+        .filter(_.eventCategory == EventCategory.Stayer)
         .sortBy(-_.pointsMaybe.map(_.value).getOrElse(0d))
         .headOption
 
@@ -150,16 +155,16 @@ object RatingCalculator {
         .sortBy(-_.pointsMaybe.map(_.value).getOrElse(0d))
         .headOption
 
-      val bestKrossMaybe = eventsPoints
-        .filter(_.eventCategory == EventCategory.Kross)
+      val bestMultiMaybe = eventsPoints
+        .filter(_.eventCategory == EventCategory.Multi)
         .sortBy(-_.pointsMaybe.map(_.value).getOrElse(0d))
         .headOption
 
       val takenWithPriority = List(
         bestSprintMaybe,
-        bestOlympicMaybe,
+        bestStayerMaybe,
         bestDuathlonMaybe,
-        bestKrossMaybe
+        bestMultiMaybe
       ).flatten.map(eventsPoints =>
         (eventsPoints.eventName, eventsPoints.pointsMaybe)
       )
@@ -182,12 +187,12 @@ object RatingCalculator {
 
       val bestSprint =
         bestSprintMaybe.flatMap(_.pointsMaybe).getOrElse(Points(0d)).value
-      val bestOlympic =
-        bestOlympicMaybe.flatMap(_.pointsMaybe).getOrElse(Points(0d)).value
+      val bestStayer =
+        bestStayerMaybe.flatMap(_.pointsMaybe).getOrElse(Points(0d)).value
       val bestDuathlon =
         bestDuathlonMaybe.flatMap(_.pointsMaybe).getOrElse(Points(0d)).value
-      val bestKross =
-        bestKrossMaybe.flatMap(_.pointsMaybe).getOrElse(Points(0d)).value
+      val bestMulti =
+        bestMultiMaybe.flatMap(_.pointsMaybe).getOrElse(Points(0d)).value
       val otherPoints = other.flatMap(_.pointsMaybe).map(_.value).sum
 
       // println(
@@ -200,7 +205,7 @@ object RatingCalculator {
       // )
 
       val totalPoints =
-        bestSprint + bestOlympic + bestDuathlon + bestKross + otherPoints
+        bestSprint + bestStayer + bestDuathlon + bestMulti + otherPoints
       Points(totalPoints)
     }
   }
