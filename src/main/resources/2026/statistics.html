@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap"
+		rel="stylesheet">
+	<link rel="stylesheet" href="../../../../styles.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Статистика 2026</title>
+	<script src="https://cdn.plot.ly/plotly-2.24.2.min.js"></script>
+</head>
+
+<body>
+	<a href="index.html">← Назад</a>
+	<h1>Статистика 2026</h1>
+
+	<!-- Table of Contents -->
+	<div class="toc">
+		<ul>
+			<li><a href="#general">Общее за сезон</a></li>
+			<li>
+				<a href="#by-category-2026">Статистика по категориям за сезон</a>
+				<ul>
+					<li><a href="#plot-by-sex">Количество участников за сезон по полу</a></li>
+					<li><a href="#plot-by-license">Количество участников за сезон по наличию лицензии</a></li>
+					<li><a href="#plot-by-ag">Количество участников за сезон по возрастным группам (среди лицензиатов)</a></li>
+					<li><a href="#plot-by-club">Количество участников за сезон по клубам (среди лицензиатов)</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="#by-event-category-2026">Статистика по отдельным соревнованиям</a>
+				<ul>
+					<li><a href="#plot-by-event">Количество участников на соревновании</a></li>
+					<li><a href="#plot-by-event-sex">Количество участников на соревновании по полу</a></li>
+					<li><a href="#plot-by-event-license">Количество участников на соревновании по наличию лицензии</a></li>
+					<li><a href="#plot-by-event-ag">Количество участников на соревновании по возрасту (среди лицензиатов)</a></li>
+					<li><a href="#plot-by-event-club">Количество участников на соревновании по клубу (среди лицензиатов)</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="#participation-stats-2026">Статистика посещаемости</a>
+				<ul>
+					<li><a href="#plot-participation-stats-men">Количество участников по числу посещённых соревнований
+							(мужчины)</a></li>
+					<li><a href="#list-participation-stats-men">Топ-5 участников по посещаемости (мужчины)</a></li>
+					<li><a href="#plot-participation-stats-women">Количество участников по числу посещённых соревнований
+							(женщины)</a></li>
+					<li><a href="#list-participation-stats-women">Топ-5 участников по посещаемости (женщины)</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="#comparison">🚀 Сравнение 2023, 2024, 2025, 2026 </a>
+		</ul>
+	</div>
+
+	<h2 id="general">Общее за сезон</h2>
+	<p>Всего участников на всех соревнованиях: <span id="general-total-participants"></span></p>
+	<p>Среди них с лицензией: <span id="general-total-participants-with-license"></span></p>
+	<p>Всего выдано лицензий: <span id="general-total-licenses"></span></p>
+
+	<h2 id="by-category-2026">Статистика по категориям за сезон</h2>
+	<div id="plot-by-sex" style="width: 100%; height: 500px;"></div>
+	<div id="plot-by-license" style="width: 100%; height: 500px;"></div>
+	<div id="plot-by-ag" style="width: 100%; height: 500px;"></div>
+	<div id="plot-by-club" style="width: 100%; height: 500px;"></div>
+
+	<h2 id="by-event-category-2026">Статистика по отдельным соревнованиям</h2>
+	<div id="plot-by-event" style="width: 100%; height: 500px;"></div>
+	<div id="plot-by-event-sex" style="width: 100%; height: 500px;"></div>
+	<div id="plot-by-event-license" style="width: 100%; height: 500px;"></div>
+	<div id="plot-by-event-ag" style="width: 100%; height: 500px;"></div>
+	<div id="plot-by-event-club" style="width: 100%; height: 500px;"></div>
+
+	<h2 id="participation-stats-2026">Статистика посещаемости</h2>
+	<div id="plot-participation-stats-men" style="width: 100%; height: 500px;"></div>
+	<div id="list-participation-stats-men"></div>
+	<div id="plot-participation-stats-women" style="width: 100%; height: 500px;"></div>
+	<div id="list-participation-stats-women"></div>
+
+	<h2 id="comparison">🚀 Сравнение 2023, 2024 и 2026</h2>
+	<p>Наполнится по завершению сезона 2026</p>
+
+	<script>
+		// Load data from both JSON files
+		Promise.all([
+			fetch('statistics_men.json').then(response => response.json()),
+			fetch('statistics_women.json').then(response => response.json())
+		])
+			.then(([menData, womenData]) => {
+				// Merge total data
+				const totalData = {
+					participants: menData.total.participants + womenData.total.participants,
+					categories: {
+						sex: {
+							'Мужчины': menData.total.participants,
+							'Женщины': womenData.total.participants
+						},
+						license: {
+							'С лицензией': menData.total.categories.license.licensed + womenData.total.categories.license.licensed,
+							'Без лицензии': menData.total.categories.license.unlicensed + womenData.total.categories.license.unlicensed
+						},
+						ageGroup: (() => {
+							const allKeys = Array.from(new Set([
+								...Object.keys(menData.total.categories.ageGroup),
+								...Object.keys(womenData.total.categories.ageGroup)
+							]));
+							return allKeys.reduce((acc, key) => {
+								acc[key] = (menData.total.categories.ageGroup[key] || 0) + (womenData.total.categories.ageGroup[key] || 0);
+								return acc;
+							}, {});
+						})(),
+						club: (() => {
+							const allKeys = Array.from(new Set([
+								...Object.keys(menData.total.categories.club),
+								...Object.keys(womenData.total.categories.club)
+							]));
+							return allKeys.reduce((acc, key) => {
+								acc[key] = (menData.total.categories.club[key] || 0) + (womenData.total.categories.club[key] || 0);
+								return acc;
+							}, {});
+						})(),
+					}
+				};
+
+				document.getElementById('general-total-participants').textContent = totalData.participants;
+				document.getElementById('general-total-participants-with-license').textContent = totalData.categories.license['С лицензией'];
+				document.getElementById('general-total-licenses').textContent = `${menData.unique.licenses + womenData.unique.licenses} (мужчины: ${menData.unique.licenses}, женщины: ${womenData.unique.licenses})`;
+
+				const titleFontSize = 14;
+				const legendFontSize = 12;
+				const axisTitleFontSize = 10;
+
+				// Draw total stacked bar chart by sex
+				const sexTraces = Object.keys(totalData.categories.sex).map(key => ({
+					y: [''],
+					x: [totalData.categories.sex[key]],
+					name: key,
+					type: 'bar',
+					orientation: 'h'
+				}));
+
+				Plotly.newPlot('plot-by-sex', sexTraces, {
+					title: {
+						text: 'Количество участников за сезон по полу',
+						font: { size: titleFontSize }
+					},
+					yaxis: {},
+					xaxis: {},
+					legend: {
+						font: { size: legendFontSize },
+						orientation: 'h',
+						traceorder: 'normal'
+					},
+					margin: {
+						l: 0,
+						r: 0,
+					},
+					barmode: 'stack'
+				});
+
+				// Draw total stacked bar chart by license
+				const licenseTraces = Object.keys(totalData.categories.license).map(key => ({
+					y: [''],
+					x: [totalData.categories.license[key]],
+					name: key,
+					type: 'bar',
+					orientation: 'h'
+				}));
+
+				Plotly.newPlot('plot-by-license', licenseTraces, {
+					title: {
+						text: 'Количество участников за сезон <br> по наличию лицензии',
+						font: { size: titleFontSize }
+					},
+					yaxis: {},
+					xaxis: {},
+					legend: {
+						font: { size: legendFontSize },
+						orientation: 'h',
+						traceorder: 'normal'
+					},
+					margin: {
+						l: 0,
+						r: 0,
+					},
+					barmode: 'stack'
+				});
+
+				// Draw total stacked bar chart by age group
+				const ageGroupTotalKeys = Object.keys(totalData.categories.ageGroup).sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+				const ageGroupTotalTraces = ageGroupTotalKeys.map(key => ({
+					y: [''],
+					x: [totalData.categories.ageGroup[key]],
+					name: key,
+					type: 'bar',
+					orientation: 'h'
+				}));
+
+				Plotly.newPlot('plot-by-ag', ageGroupTotalTraces, {
+					title: {
+						text: 'Кол-во участников за сезон <br> по возрастным группам (среди лицензиатов)',
+						font: { size: titleFontSize }
+					},
+					yaxis: {},
+					xaxis: {},
+					legend: {
+						font: { size: legendFontSize },
+						orientation: 'h',
+						traceorder: 'normal'
+					},
+					margin: {
+						l: 0,
+						r: 0,
+					},
+					barmode: 'stack'
+				});
+
+				// Draw total stacked bar chart by club
+				const clubTotalKeys = Object.keys(totalData.categories.club)
+					.sort((a, b) => totalData.categories.club[b] - totalData.categories.club[a]);
+				const clubTotalTraces = clubTotalKeys.map(key => ({
+					y: [''],
+					x: [totalData.categories.club[key]],
+					name: key,
+					type: 'bar',
+					orientation: 'h'
+				}));
+
+				Plotly.newPlot('plot-by-club', clubTotalTraces, {
+					title: {
+						text: 'Кол-во участников за сезон <br> по клубам (среди лицензиатов)',
+						font: { size: titleFontSize }
+					},
+					yaxis: {},
+					xaxis: {},
+					legend: {
+						font: { size: legendFontSize },
+						orientation: 'h',
+						traceorder: 'normal'
+					},
+					margin: {
+						l: 0,
+						r: 0,
+					},
+					barmode: 'stack'
+				});
+
+				// Merge men and women data
+				const mergedEvents = menData.events.map((menEvent, index) => {
+					const womenEvent = womenData.events[index];
+					return {
+						name: menEvent.name,
+						participants: menEvent.participants + womenEvent.participants,
+						categories: {
+							sex: {
+								male: menEvent.participants,
+								female: womenEvent.participants
+							},
+							license: {
+								licensed: menEvent.categories.license.licensed + womenEvent.categories.license.licensed,
+								unlicensed: menEvent.categories.license.unlicensed + womenEvent.categories.license.unlicensed
+							},
+							ageGroup: (() => {
+								const allKeys = Array.from(new Set([
+									...Object.keys(menEvent.categories.ageGroup),
+									...Object.keys(womenEvent.categories.ageGroup)
+								]));
+								return allKeys.reduce((acc, key) => {
+									acc[key] = (menEvent.categories.ageGroup[key] || 0) + (womenEvent.categories.ageGroup[key] || 0);
+									return acc;
+								}, {});
+							})(),
+							club: (() => {
+								const allKeys = Array.from(new Set([
+									...Object.keys(menEvent.categories.club),
+									...Object.keys(womenEvent.categories.club)
+								]));
+								return allKeys.reduce((acc, key) => {
+									acc[key] = (menEvent.categories.club[key] || 0) + (womenEvent.categories.club[key] || 0);
+									return acc;
+								}, {});
+							})()
+						}
+					};
+				});
+
+				// Extract event names
+				const eventNames = mergedEvents.map(event => event.name);
+
+				// Overall participants plot
+				const overallCounts = mergedEvents.map(event => event.participants);
+				Plotly.newPlot('plot-by-event', [{
+					x: eventNames,
+					y: overallCounts,
+					text: overallCounts,
+					type: 'bar',
+					marker: { color: 'steelblue' }
+				}], {
+					title: {
+						text: 'Количество участников на соревновании',
+						font: { size: titleFontSize }
+					},
+					xaxis: {},
+					yaxis: { title: { text: 'Количество участников', font: { size: axisTitleFontSize } } },
+					legend: {
+						font: { size: legendFontSize },
+						orientation: 'h',
+						traceorder: 'normal',
+					},
+					margin: {
+						l: 40,
+						r: 0,
+					}
+				});
+
+				// Participants by sex
+				const maleCounts = mergedEvents.map(event => event.categories.sex.male);
+				const femaleCounts = mergedEvents.map(event => event.categories.sex.female);
+				Plotly.newPlot('plot-by-event-sex', [
+					{ x: eventNames, y: maleCounts, text: maleCounts, name: 'Мужчины', type: 'bar' },
+					{ x: eventNames, y: femaleCounts, text: femaleCounts, name: 'Женщины', type: 'bar' }
+				], {
+					title: {
+						text: 'Количество участников на соревновании по полу',
+						font: { size: titleFontSize }
+					},
+					xaxis: {},
+					yaxis: { title: { text: 'Количество участников', font: { size: axisTitleFontSize } } },
+					legend: {
+						font: { size: legendFontSize },
+						orientation: 'h',
+						traceorder: 'normal',
+						y: -1
+					},
+					barmode: 'stack',
+					margin: {
+						l: 40,
+						r: 0,
+					}
+				});
+
+				// Participants by license
+				const licensedCounts = mergedEvents.map(event => event.categories.license.licensed);
+				const unlicensedCounts = mergedEvents.map(event => event.categories.license.unlicensed);
+				Plotly.newPlot('plot-by-event-license', [
+					{ x: eventNames, y: licensedCounts, text: licensedCounts, name: 'Лицензированные', type: 'bar' },
+					{ x: eventNames, y: unlicensedCounts, text: unlicensedCounts, name: 'Нелицензированные', type: 'bar' }
+				], {
+					title: {
+						text: 'Количество участников на соревновании <br> по наличию лицензии',
+						font: { size: titleFontSize }
+					},
+					xaxis: {},
+					yaxis: { title: { text: 'Количество участников', font: { size: axisTitleFontSize } } },
+					legend: {
+						font: { size: legendFontSize },
+						orientation: 'h',
+						traceorder: 'normal',
+						y: -1
+					},
+					barmode: 'stack',
+					margin: {
+						l: 40,
+						r: 0,
+					}
+				});
+
+				// Participants by age group
+				const ageGroupKeys = Array.from(new Set(mergedEvents.flatMap(event => Object.keys(event.categories.ageGroup))))
+					.sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+				const ageGroupTraces = ageGroupKeys.map(key => ({
+					x: eventNames,
+					y: mergedEvents.map(event => event.categories.ageGroup[key]),
+					name: key, // Use the key as the legend name
+					type: 'bar'
+				}));
+
+				Plotly.newPlot('plot-by-event-ag', ageGroupTraces, {
+					title: {
+						text: 'Количество участников на соревновании <br> по возрасту (среди лицензиатов)',
+						font: { size: titleFontSize }
+					},
+					xaxis: {},
+					yaxis: { title: { text: 'Количество участников', font: { size: axisTitleFontSize } } },
+					legend: {
+						font: { size: legendFontSize },
+						orientation: 'h',
+						traceorder: 'normal',
+						y: -1
+					},
+					barmode: 'stack',
+					margin: {
+						l: 40,
+						r: 0,
+					}
+				});
+
+				// Participants by club
+				const clubKeys = clubTotalKeys;
+				const clubTraces = clubKeys.map(key => ({
+					x: eventNames,
+					y: mergedEvents.map(event => event.categories.club[key]),
+					name: key, // Use the key as the legend name
+					type: 'bar'
+				}));
+
+				Plotly.newPlot('plot-by-event-club', clubTraces, {
+					title: {
+						text: 'Количество участников на соревновании <br> по клубу (среди лицензиатов)',
+						font: { size: titleFontSize }
+					},
+					xaxis: { tickfont: { size: 8 } },
+					yaxis: { title: { text: 'Количество участников', font: { size: axisTitleFontSize } } },
+					legend: {
+						font: { size: 6 },
+						traceorder: 'normal',
+					},
+					barmode: 'stack',
+					margin: {
+						l: 40,
+						r: 0,
+					}
+				});
+
+				// Participation men
+				const participationHistogramMen = menData.amountOfParticipations.histogram;
+				const participationKeysMen = Object.keys(participationHistogramMen).map(Number).sort((a, b) => a - b);
+				const participationCountsMen = participationKeysMen.map(key => participationHistogramMen[key]);
+
+				Plotly.newPlot('plot-participation-stats-men', [{
+					x: participationKeysMen,
+					y: participationCountsMen,
+					type: 'bar',
+					marker: { color: 'lightblue' }
+				}], {
+					title: {
+						text: 'Количество участников <br> по числу посещённых соревнований (мужчины)',
+						font: { size: titleFontSize }
+					},
+					xaxis: { title: { text: 'Число посещённых соревнований', font: { size: axisTitleFontSize } }, tickvals: participationKeysMen },
+					yaxis: { title: { text: 'Количество участников', font: { size: axisTitleFontSize } } },
+					margin: { l: 40, r: 0 }
+				});
+
+				const topList = menData.amountOfParticipations.bestParticipants
+					.map(p => `<li>${p.fioInRussian} — ${p.participations} стартов</li>`)
+					.join('');
+				const topListHtml = `
+					<h4>Топ-5 участников по посещаемости (мужчины)</h4>
+					<ul>${topList}</ul>
+				`;
+				document.getElementById('list-participation-stats-men').insertAdjacentHTML('beforeend', topListHtml);
+
+				const participationHistogramWomen = womenData.amountOfParticipations.histogram;
+				const participationKeysWomen = Object.keys(participationHistogramWomen).map(Number).sort((a, b) => a - b);
+				const participationCountsWomen = participationKeysWomen.map(key => participationHistogramWomen[key]);
+
+				Plotly.newPlot('plot-participation-stats-women', [{
+					x: participationKeysWomen,
+					y: participationCountsWomen,
+					type: 'bar',
+					marker: { color: 'pink' }
+				}], {
+					title: {
+						text: 'Количество участников <br> по числу посещённых соревнований (женщины)',
+						font: { size: titleFontSize }
+					},
+					xaxis: { title: { text: 'Число посещённых соревнований', font: { size: axisTitleFontSize } }, tickvals: participationKeysWomen },
+					yaxis: { title: { text: 'Количество участников', font: { size: axisTitleFontSize } } },
+					margin: { l: 40, r: 0 }
+				});
+
+				const topListWomen = womenData.amountOfParticipations.bestParticipants
+					.map(p => `<li>${p.fioInRussian} — ${p.participations} стартов</li>`)
+					.join('');
+				const topListHtmlWomen = `
+					<h4>Топ-5 участников по посещаемости (женщины)</h4>
+					<ul>${topListWomen}</ul>
+				`;
+				document.getElementById('list-participation-stats-women').insertAdjacentHTML('beforeend', topListHtmlWomen);
+			})
+			.catch(error => console.error('Error loading data:', error));
+	</script>
+</body>
+
+</html>
