@@ -130,7 +130,8 @@ object domain {
       resultsPath: ResourcePath,
       resultsLoader: EventResultsReader,
       resultCalculator: EventResultsCalculator,
-      ratingBase: Double
+      ratingBase: Double,
+      locatedInInnerFolder: Boolean = false
   )
   final case class CompetitionConfig(
       name: CompetitionName,

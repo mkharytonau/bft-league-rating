@@ -77,12 +77,11 @@ object EventResultsWriter {
       }
 
       val htmlString = Html.resultsPage(
-        pageTitle = eventConfig.name.ratingName,
-        header = eventConfig.name.ratingName,
         resultsTable = Html.resultsTable(
           headerWithCalculation,
           rows
-        )
+        ),
+        eventConfig = eventConfig
       )
 
       writer.write(htmlString)

@@ -1,40 +1,46 @@
 {
   "unique" : {
-    "licenses" : 58
+    "licenses" : 72
   },
   "total" : {
-    "participants" : 68,
+    "participants" : 114,
     "categories" : {
       "license" : {
-        "licensed" : 26,
-        "unlicensed" : 42
+        "licensed" : 44,
+        "unlicensed" : 70
       },
       "ageGroup" : {
-        "30-34" : 1,
-        "40-44" : 10,
-        "35-39" : 6,
-        "50-54" : 1,
-        "18-24" : 1,
-        "25-29" : 4,
-        "45-49" : 3
+        "30-34" : 3,
+        "40-44" : 13,
+        "35-39" : 8,
+        "50-54" : 3,
+        "60+" : 1,
+        "55-59" : 1,
+        "18-24" : 3,
+        "25-29" : 5,
+        "45-49" : 7
       },
       "club" : {
-        "SQMINSK" : 1,
-        "Tristyle" : 5,
+        "Tristyle" : 10,
+        "UTribe" : 1,
         "Grebenstar" : 1,
         "Жёлтая Субмарина" : 1,
-        "Biketourist.club" : 1,
-        "ON-BIKE" : 1,
+        "ON-BIKE" : 2,
         "Yellow submarine" : 1,
         "tristale.club" : 1,
+        "SQMINSK" : 2,
+        "-----" : 1,
         "RUN4FUN.BY" : 1,
         "Runstudio" : 1,
-        "Yellow Submarine" : 1,
+        "Yellow Submarine" : 2,
+        "Многобор" : 3,
         "СК Сож" : 1,
         "Altius!" : 1,
         "TRIVIDA" : 1,
         "Runonline.by" : 1,
-        "-" : 7
+        "-" : 11,
+        "Biketourist.club" : 1,
+        "Каяк" : 1
       }
     }
   },
@@ -44,21 +50,21 @@
       "participants" : 68,
       "categories" : {
         "license" : {
-          "licensed" : 26,
-          "unlicensed" : 42
+          "licensed" : 29,
+          "unlicensed" : 39
         },
         "ageGroup" : {
-          "30-34" : 1,
+          "30-34" : 2,
           "40-44" : 10,
           "35-39" : 6,
-          "50-54" : 1,
-          "18-24" : 1,
+          "50-54" : 2,
+          "18-24" : 2,
           "25-29" : 4,
           "45-49" : 3
         },
         "club" : {
           "SQMINSK" : 1,
-          "Tristyle" : 5,
+          "Tristyle" : 8,
           "Grebenstar" : 1,
           "Жёлтая Субмарина" : 1,
           "Biketourist.club" : 1,
@@ -75,33 +81,83 @@
           "-" : 7
         }
       }
+    },
+    {
+      "name" : "Зимний триатлон. Логойск",
+      "participants" : 24,
+      "categories" : {
+        "license" : {
+          "licensed" : 12,
+          "unlicensed" : 12
+        },
+        "ageGroup" : {
+          "30-34" : 1,
+          "40-44" : 2,
+          "35-39" : 2,
+          "50-54" : 1,
+          "60+" : 1,
+          "55-59" : 1,
+          "18-24" : 1,
+          "25-29" : 1,
+          "45-49" : 2
+        },
+        "club" : {
+          "SQMINSK" : 1,
+          "Tristyle" : 2,
+          "UTribe" : 1,
+          "-" : 4,
+          "Каяк" : 1,
+          "Yellow Submarine" : 1,
+          "Многобор" : 2
+        }
+      }
+    },
+    {
+      "name" : "Зимний дуатлон. Логойск",
+      "participants" : 22,
+      "categories" : {
+        "license" : {
+          "licensed" : 3,
+          "unlicensed" : 19
+        },
+        "ageGroup" : {
+          "40-44" : 1,
+          "45-49" : 2
+        },
+        "club" : {
+          "-----" : 1,
+          "Многобор" : 1,
+          "ON-BIKE" : 1
+        }
+      }
     }
   ],
   "amountOfParticipations" : {
     "histogram" : {
-      "0" : 32,
-      "1" : 26
+      "0" : 34,
+      "1" : 32,
+      "2" : 6
     },
     "bestParticipants" : [
       {
         "fioInRussian" : "Шинкарёв Алексей Васильевич",
-        "participations" : 1
+        "participations" : 2
       },
       {
-        "fioInRussian" : "Кость Максим Александрович",
-        "participations" : 1
-      },
-      {
-        "fioInRussian" : "Мостовский Николай Янович",
-        "participations" : 1
-      },
-      {
-        "fioInRussian" : "Шипуль Андрей Анатольевич",
-        "participations" : 1
+        "fioInRussian" : "Гуштын Никита Александрович",
+        "participations" : 2
       },
       {
         "fioInRussian" : "Петровичев Валентин Сергеевич",
-        "participations" : 1
+        "participations" : 2
+      },
+      {
+        "fioInRussian" : "Гацко Дмитрий Михайлович",
+        "participations" : 2
+      },
+      {
+        "fioInRussian" : "Бузо Александр Владимирович",
+        "participations" : 2
       }
     ]
   }

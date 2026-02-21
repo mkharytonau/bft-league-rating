@@ -1,25 +1,27 @@
 {
   "unique" : {
-    "licenses" : 16
+    "licenses" : 20
   },
   "total" : {
-    "participants" : 22,
+    "participants" : 33,
     "categories" : {
       "license" : {
-        "licensed" : 9,
-        "unlicensed" : 13
+        "licensed" : 13,
+        "unlicensed" : 20
       },
       "ageGroup" : {
-        "40-49" : 2,
+        "40-49" : 3,
         "18-29" : 1,
-        "30-39" : 4,
+        "30-39" : 7,
         "50+" : 2
       },
       "club" : {
+        "Anaerobe" : 1,
         "RunStudio" : 1,
         "Прочерк" : 1,
         "Виктория/DRC" : 1,
-        "-" : 3,
+        "-" : 5,
+        "Grebenstar" : 1,
         "Tristyle" : 2,
         "Altius" : 1
       }
@@ -31,13 +33,13 @@
       "participants" : 22,
       "categories" : {
         "license" : {
-          "licensed" : 9,
-          "unlicensed" : 13
+          "licensed" : 10,
+          "unlicensed" : 12
         },
         "ageGroup" : {
           "40-49" : 2,
           "18-29" : 1,
-          "30-39" : 4,
+          "30-39" : 5,
           "50+" : 2
         },
         "club" : {
@@ -45,8 +47,42 @@
           "Прочерк" : 1,
           "Виктория/DRC" : 1,
           "-" : 3,
+          "Grebenstar" : 1,
           "Tristyle" : 2,
           "Altius" : 1
+        }
+      }
+    },
+    {
+      "name" : "Зимний триатлон. Логойск",
+      "participants" : 4,
+      "categories" : {
+        "license" : {
+          "licensed" : 2,
+          "unlicensed" : 2
+        },
+        "ageGroup" : {
+          "30-39" : 2
+        },
+        "club" : {
+          "Anaerobe" : 1,
+          "-" : 1
+        }
+      }
+    },
+    {
+      "name" : "Зимний дуатлон. Логойск",
+      "participants" : 7,
+      "categories" : {
+        "license" : {
+          "licensed" : 1,
+          "unlicensed" : 6
+        },
+        "ageGroup" : {
+          "40-49" : 1
+        },
+        "club" : {
+          "-" : 1
         }
       }
     }
@@ -54,27 +90,27 @@
   "amountOfParticipations" : {
     "histogram" : {
       "0" : 7,
-      "1" : 9
+      "1" : 13
     },
     "bestParticipants" : [
+      {
+        "fioInRussian" : "Шеремет Евгения Николаевна",
+        "participations" : 1
+      },
+      {
+        "fioInRussian" : "Черемисинова Анна Александровна",
+        "participations" : 1
+      },
+      {
+        "fioInRussian" : "Врублевская Юлия Николаевна",
+        "participations" : 1
+      },
       {
         "fioInRussian" : "Клебанович Виктория Николаевна",
         "participations" : 1
       },
       {
         "fioInRussian" : "Ковалёва Диана Васильевна",
-        "participations" : 1
-      },
-      {
-        "fioInRussian" : "Кузнецова Марина Алексеевна",
-        "participations" : 1
-      },
-      {
-        "fioInRussian" : "Науменко Анна Александровна",
-        "participations" : 1
-      },
-      {
-        "fioInRussian" : "Адамович Ирина Антоновна",
         "participations" : 1
       }
     ]

@@ -30,6 +30,28 @@ object Main extends App {
         )
       )
     ),
+    CompetitionConfig(
+      name = CompetitionName("Зимний триатлон. Логойск"),
+      events = List(
+        EventConfig(
+          EventName("Зимний триатлон. Логойск", "LogoiskWinterTri"),
+          EventCategory.Multi,
+          ResourcePath("2026/Logoisk_Winter_Triathlon"),
+          EventResultsReader.Configured("Фамилия Имя", ParseResult.HoursMinutesSecondsMillisOrTens("Время"), ParseGender.ByField("Пол", "М", "Ж")),
+          EventResultsCalculator.Standart,
+          700.0
+        ),
+        EventConfig(
+          EventName("Зимний дуатлон. Логойск", "LogoiskWinterDuo"),
+          EventCategory.Duathlon,
+          ResourcePath("2026/Logoisk_Winter_Triathlon/duo"),
+          EventResultsReader.Configured("Фамилия Имя", ParseResult.HoursMinutesSecondsMillisOrTens("Время"), ParseGender.ByField("Пол", "М", "Ж")),
+          EventResultsCalculator.Standart,
+          700.0,
+          locatedInInnerFolder = true
+        )
+      )
+    ),
   )
 
   List[Gender](Men, Women).foreach { gender => 

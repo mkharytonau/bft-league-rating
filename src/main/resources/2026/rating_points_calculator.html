@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../../../../styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор очков рейтинга</title>
+    <style>
+        body {
+            margin: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 350px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        input,
+        select,
+        output {
+            padding: 4px;
+        }
+
+        input {
+            flex: 1;
+            max-width: 75px;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="index.html">← Все старты</a>
+    <h1>Калькулятор очков рейтинга</h1>
+    <p style="max-width: 600px; width: 100%;">Калькулятор позволяет рассчитать очки в рейтинге, основываясь на
+        результатах каждого старта
+        согласно пункта 14.7
+        <a href="https://triatlon.by/assets/images/files/federation/polozhenie-lyubitelskaya-liga-2026-podpisano.pdf"
+            target="_blank" rel="noopener noreferrer">Положения</a>
+        о Любительской Лиге:
+        <img src="img/rating_points_formula.png" alt="Пункт 14.7 Положения"
+            style="max-width: 400px; width: 100%; height: auto;">
+    </p>
+
+    <form id="rating-form">
+        <div class="form-group">
+            <label for="ImperialIndoorTriathlon">Империал Индор Триатлон:</label>
+            <input type="number" id="ImperialIndoorTriathlon" name="Империал Индор Триатлон" min="0" max="700">
+        </div>
+        <div class="form-group">
+            <label for="LogoiskWinterTri">Зимний триатлон. Логойск:</label>
+            <input type="number" id="LogoiskWinterTri" name="Зимний триатлон. Логойск" min="0" max="700">
+        </div>
+        <div class="form-group">
+            <label for="LogoiskWinterDuo">Зимний дуатлон. Логойск:</label>
+            <input type="number" id="LogoiskWinterDuo" name="Зимний дуатлон. Логойск" min="0" max="700">
+        </div>
+        <div class="form-group">
+            <label for="MinskIndoorTriathlon">Индор триатлон. Минск:</label>
+            <input type="number" id="MinskIndoorTriathlon" name="Индор триатлон. Минск" min="0" max="700">
+        </div>
+        <div class="form-group">
+            <label for="DuathlonDrogichin">Дуатлон. Дрогичин:</label>
+            <input type="number" id="DuathlonDrogichin" name="Дуатлон. Дрогичин" min="0" max="700">
+        </div>
+        <div class="form-group">
+            <label for="TriathlonMogiLev">Спринт. МогиЛев:</label>
+            <input type="number" id="TriathlonMogiLev" name="Спринт. МогиЛев" min="0" max="700">
+        </div>
+        <div class="form-group">
+            <label for="BrestOlympic">Олимпийка. Брест:</label>
+            <input type="number" id="BrestOlympic" name="Олимпийка. Брест" min="0" max="800">
+        </div>
+        <div class="form-group">
+            <label for="KrossTriathlonBraslav">Кросс-триатлон. Браслав:</label>
+            <input type="number" id="KrossTriathlonBraslav" name="Кросс-триатлон. Браслав" min="0" max="700">
+        </div>
+        <div class="form-group">
+            <label for="KrossTriathlonGanna">Кросс-триатлон. У Ганны:</label>
+            <input type="number" id="KrossTriathlonGanna" name="Кросс-триатлон. У Ганны" min="0" max="700">
+        </div>
+        <div class="form-group">
+            <label for="KubokPolesiaGomel">Спринт. Гомель:</label>
+            <input type="number" id="KubokPolesiaGomel" name="Спринт. Гомель" min="0" max="700">
+        </div>
+        <div class="form-group">
+            <label for="SvyatskSprint">Спринт. Святск:</label>
+            <input type="number" id="SvyatskSprint" name="Спринт. Святск" min="0" max="700">
+        </div>
+        <div class="form-group">
+            <label for="MinskTriathlonIronmen">Минский триатлон. Полная:</label>
+            <input type="number" id="MinskTriathlonIronmen" name="Минский триатлон. Полная" min="0" max="1000">
+        </div>
+        <div class="form-group">
+            <label for="MinskTriathlonHalfIronmen">Минский триатлон. Половинка:</label>
+            <input type="number" id="MinskTriathlonHalfIronmen" name="Минский триатлон. Половинка" min="0" max="900">
+        </div>
+        <div class="form-group">
+            <label for="MinskTriathlonOlympic">Минский триатлон. Олимпийка:</label>
+            <input type="number" id="MinskTriathlonOlympic" name="Минский триатлон. Олимпийка" min="0" max="800">
+        </div>
+        <div class="form-group">
+            <label for="MinskTriathlonSprint">Минский триатлон. Спринт:</label>
+            <input type="number" id="MinskTriathlonSprint" name="Минский триатлон. Спринт" min="0" max="700">
+        </div>
+        <div class="form-group">
+            <label for="KubokPolesiaKrossGomel">Кросс-триатлон. Гомель:</label>
+            <input type="number" id="KubokPolesiaKrossGomel" name="Кросс-триатлон. Гомель" min="0" max="700">
+        </div>
+        <div class="form-group">
+            <label for="KubokPolesiaKrossDuoGomel">Кросс-триатлон. Гомель:</label>
+            <input type="number" id="KubokPolesiaKrossDuoGomel" name="Кросс-дуатлон. Гомель" min="0" max="700">
+        </div>
+        <div class="form-group">
+            <label for="DuathlonRaubichi">Дуатлон. Раубичи</label>
+            <input type="number" id="DuathlonRaubichi" name="Дуатлон. Раубичи" min="0" max="800">
+        </div>
+        <div>
+            <label><b>Результат рассчета:</b></label>
+            <output id="total-points" style="padding: 0;">
+                <div><b>Сп</b>ринт: <span id="calculated-sprint-value"></span> </div>
+                <div><b>Ст</b>аерская: <span id="calculated-stayer-value"></span></div>
+                <div><b>Д</b>уатлон: <span id="calculated-duathlon-value"></span></div>
+                <div><b>М</b>ульти: <span id="calculated-multi-value"></span></div>
+                <div><b>Лучшие 4 результата, за исключением вышеперечисленных Сп, Ст, Д, М:</b></div>
+                <span id="calculated-other-events-value"></span>
+                <div><b>Сумма:</b> <span id="total-value"></span> </div>
+            </output>
+        </div>
+    </form>
+
+    <script>
+        // Function to get query parameters from the URL
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            const queryParams = {};
+            params.forEach((value, key) => {
+                const parsedValue = parseFloat(value);
+                if (!isNaN(parsedValue)) {
+                    queryParams[key] = parsedValue;
+                }
+            });
+            return queryParams;
+        }
+
+        const events = {
+            'ImperialIndoorTriathlon': 'Multi',
+            'LogoiskWinterTri': 'Multi',
+            'LogoiskWinterDuo': 'Duathlon',
+            'MinskIndoorTriathlon': 'Multi',
+            'DuathlonDrogichin': 'Duathlon',
+            'TriathlonMogiLev': 'Sprint',
+            'BrestOlympic': 'Stayer',
+            'KrossTriathlonBraslav': 'Multi',
+            'KrossTriathlonGanna': 'Multi',
+            'KubokPolesiaGomel': 'Sprint',
+            'SvyatskSprint': 'Sprint',
+            'MinskTriathlonIronmen': 'Stayer',
+            'MinskTriathlonHalfIronmen': 'Stayer',
+            'MinskTriathlonOlympic': 'Stayer',
+            'MinskTriathlonSprint': 'Sprint',
+            'KubokPolesiaKrossGomel': 'Multi',
+            'KubokPolesiaKrossDuoGomel': 'Duathlon',
+            'DuathlonRaubichi': 'Duathlon'
+        };
+
+        const queryParams = getQueryParams();
+
+        Object.keys(events).forEach(event => {
+            const inputElement = document.getElementById(event);
+            if (inputElement) {
+                // Populate initial values from URL query params
+                if (queryParams[event] !== undefined) {
+                    inputElement.value = queryParams[event];
+                }
+
+                // Update URL query params when input values change
+                inputElement.addEventListener('input', () => {
+                    const params = new URLSearchParams(window.location.search);
+                    params.set(event, inputElement.value);
+                    const newUrl = `${window.location.pathname}?${params.toString()}`;
+                    window.history.replaceState({}, '', newUrl);
+                });
+
+                // Calculate total points on input change
+                inputElement.addEventListener('input', () => {
+                    calculateTotalPoints();
+                });
+            }
+        });
+
+        const prioritisedCategories = ['Sprint', 'Stayer', 'Duathlon', 'Multi'];
+
+        function calculatePrioritisedCategoryMax(events) {
+            const categoryMax = {};
+
+            Object.keys(events).forEach(event => {
+                const category = events[event];
+                const value = parseFloat(document.getElementById(event).value);
+
+                if (prioritisedCategories.includes(category) && !isNaN(value)) {
+                    if (categoryMax[category] === undefined || value > categoryMax[category].value) {
+                        categoryMax[category] = { event, value };
+                    }
+                }
+            });
+
+            return categoryMax;
+        }
+
+        function calculateTotalPoints() {
+            const prioritisedCategoriesMax = calculatePrioritisedCategoryMax(events);
+            console.log('Maximum points for prioritised categories:', prioritisedCategoriesMax);
+
+            let totalPoints = 0;
+
+            const eventValues = Object.keys(events).reduce((acc, event) => {
+                const inputElement = document.getElementById(event);
+                if (inputElement && inputElement.value !== undefined) {
+                    const value = parseFloat(inputElement.value);
+                    if (!isNaN(value)) {
+                        acc[event] = value;
+                    }
+                }
+                return acc;
+            }, {});
+
+            console.log('Event values:', eventValues);
+
+            const otherEventValues = Object.keys(eventValues).reduce((acc, event) => {
+                const category = events[event];
+                if (!prioritisedCategoriesMax[category] || prioritisedCategoriesMax[category].event !== event) {
+                    acc[event] = eventValues[event];
+                }
+                return acc;
+            }, {});
+
+            console.log('Other event values:', otherEventValues);
+            // Leave only 4 max values from otherEventValues
+            const topOtherEventValues = Object.entries(otherEventValues)
+                .sort(([, a], [, b]) => b - a) // Sort by value descending
+                .slice(0, 3) // Take the top 3. TODO for women it should be 1
+                .reduce((acc, [event, value]) => {
+                    acc[event] = value;
+                    return acc;
+                }, {});
+
+            console.log('Top 3 other event values:', topOtherEventValues);
+
+            function getEventName(event) {
+                return document.getElementById(event).name;
+            }
+
+            document.getElementById('calculated-sprint-value').textContent = prioritisedCategoriesMax['Sprint'] ? `${prioritisedCategoriesMax['Sprint'].value} на ${getEventName(prioritisedCategoriesMax['Sprint'].event)}` : "Не участвовал";
+            document.getElementById('calculated-stayer-value').textContent = prioritisedCategoriesMax['Stayer'] ? `${prioritisedCategoriesMax['Stayer'].value} на ${getEventName(prioritisedCategoriesMax['Stayer'].event)}` : "Не участвовал";
+            document.getElementById('calculated-duathlon-value').textContent = prioritisedCategoriesMax['Duathlon'] ? `${prioritisedCategoriesMax['Duathlon'].value} на ${getEventName(prioritisedCategoriesMax['Duathlon'].event)}` : "Не участвовал";
+            document.getElementById('calculated-multi-value').textContent = prioritisedCategoriesMax['Multi'] ? `${prioritisedCategoriesMax['Multi'].value} на ${getEventName(prioritisedCategoriesMax['Multi'].event)}` : "Не участвовал";
+            document.getElementById('calculated-other-events-value').innerHTML = Object.entries(topOtherEventValues)
+                .map(([event, value]) => `<div style="padding-left: 10px;">${getEventName(event)}: ${value}</div>`)
+                .join('');
+
+            const result = Object.values(prioritisedCategoriesMax).reduce((sum, item) => sum + (item ? item.value : 0), 0) + Object.values(topOtherEventValues).reduce((sum, value) => sum + value, 0)
+            document.getElementById('total-value').textContent = result.toFixed(2);
+
+            return result;
+        }
+
+        // Run calculateTotalPoints on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const totalPoints = calculateTotalPoints();
+
+            // Compare scalaTotalPoints query param with calculated result
+            const scalaTotalPoints = parseFloat(queryParams['scalaTotalValue']);
+            console.log('Scala total points from query:', scalaTotalPoints);
+            if (!isNaN(scalaTotalPoints)) {
+                const roundedResult = Math.round(totalPoints * 100) / 100; // Round to 2 decimal digits
+                if (roundedResult !== scalaTotalPoints) {
+                    alert(`Что-то пошло не так! Результат калькулятора: ${roundedResult} не соответсвует очкам в рейтинге: ${scalaTotalPoints}, пожалуйста, обратитесь в телеграм @mkharytonau.`);
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>

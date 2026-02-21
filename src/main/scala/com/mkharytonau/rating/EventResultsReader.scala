@@ -46,7 +46,9 @@ object EventResultsReader {
             value
         }
       }
+    }
 
+    object HoursMinutesSecondsMillisOrTens {
       def apply(resultField: String): HoursMinutesSecondsMillisOrTens =
         new HoursMinutesSecondsMillisOrTens(resultField)
     }
@@ -100,7 +102,8 @@ object EventResultsReader {
       parseGender: ParseGender
   ) extends EventResultsReader {
     def read(path: ResourcePath, gender: Gender): EventResults = {
-      val reader = CSVReader.open(Source.fromResource(path.value + "/results.csv"))
+      val reader =
+        CSVReader.open(Source.fromResource(path.value + "/results.csv"))
       val (rawHeader, rawResults) = reader.allWithOrderedHeaders()
       reader.close()
 

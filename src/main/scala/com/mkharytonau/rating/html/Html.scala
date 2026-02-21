@@ -3,6 +3,7 @@ package com.mkharytonau.rating.html
 import scalatags.Text.all._
 import scalatags.Text.TypedTag
 import scalatags.Text.tags2.{style, title}
+import com.mkharytonau.rating.domain.EventConfig
 
 object Html {
 
@@ -40,24 +41,34 @@ object Html {
       ),
       tbody(
         rows.map { case (gradientPct, row) =>
-          tr(attr("style") := s"--bar:${gradientPct.getOrElse(0)}%")(row.map(td(_)))
+          tr(attr("style") := s"--bar:${gradientPct.getOrElse(0)}%")(
+            row.map(td(_))
+          )
         }
       )
     )
 
   def resultsPage(
-      pageTitle: String,
-      header: String,
-      resultsTable: TypedTag[String]
-  ) = "<!DOCTYPE html>" +
+      resultsTable: TypedTag[String],
+      eventConfig: EventConfig
+  ) = "<!DOCTYPE html>" + {
+    val styles =
+      if (eventConfig.locatedInInnerFolder) "../../../../../../styles.css"
+      else "../../../../../styles.css"
+    val backUrl =
+      if (eventConfig.locatedInInnerFolder) "../index.html" else "index.html"
     html(
-      commonHead(pageTitle, "../../../../../styles.css"),
+      commonHead(eventConfig.name.ratingName, styles),
       body(
-        a(href := "index.html", "← Все категории"),
-        h1(header),
+        a(href := backUrl, "← Все категории"),
+        h1(eventConfig.name.ratingName),
+        p(
+          "❗ По всем вопросам, пожалуйста, обращайтесь в телеграм @mkharytonau"
+        ),
         resultsTable
       )
     )
+  }
 
   def ratingPage(
       pageTitle: String,
@@ -69,6 +80,9 @@ object Html {
       body(
         a(href := "rating.html", "← Все категории"),
         h1(header),
+        p(
+          "❗ По всем вопросам, пожалуйста, обращайтесь в телеграм @mkharytonau"
+        ),
         ratingTable
       )
     )
