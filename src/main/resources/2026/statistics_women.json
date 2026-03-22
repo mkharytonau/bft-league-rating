@@ -1,29 +1,32 @@
 {
   "unique" : {
-    "licenses" : 20
+    "licenses" : 22
   },
   "total" : {
-    "participants" : 33,
+    "participants" : 74,
     "categories" : {
       "license" : {
-        "licensed" : 13,
-        "unlicensed" : 20
+        "licensed" : 27,
+        "unlicensed" : 47
       },
       "ageGroup" : {
-        "40-49" : 3,
-        "18-29" : 1,
-        "30-39" : 7,
-        "50+" : 2
+        "40-49" : 7,
+        "18-29" : 2,
+        "30-39" : 12,
+        "50+" : 6
       },
       "club" : {
         "Anaerobe" : 1,
-        "RunStudio" : 1,
-        "Прочерк" : 1,
-        "Виктория/DRC" : 1,
-        "-" : 5,
-        "Grebenstar" : 1,
-        "Tristyle" : 2,
-        "Altius" : 1
+        "RunStudio" : 2,
+        "Прочерк" : 2,
+        "FARTLEK RUNNING CLUB" : 1,
+        "Виктория/DRC" : 2,
+        "-" : 8,
+        "Grebenstar" : 2,
+        "TRISTYLE" : 1,
+        "Падабайка-RUN" : 2,
+        "Tristyle" : 4,
+        "Altius" : 2
       }
     }
   },
@@ -33,21 +36,23 @@
       "participants" : 22,
       "categories" : {
         "license" : {
-          "licensed" : 10,
-          "unlicensed" : 12
+          "licensed" : 12,
+          "unlicensed" : 10
         },
         "ageGroup" : {
-          "40-49" : 2,
+          "40-49" : 3,
           "18-29" : 1,
           "30-39" : 5,
-          "50+" : 2
+          "50+" : 3
         },
         "club" : {
           "RunStudio" : 1,
           "Прочерк" : 1,
+          "FARTLEK RUNNING CLUB" : 1,
           "Виктория/DRC" : 1,
           "-" : 3,
           "Grebenstar" : 1,
+          "Падабайка-RUN" : 1,
           "Tristyle" : 2,
           "Altius" : 1
         }
@@ -58,15 +63,17 @@
       "participants" : 4,
       "categories" : {
         "license" : {
-          "licensed" : 2,
-          "unlicensed" : 2
+          "licensed" : 3,
+          "unlicensed" : 1
         },
         "ageGroup" : {
+          "40-49" : 1,
           "30-39" : 2
         },
         "club" : {
           "Anaerobe" : 1,
-          "-" : 1
+          "-" : 1,
+          "Падабайка-RUN" : 1
         }
       }
     },
@@ -85,33 +92,60 @@
           "-" : 1
         }
       }
+    },
+    {
+      "name" : "Минск Индор Триатлон",
+      "participants" : 41,
+      "categories" : {
+        "license" : {
+          "licensed" : 11,
+          "unlicensed" : 30
+        },
+        "ageGroup" : {
+          "40-49" : 2,
+          "18-29" : 1,
+          "30-39" : 5,
+          "50+" : 3
+        },
+        "club" : {
+          "RunStudio" : 1,
+          "Прочерк" : 1,
+          "Виктория/DRC" : 1,
+          "-" : 3,
+          "Grebenstar" : 1,
+          "TRISTYLE" : 1,
+          "Tristyle" : 2,
+          "Altius" : 1
+        }
+      }
     }
   ],
   "amountOfParticipations" : {
     "histogram" : {
-      "0" : 7,
-      "1" : 13
+      "0" : 5,
+      "1" : 7,
+      "2" : 10
     },
     "bestParticipants" : [
       {
-        "fioInRussian" : "Шеремет Евгения Николаевна",
-        "participations" : 1
-      },
-      {
-        "fioInRussian" : "Черемисинова Анна Александровна",
-        "participations" : 1
-      },
-      {
         "fioInRussian" : "Врублевская Юлия Николаевна",
-        "participations" : 1
+        "participations" : 2
       },
       {
         "fioInRussian" : "Клебанович Виктория Николаевна",
-        "participations" : 1
+        "participations" : 2
       },
       {
         "fioInRussian" : "Ковалёва Диана Васильевна",
-        "participations" : 1
+        "participations" : 2
+      },
+      {
+        "fioInRussian" : "Кузнецова Марина Алексеевна",
+        "participations" : 2
+      },
+      {
+        "fioInRussian" : "Науменко Анна Александровна",
+        "participations" : 2
       }
     ]
   }

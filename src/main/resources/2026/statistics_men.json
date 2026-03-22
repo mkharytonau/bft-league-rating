@@ -1,45 +1,51 @@
 {
   "unique" : {
-    "licenses" : 72
+    "licenses" : 83
   },
   "total" : {
-    "participants" : 114,
+    "participants" : 223,
     "categories" : {
       "license" : {
-        "licensed" : 44,
-        "unlicensed" : 70
+        "licensed" : 86,
+        "unlicensed" : 137
       },
       "ageGroup" : {
-        "30-34" : 3,
-        "40-44" : 13,
-        "35-39" : 8,
-        "50-54" : 3,
+        "30-34" : 7,
+        "40-44" : 27,
+        "35-39" : 20,
+        "50-54" : 5,
         "60+" : 1,
         "55-59" : 1,
-        "18-24" : 3,
-        "25-29" : 5,
-        "45-49" : 7
+        "18-24" : 6,
+        "25-29" : 7,
+        "45-49" : 12
       },
       "club" : {
-        "Tristyle" : 10,
+        "S-sportas" : 1,
+        "Tristyle" : 16,
         "UTribe" : 1,
-        "Grebenstar" : 1,
-        "Жёлтая Субмарина" : 1,
-        "ON-BIKE" : 2,
-        "Yellow submarine" : 1,
-        "tristale.club" : 1,
-        "SQMINSK" : 2,
-        "-----" : 1,
-        "RUN4FUN.BY" : 1,
-        "Runstudio" : 1,
-        "Yellow Submarine" : 2,
-        "Многобор" : 3,
-        "СК Сож" : 1,
-        "Altius!" : 1,
-        "TRIVIDA" : 1,
-        "Runonline.by" : 1,
-        "-" : 11,
-        "Biketourist.club" : 1,
+        "Grebenstar" : 2,
+        "TRISTYLE" : 1,
+        "Жёлтая Субмарина" : 2,
+        "ON-BIKE" : 3,
+        "Yellow submarine" : 2,
+        "tristale.club" : 2,
+        "SQMINSK" : 3,
+        "-----" : 2,
+        "RUN4FUN.BY" : 3,
+        "Runstudio" : 2,
+        "TriStyle" : 1,
+        "Yellow Submarine" : 3,
+        "Многобор" : 4,
+        "СК Сож" : 2,
+        "Altius!" : 3,
+        "TRIVIDA" : 2,
+        "Runonline.by" : 2,
+        "-" : 23,
+        "Clown’s Triathlon team" : 1,
+        "БелНовация" : 1,
+        "Blackberry Crew" : 1,
+        "Biketourist.club" : 2,
         "Каяк" : 1
       }
     }
@@ -87,12 +93,12 @@
       "participants" : 24,
       "categories" : {
         "license" : {
-          "licensed" : 12,
-          "unlicensed" : 12
+          "licensed" : 13,
+          "unlicensed" : 11
         },
         "ageGroup" : {
           "30-34" : 1,
-          "40-44" : 2,
+          "40-44" : 3,
           "35-39" : 2,
           "50-54" : 1,
           "60+" : 1,
@@ -103,7 +109,7 @@
         },
         "club" : {
           "SQMINSK" : 1,
-          "Tristyle" : 2,
+          "Tristyle" : 3,
           "UTribe" : 1,
           "-" : 4,
           "Каяк" : 1,
@@ -117,47 +123,94 @@
       "participants" : 22,
       "categories" : {
         "license" : {
-          "licensed" : 3,
-          "unlicensed" : 19
+          "licensed" : 4,
+          "unlicensed" : 18
         },
         "ageGroup" : {
-          "40-44" : 1,
+          "40-44" : 2,
           "45-49" : 2
         },
         "club" : {
           "-----" : 1,
           "Многобор" : 1,
+          "-" : 1,
           "ON-BIKE" : 1
+        }
+      }
+    },
+    {
+      "name" : "Минск Индор Триатлон",
+      "participants" : 109,
+      "categories" : {
+        "license" : {
+          "licensed" : 40,
+          "unlicensed" : 69
+        },
+        "ageGroup" : {
+          "30-34" : 4,
+          "40-44" : 12,
+          "35-39" : 12,
+          "50-54" : 2,
+          "18-24" : 3,
+          "25-29" : 2,
+          "45-49" : 5
+        },
+        "club" : {
+          "S-sportas" : 1,
+          "Tristyle" : 5,
+          "Grebenstar" : 1,
+          "TRISTYLE" : 1,
+          "Жёлтая Субмарина" : 1,
+          "Biketourist.club" : 1,
+          "ON-BIKE" : 1,
+          "Yellow submarine" : 1,
+          "tristale.club" : 1,
+          "SQMINSK" : 1,
+          "-----" : 1,
+          "RUN4FUN.BY" : 2,
+          "Runstudio" : 1,
+          "TriStyle" : 1,
+          "Yellow Submarine" : 1,
+          "Многобор" : 1,
+          "СК Сож" : 1,
+          "Altius!" : 2,
+          "TRIVIDA" : 1,
+          "Runonline.by" : 1,
+          "-" : 11,
+          "Clown’s Triathlon team" : 1,
+          "БелНовация" : 1,
+          "Blackberry Crew" : 1
         }
       }
     }
   ],
   "amountOfParticipations" : {
     "histogram" : {
-      "0" : 34,
-      "1" : 32,
-      "2" : 6
+      "0" : 31,
+      "1" : 24,
+      "2" : 22,
+      "3" : 6
     },
     "bestParticipants" : [
       {
         "fioInRussian" : "Шинкарёв Алексей Васильевич",
-        "participations" : 2
+        "participations" : 3
       },
       {
         "fioInRussian" : "Гуштын Никита Александрович",
-        "participations" : 2
+        "participations" : 3
       },
       {
         "fioInRussian" : "Петровичев Валентин Сергеевич",
-        "participations" : 2
+        "participations" : 3
       },
       {
         "fioInRussian" : "Гацко Дмитрий Михайлович",
-        "participations" : 2
+        "participations" : 3
       },
       {
         "fioInRussian" : "Бузо Александр Владимирович",
-        "participations" : 2
+        "participations" : 3
       }
     ]
   }

@@ -52,6 +52,19 @@ object Main extends App {
         )
       )
     ),
+    CompetitionConfig(
+      name = CompetitionName("Минск Индор Триатлон"),
+      events = List(
+        EventConfig(
+          EventName("Минск Индор Триатлон", "MinskIndoorTriathlon"),
+          EventCategory.Multi,
+          ResourcePath("2026/Minsk_Indoor_Triathlon"),
+          EventResultsReader.Configured("ФИО", ParseResult.IndoorTriathlon, ParseGender.ByField("Пол", "М", "Ж")),
+          EventResultsCalculator.Standart,
+          700.0
+        )
+      )
+    ),
   )
 
   List[Gender](Men, Women).foreach { gender => 
