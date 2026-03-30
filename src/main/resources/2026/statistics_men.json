@@ -1,18 +1,18 @@
 {
   "unique" : {
-    "licenses" : 83
+    "licenses" : 88
   },
   "total" : {
     "participants" : 223,
     "categories" : {
       "license" : {
-        "licensed" : 86,
-        "unlicensed" : 137
+        "licensed" : 89,
+        "unlicensed" : 134
       },
       "ageGroup" : {
         "30-34" : 7,
         "40-44" : 27,
-        "35-39" : 20,
+        "35-39" : 23,
         "50-54" : 5,
         "60+" : 1,
         "55-59" : 1,
@@ -22,12 +22,13 @@
       },
       "club" : {
         "S-sportas" : 1,
-        "Tristyle" : 16,
+        "Tristyle" : 18,
         "UTribe" : 1,
         "Grebenstar" : 2,
         "TRISTYLE" : 1,
         "Жёлтая Субмарина" : 2,
         "ON-BIKE" : 3,
+        "Arza Running Club" : 1,
         "Yellow submarine" : 2,
         "tristale.club" : 2,
         "SQMINSK" : 3,
@@ -56,13 +57,13 @@
       "participants" : 68,
       "categories" : {
         "license" : {
-          "licensed" : 29,
-          "unlicensed" : 39
+          "licensed" : 30,
+          "unlicensed" : 38
         },
         "ageGroup" : {
           "30-34" : 2,
           "40-44" : 10,
-          "35-39" : 6,
+          "35-39" : 7,
           "50-54" : 2,
           "18-24" : 2,
           "25-29" : 4,
@@ -70,7 +71,7 @@
         },
         "club" : {
           "SQMINSK" : 1,
-          "Tristyle" : 8,
+          "Tristyle" : 9,
           "Grebenstar" : 1,
           "Жёлтая Субмарина" : 1,
           "Biketourist.club" : 1,
@@ -143,13 +144,13 @@
       "participants" : 109,
       "categories" : {
         "license" : {
-          "licensed" : 40,
-          "unlicensed" : 69
+          "licensed" : 42,
+          "unlicensed" : 67
         },
         "ageGroup" : {
           "30-34" : 4,
           "40-44" : 12,
-          "35-39" : 12,
+          "35-39" : 14,
           "50-54" : 2,
           "18-24" : 3,
           "25-29" : 2,
@@ -157,12 +158,13 @@
         },
         "club" : {
           "S-sportas" : 1,
-          "Tristyle" : 5,
+          "Tristyle" : 6,
           "Grebenstar" : 1,
           "TRISTYLE" : 1,
           "Жёлтая Субмарина" : 1,
           "Biketourist.club" : 1,
           "ON-BIKE" : 1,
+          "Arza Running Club" : 1,
           "Yellow submarine" : 1,
           "tristale.club" : 1,
           "SQMINSK" : 1,
@@ -186,9 +188,9 @@
   ],
   "amountOfParticipations" : {
     "histogram" : {
-      "0" : 31,
-      "1" : 24,
-      "2" : 22,
+      "0" : 34,
+      "1" : 25,
+      "2" : 23,
       "3" : 6
     },
     "bestParticipants" : [

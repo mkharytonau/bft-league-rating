@@ -100,7 +100,8 @@ object RatingWriter {
             img(
               src := s"./img/avatars/thumbnails/${license.fioInRussian.value}.jpg",
               alt := "",
-              style := "border-radius: 50%; max-height: 2em; max-width: 2em; vertical-align: middle;"
+              style := "border-radius: 50%; max-height: 2em; max-width: 2em; vertical-align: middle;",
+              onerror := "this.src='./img/avatars/thumbnails/placeholder.jpg'"
             ),
             raw("&nbsp;"),
             span(license.fioInRussian.value)
