@@ -1,52 +1,57 @@
 {
   "unique" : {
-    "licenses" : 88
+    "licenses" : 94
   },
   "total" : {
-    "participants" : 223,
+    "participants" : 284,
     "categories" : {
       "license" : {
-        "licensed" : 89,
-        "unlicensed" : 134
+        "licensed" : 126,
+        "unlicensed" : 158
       },
       "ageGroup" : {
-        "30-34" : 7,
-        "40-44" : 27,
-        "35-39" : 23,
-        "50-54" : 5,
-        "60+" : 1,
-        "55-59" : 1,
-        "18-24" : 6,
-        "25-29" : 7,
-        "45-49" : 12
+        "30-34" : 11,
+        "40-44" : 38,
+        "35-39" : 30,
+        "50-54" : 8,
+        "60+" : 2,
+        "55-59" : 3,
+        "18-24" : 8,
+        "25-29" : 9,
+        "45-49" : 17
       },
       "club" : {
         "S-sportas" : 1,
-        "Tristyle" : 18,
         "UTribe" : 1,
         "Grebenstar" : 2,
         "TRISTYLE" : 1,
-        "Жёлтая Субмарина" : 2,
         "ON-BIKE" : 3,
         "Arza Running Club" : 1,
-        "Yellow submarine" : 2,
+        "Yellow submarine" : 3,
         "tristale.club" : 2,
-        "SQMINSK" : 3,
+        "SQMINSK" : 4,
         "-----" : 2,
-        "RUN4FUN.BY" : 3,
+        "ALTIUS!" : 1,
+        "Tristyle" : 26,
+        "Altius" : 1,
+        "RUN4FUN.BY" : 4,
         "Runstudio" : 2,
         "TriStyle" : 1,
-        "Yellow Submarine" : 3,
-        "Многобор" : 4,
-        "СК Сож" : 2,
-        "Altius!" : 3,
-        "TRIVIDA" : 2,
+        "Yellow Submarine" : 4,
+        "Многобор" : 6,
+        "СК Сож" : 3,
+        "Altius!" : 4,
+        "Крынiца" : 1,
+        "TRIVIDA" : 3,
+        "Тристайл" : 1,
         "Runonline.by" : 2,
-        "-" : 23,
-        "Clown’s Triathlon team" : 1,
-        "БелНовация" : 1,
+        "-" : 33,
+        "Clown’s Triathlon team" : 2,
+        "БелНовация" : 2,
         "Blackberry Crew" : 1,
-        "Biketourist.club" : 2,
+        "Жёлтая Субмарина" : 2,
+        "Magicsport" : 3,
+        "Biketourist.club" : 3,
         "Каяк" : 1
       }
     }
@@ -61,8 +66,8 @@
           "unlicensed" : 38
         },
         "ageGroup" : {
-          "30-34" : 2,
-          "40-44" : 10,
+          "30-34" : 3,
+          "40-44" : 9,
           "35-39" : 7,
           "50-54" : 2,
           "18-24" : 2,
@@ -94,12 +99,12 @@
       "participants" : 24,
       "categories" : {
         "license" : {
-          "licensed" : 13,
-          "unlicensed" : 11
+          "licensed" : 14,
+          "unlicensed" : 10
         },
         "ageGroup" : {
           "30-34" : 1,
-          "40-44" : 3,
+          "40-44" : 4,
           "35-39" : 2,
           "50-54" : 1,
           "60+" : 1,
@@ -113,6 +118,7 @@
           "Tristyle" : 3,
           "UTribe" : 1,
           "-" : 4,
+          "Magicsport" : 1,
           "Каяк" : 1,
           "Yellow Submarine" : 1,
           "Многобор" : 2
@@ -144,24 +150,23 @@
       "participants" : 109,
       "categories" : {
         "license" : {
-          "licensed" : 42,
-          "unlicensed" : 67
+          "licensed" : 44,
+          "unlicensed" : 65
         },
         "ageGroup" : {
-          "30-34" : 4,
+          "30-34" : 5,
           "40-44" : 12,
           "35-39" : 14,
           "50-54" : 2,
           "18-24" : 3,
           "25-29" : 2,
-          "45-49" : 5
+          "45-49" : 6
         },
         "club" : {
           "S-sportas" : 1,
-          "Tristyle" : 6,
+          "Tristyle" : 7,
           "Grebenstar" : 1,
           "TRISTYLE" : 1,
-          "Жёлтая Субмарина" : 1,
           "Biketourist.club" : 1,
           "ON-BIKE" : 1,
           "Arza Running Club" : 1,
@@ -181,38 +186,82 @@
           "-" : 11,
           "Clown’s Triathlon team" : 1,
           "БелНовация" : 1,
-          "Blackberry Crew" : 1
+          "Blackberry Crew" : 1,
+          "Жёлтая Субмарина" : 1,
+          "Magicsport" : 1
+        }
+      }
+    },
+    {
+      "name" : "Дуатлон. Дрогичин",
+      "participants" : 61,
+      "categories" : {
+        "license" : {
+          "licensed" : 34,
+          "unlicensed" : 27
+        },
+        "ageGroup" : {
+          "30-34" : 2,
+          "40-44" : 11,
+          "35-39" : 7,
+          "50-54" : 3,
+          "60+" : 1,
+          "55-59" : 2,
+          "18-24" : 2,
+          "25-29" : 2,
+          "45-49" : 4
+        },
+        "club" : {
+          "SQMINSK" : 1,
+          "RUN4FUN.BY" : 1,
+          "-" : 10,
+          "Magicsport" : 1,
+          "Biketourist.club" : 1,
+          "Yellow submarine" : 1,
+          "ALTIUS!" : 1,
+          "Tristyle" : 7,
+          "Altius" : 1,
+          "Yellow Submarine" : 1,
+          "Многобор" : 2,
+          "СК Сож" : 1,
+          "Altius!" : 1,
+          "Крынiца" : 1,
+          "TRIVIDA" : 1,
+          "Тристайл" : 1,
+          "Clown’s Triathlon team" : 1,
+          "БелНовация" : 1
         }
       }
     }
   ],
   "amountOfParticipations" : {
     "histogram" : {
-      "0" : 34,
+      "0" : 31,
       "1" : 25,
-      "2" : 23,
-      "3" : 6
+      "2" : 18,
+      "3" : 15,
+      "4" : 5
     },
     "bestParticipants" : [
       {
-        "fioInRussian" : "Шинкарёв Алексей Васильевич",
-        "participations" : 3
-      },
-      {
         "fioInRussian" : "Гуштын Никита Александрович",
-        "participations" : 3
+        "participations" : 4
       },
       {
         "fioInRussian" : "Петровичев Валентин Сергеевич",
-        "participations" : 3
+        "participations" : 4
       },
       {
         "fioInRussian" : "Гацко Дмитрий Михайлович",
-        "participations" : 3
+        "participations" : 4
       },
       {
         "fioInRussian" : "Бузо Александр Владимирович",
-        "participations" : 3
+        "participations" : 4
+      },
+      {
+        "fioInRussian" : "Юрков Александр Сергеевич",
+        "participations" : 4
       }
     ]
   }

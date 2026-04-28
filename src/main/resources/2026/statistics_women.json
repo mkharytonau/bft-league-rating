@@ -3,30 +3,30 @@
     "licenses" : 22
   },
   "total" : {
-    "participants" : 74,
+    "participants" : 96,
     "categories" : {
       "license" : {
-        "licensed" : 27,
-        "unlicensed" : 47
+        "licensed" : 35,
+        "unlicensed" : 61
       },
       "ageGroup" : {
-        "40-49" : 7,
-        "18-29" : 2,
-        "30-39" : 12,
-        "50+" : 6
+        "40-49" : 10,
+        "18-29" : 3,
+        "30-39" : 14,
+        "50+" : 8
       },
       "club" : {
         "Anaerobe" : 1,
         "RunStudio" : 2,
         "Прочерк" : 2,
-        "FARTLEK RUNNING CLUB" : 1,
+        "FARTLEK RUNNING CLUB" : 2,
         "Виктория/DRC" : 2,
-        "-" : 8,
-        "Grebenstar" : 2,
+        "-" : 12,
+        "Grebenstar" : 3,
         "TRISTYLE" : 1,
         "Падабайка-RUN" : 2,
-        "Tristyle" : 4,
-        "Altius" : 2
+        "Tristyle" : 5,
+        "Altius" : 3
       }
     }
   },
@@ -118,34 +118,58 @@
           "Altius" : 1
         }
       }
+    },
+    {
+      "name" : "Дуатлон. Дрогичин",
+      "participants" : 22,
+      "categories" : {
+        "license" : {
+          "licensed" : 8,
+          "unlicensed" : 14
+        },
+        "ageGroup" : {
+          "40-49" : 3,
+          "18-29" : 1,
+          "30-39" : 2,
+          "50+" : 2
+        },
+        "club" : {
+          "FARTLEK RUNNING CLUB" : 1,
+          "-" : 4,
+          "Grebenstar" : 1,
+          "Tristyle" : 1,
+          "Altius" : 1
+        }
+      }
     }
   ],
   "amountOfParticipations" : {
     "histogram" : {
       "0" : 5,
-      "1" : 7,
-      "2" : 10
+      "1" : 4,
+      "2" : 8,
+      "3" : 5
     },
     "bestParticipants" : [
       {
         "fioInRussian" : "Врублевская Юлия Николаевна",
-        "participations" : 2
-      },
-      {
-        "fioInRussian" : "Клебанович Виктория Николаевна",
-        "participations" : 2
-      },
-      {
-        "fioInRussian" : "Ковалёва Диана Васильевна",
-        "participations" : 2
-      },
-      {
-        "fioInRussian" : "Кузнецова Марина Алексеевна",
-        "participations" : 2
+        "participations" : 3
       },
       {
         "fioInRussian" : "Науменко Анна Александровна",
-        "participations" : 2
+        "participations" : 3
+      },
+      {
+        "fioInRussian" : "Кузнецова Марина Алексеевна",
+        "participations" : 3
+      },
+      {
+        "fioInRussian" : "Попова Светлана Владимировна",
+        "participations" : 3
+      },
+      {
+        "fioInRussian" : "Марзан Ольга Леонидовна",
+        "participations" : 3
       }
     ]
   }

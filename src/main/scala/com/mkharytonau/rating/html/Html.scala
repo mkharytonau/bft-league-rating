@@ -63,7 +63,8 @@ object Html {
         a(href := backUrl, "← Все категории"),
         h1(eventConfig.name.ratingName),
         p(
-          "❗ По всем вопросам, пожалуйста, обращайтесь в телеграм @mkharytonau"
+          "❗ По всем вопросам, пожалуйста, обращайтесь в телеграм ",
+          a(href := "https://t.me/mkharytonau", "@mkharytonau")
         ),
         resultsTable
       )
@@ -81,7 +82,8 @@ object Html {
         a(href := "rating.html", "← Все категории"),
         h1(header),
         p(
-          "❗ По всем вопросам, пожалуйста, обращайтесь в телеграм @mkharytonau"
+          "❗ По всем вопросам, пожалуйста, обращайтесь в телеграм ",
+          a(href := "https://t.me/mkharytonau", "@mkharytonau")
         ),
         ratingTable
       )
