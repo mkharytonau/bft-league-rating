@@ -1,13 +1,13 @@
 {
   "unique" : {
-    "licenses" : 94
+    "licenses" : 101
   },
   "total" : {
     "participants" : 284,
     "categories" : {
       "license" : {
-        "licensed" : 126,
-        "unlicensed" : 158
+        "licensed" : 132,
+        "unlicensed" : 152
       },
       "ageGroup" : {
         "30-34" : 11,
@@ -15,20 +15,20 @@
         "35-39" : 30,
         "50-54" : 8,
         "60+" : 2,
-        "55-59" : 3,
-        "18-24" : 8,
-        "25-29" : 9,
-        "45-49" : 17
+        "55-59" : 4,
+        "18-24" : 9,
+        "25-29" : 11,
+        "45-49" : 19
       },
       "club" : {
         "S-sportas" : 1,
+        "Без клуба" : 1,
         "UTribe" : 1,
         "Grebenstar" : 2,
         "TRISTYLE" : 1,
         "ON-BIKE" : 3,
         "Arza Running Club" : 1,
         "Yellow submarine" : 3,
-        "tristale.club" : 2,
         "SQMINSK" : 4,
         "-----" : 2,
         "ALTIUS!" : 1,
@@ -43,16 +43,18 @@
         "Altius!" : 4,
         "Крынiца" : 1,
         "TRIVIDA" : 3,
-        "Тристайл" : 1,
+        "Тристайл" : 2,
         "Runonline.by" : 2,
-        "-" : 33,
+        "-" : 35,
         "Clown’s Triathlon team" : 2,
         "БелНовация" : 2,
         "Blackberry Crew" : 1,
         "Жёлтая Субмарина" : 2,
         "Magicsport" : 3,
         "Biketourist.club" : 3,
-        "Каяк" : 1
+        "Каяк" : 1,
+        "nedmotorsport" : 2,
+        "tristale.club" : 2
       }
     }
   },
@@ -62,8 +64,8 @@
       "participants" : 68,
       "categories" : {
         "license" : {
-          "licensed" : 30,
-          "unlicensed" : 38
+          "licensed" : 31,
+          "unlicensed" : 37
         },
         "ageGroup" : {
           "30-34" : 3,
@@ -72,7 +74,7 @@
           "50-54" : 2,
           "18-24" : 2,
           "25-29" : 4,
-          "45-49" : 3
+          "45-49" : 4
         },
         "club" : {
           "SQMINSK" : 1,
@@ -82,7 +84,6 @@
           "Biketourist.club" : 1,
           "ON-BIKE" : 1,
           "Yellow submarine" : 1,
-          "tristale.club" : 1,
           "RUN4FUN.BY" : 1,
           "Runstudio" : 1,
           "Yellow Submarine" : 1,
@@ -90,7 +91,9 @@
           "Altius!" : 1,
           "TRIVIDA" : 1,
           "Runonline.by" : 1,
-          "-" : 7
+          "-" : 7,
+          "nedmotorsport" : 1,
+          "tristale.club" : 1
         }
       }
     },
@@ -99,8 +102,8 @@
       "participants" : 24,
       "categories" : {
         "license" : {
-          "licensed" : 14,
-          "unlicensed" : 10
+          "licensed" : 15,
+          "unlicensed" : 9
         },
         "ageGroup" : {
           "30-34" : 1,
@@ -108,7 +111,7 @@
           "35-39" : 2,
           "50-54" : 1,
           "60+" : 1,
-          "55-59" : 1,
+          "55-59" : 2,
           "18-24" : 1,
           "25-29" : 1,
           "45-49" : 2
@@ -116,6 +119,7 @@
         "club" : {
           "SQMINSK" : 1,
           "Tristyle" : 3,
+          "Без клуба" : 1,
           "UTribe" : 1,
           "-" : 4,
           "Magicsport" : 1,
@@ -130,18 +134,19 @@
       "participants" : 22,
       "categories" : {
         "license" : {
-          "licensed" : 4,
-          "unlicensed" : 18
+          "licensed" : 5,
+          "unlicensed" : 17
         },
         "ageGroup" : {
           "40-44" : 2,
-          "45-49" : 2
+          "45-49" : 3
         },
         "club" : {
           "-----" : 1,
           "Многобор" : 1,
           "-" : 1,
-          "ON-BIKE" : 1
+          "ON-BIKE" : 1,
+          "nedmotorsport" : 1
         }
       }
     },
@@ -150,8 +155,8 @@
       "participants" : 109,
       "categories" : {
         "license" : {
-          "licensed" : 44,
-          "unlicensed" : 65
+          "licensed" : 45,
+          "unlicensed" : 64
         },
         "ageGroup" : {
           "30-34" : 5,
@@ -159,7 +164,7 @@
           "35-39" : 14,
           "50-54" : 2,
           "18-24" : 3,
-          "25-29" : 2,
+          "25-29" : 3,
           "45-49" : 6
         },
         "club" : {
@@ -183,7 +188,7 @@
           "Altius!" : 2,
           "TRIVIDA" : 1,
           "Runonline.by" : 1,
-          "-" : 11,
+          "-" : 12,
           "Clown’s Triathlon team" : 1,
           "БелНовация" : 1,
           "Blackberry Crew" : 1,
@@ -197,8 +202,8 @@
       "participants" : 61,
       "categories" : {
         "license" : {
-          "licensed" : 34,
-          "unlicensed" : 27
+          "licensed" : 36,
+          "unlicensed" : 25
         },
         "ageGroup" : {
           "30-34" : 2,
@@ -207,14 +212,14 @@
           "50-54" : 3,
           "60+" : 1,
           "55-59" : 2,
-          "18-24" : 2,
-          "25-29" : 2,
+          "18-24" : 3,
+          "25-29" : 3,
           "45-49" : 4
         },
         "club" : {
           "SQMINSK" : 1,
           "RUN4FUN.BY" : 1,
-          "-" : 10,
+          "-" : 11,
           "Magicsport" : 1,
           "Biketourist.club" : 1,
           "Yellow submarine" : 1,
@@ -227,7 +232,7 @@
           "Altius!" : 1,
           "Крынiца" : 1,
           "TRIVIDA" : 1,
-          "Тристайл" : 1,
+          "Тристайл" : 2,
           "Clown’s Triathlon team" : 1,
           "БелНовация" : 1
         }
@@ -236,9 +241,9 @@
   ],
   "amountOfParticipations" : {
     "histogram" : {
-      "0" : 31,
-      "1" : 25,
-      "2" : 18,
+      "0" : 34,
+      "1" : 27,
+      "2" : 20,
       "3" : 15,
       "4" : 5
     },
