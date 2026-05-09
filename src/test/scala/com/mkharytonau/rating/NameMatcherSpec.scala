@@ -31,8 +31,8 @@ class NameMatcherSpec extends munit.FunSuite {
 		assert(NameMatcher("Куприянов Никита", "Kupriyanov Nikita"))
 		assert(NameMatcher("Куприянов Никита", "NIKITA KUPRIYANOV"))
 		assert(NameMatcher("Куприянов Никита", "KUPRIYANOV NIKITA"))
-		assert(NameMatcher("Куприянов Никита", "KUPRYIANAU MIKITA"))
-		assert(NameMatcher("KUPRIYANOV NIKITA", "KUPRYIANAU MIKITA"))
+		assert(!NameMatcher("Куприянов Никита", "KUPRYIANAU MIKITA")) // Handled with NameMapping
+		assert(!NameMatcher("KUPRIYANOV NIKITA", "KUPRYIANAU MIKITA")) // Handled with NameMapping
 	}
 
 	test("real case of custom aliases 2") {
@@ -42,10 +42,20 @@ class NameMatcherSpec extends munit.FunSuite {
 	}
 
 	test("real case of custom aliases 3") {
-		assert(NameMatcher("Куделко Екатерина", "Куделко Катерина"))
+		assert(!NameMatcher("Куделко Екатерина", "Куделко Катерина")) // Handled with NameMapping
+	}
+
+	test("real case 4") {
+		assert(NameMatcher("Коротыш Фёдор", "Коротыш Федор"))	
+	}
+
+	test("real case 5") {
+		assert(!NameMatcher("Вершалович Алексей", "Vershalovich Alexei"))	// Handled with NameMapping
 	}
 
 	test("non match") {
 		assert(!NameMatcher("Иванов Иван", "Nikita Haritonov"))
+		assert(!NameMatcher("Ерофеев Александр Александрович", "Шинкарёв Алексей"))
+		assert(!NameMatcher("Ерофеев Александр", "Шинкарёв Алексей"))
 	}
 }

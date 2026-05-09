@@ -6,8 +6,8 @@
     "participants" : 284,
     "categories" : {
       "license" : {
-        "licensed" : 132,
-        "unlicensed" : 152
+        "licensed" : 135,
+        "unlicensed" : 149
       },
       "ageGroup" : {
         "30-34" : 11,
@@ -16,9 +16,9 @@
         "50-54" : 8,
         "60+" : 2,
         "55-59" : 4,
-        "18-24" : 9,
+        "18-24" : 11,
         "25-29" : 11,
-        "45-49" : 19
+        "45-49" : 20
       },
       "club" : {
         "S-sportas" : 1,
@@ -32,7 +32,7 @@
         "SQMINSK" : 4,
         "-----" : 2,
         "ALTIUS!" : 1,
-        "Tristyle" : 26,
+        "Tristyle" : 27,
         "Altius" : 1,
         "RUN4FUN.BY" : 4,
         "Runstudio" : 2,
@@ -43,7 +43,7 @@
         "Altius!" : 4,
         "Крынiца" : 1,
         "TRIVIDA" : 3,
-        "Тристайл" : 2,
+        "Тристайл" : 4,
         "Runonline.by" : 2,
         "-" : 35,
         "Clown’s Triathlon team" : 2,
@@ -64,15 +64,15 @@
       "participants" : 68,
       "categories" : {
         "license" : {
-          "licensed" : 31,
-          "unlicensed" : 37
+          "licensed" : 32,
+          "unlicensed" : 36
         },
         "ageGroup" : {
           "30-34" : 3,
           "40-44" : 9,
           "35-39" : 7,
           "50-54" : 2,
-          "18-24" : 2,
+          "18-24" : 3,
           "25-29" : 4,
           "45-49" : 4
         },
@@ -90,6 +90,7 @@
           "СК Сож" : 1,
           "Altius!" : 1,
           "TRIVIDA" : 1,
+          "Тристайл" : 1,
           "Runonline.by" : 1,
           "-" : 7,
           "nedmotorsport" : 1,
@@ -155,15 +156,15 @@
       "participants" : 109,
       "categories" : {
         "license" : {
-          "licensed" : 45,
-          "unlicensed" : 64
+          "licensed" : 46,
+          "unlicensed" : 63
         },
         "ageGroup" : {
           "30-34" : 5,
           "40-44" : 12,
           "35-39" : 14,
           "50-54" : 2,
-          "18-24" : 3,
+          "18-24" : 4,
           "25-29" : 3,
           "45-49" : 6
         },
@@ -187,6 +188,7 @@
           "СК Сож" : 1,
           "Altius!" : 2,
           "TRIVIDA" : 1,
+          "Тристайл" : 1,
           "Runonline.by" : 1,
           "-" : 12,
           "Clown’s Triathlon team" : 1,
@@ -202,8 +204,8 @@
       "participants" : 61,
       "categories" : {
         "license" : {
-          "licensed" : 36,
-          "unlicensed" : 25
+          "licensed" : 37,
+          "unlicensed" : 24
         },
         "ageGroup" : {
           "30-34" : 2,
@@ -214,7 +216,7 @@
           "55-59" : 2,
           "18-24" : 3,
           "25-29" : 3,
-          "45-49" : 4
+          "45-49" : 5
         },
         "club" : {
           "SQMINSK" : 1,
@@ -224,7 +226,7 @@
           "Biketourist.club" : 1,
           "Yellow submarine" : 1,
           "ALTIUS!" : 1,
-          "Tristyle" : 7,
+          "Tristyle" : 8,
           "Altius" : 1,
           "Yellow Submarine" : 1,
           "Многобор" : 2,
@@ -242,9 +244,9 @@
   "amountOfParticipations" : {
     "histogram" : {
       "0" : 34,
-      "1" : 27,
-      "2" : 20,
-      "3" : 15,
+      "1" : 25,
+      "2" : 21,
+      "3" : 16,
       "4" : 5
     },
     "bestParticipants" : [

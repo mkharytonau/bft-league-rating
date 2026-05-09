@@ -22,52 +22,46 @@ object EventResultsCalculator {
       licenses: List[License],
       nameMapping: Map[FIOInRussian, List[Nickname]]
   ): Option[License] = {
-    val byFIInRussian = licenses.filter { license =>
-      license.fioInRussian.value.toLowerCase
-        .split(" ")
-        .take(2)
-        .map(_.trim) match {
-        case Array(surname, name) =>
-          s"$surname $name" == result.nickname.value.toLowerCase || // both Харитонов Никита
-          s"$name $surname" == result.nickname.value.toLowerCase // and Никита Харитонов match
+    def firstTwoWords(value: String): Option[String] = {
+      val words = value.trim.split("\\s+").take(2)
+      Option.when(words.size == 2)(words.mkString(" "))
+    }
+
+    def nameCandidates(license: License): List[String] =
+      List(
+        Some(license.fioInRussian.value),
+        firstTwoWords(license.fioInRussian.value),
+        Some(license.fioInEnglish.value),
+        firstTwoWords(license.fioInEnglish.value)
+      ).flatten
+        .filter(_.trim.nonEmpty)
+        .distinct
+
+    val byName = licenses.filter { license =>
+      nameCandidates(license).exists { cand => 
+        val matched = NameMatcher(cand, result.nickname.value)
+        // if (b) println(s"nickname: ${result.nickname.value}, nameCandidate: $a, result: $b")
+        matched
       }
-    } // FI in russian present in results, the most probable case
-    require(byFIInRussian.size <= 1)
-    val byFIOInRussian = licenses.filter(
-      _.fioInRussian.value.toLowerCase == result.nickname.value.toLowerCase
-    ) // FIO in russian present in results, less probable case
-    require(byFIOInRussian.size <= 1)
-    val byFIOInEnglish = licenses.filter { license =>
-      license.fioInEnglish.value.toLowerCase
-        .split(" ")
-        .take(2)
-        .map(_.trim) match {
-        case Array(surname, name) =>
-          s"$surname $name" == result.nickname.value.toLowerCase || // both Kharitonov Nikita
-          s"$name $surname" == result.nickname.value.toLowerCase // and Nikita Kharitonov match
-        case other =>
-          println(s"WARNING: Unexpected format in FIOInEnglish: ${other.mkString(" ")}, $license")
-          false
-      }
-    } // FIO in english present in results, less probable case
-    require(byFIOInEnglish.size <= 1)
+    }
+    require(byName.size <= 1, s"nickname: ${result.nickname.value}, byName: $byName")
+
     val byNickname = { // result contains custom nickname, try to map it to FIO in russian and find license for it
       val fiosInRussian = nameMapping.collect {
         case (fioInRussian, nicknames) if nicknames.contains(result.nickname) =>
           fioInRussian
       }.toList
-      require(fiosInRussian.size <= 1)
+      require(fiosInRussian.size <= 1, s"fiosInRussian: $fiosInRussian")
       licenses.filter(lic => fiosInRussian.contains(lic.fioInRussian))
     }
-    require(byNickname.size <= 1)
-    val byAll = byFIInRussian ++ byFIOInRussian ++ byFIOInEnglish ++ byNickname
+    require(byNickname.size <= 1,s"byNickname: $byNickname")
+
+    val byAll = (byName ++ byNickname).distinct
     if (byAll.size > 1) {
-      println(s"byFIInRussian: $byFIInRussian")
-      println(s"byFIOInRussian: $byFIOInRussian")
-      println(s"byFIOInEnglish: $byFIOInEnglish")
+      println(s"byName: $byName")
       println(s"byNickname: $byNickname")
     }
-    require(byAll.size <= 1)
+    require(byAll.size <= 1,s"byAll: $byAll")
     byAll.headOption
   }
 
