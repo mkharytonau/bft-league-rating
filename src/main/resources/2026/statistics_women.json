@@ -1,33 +1,33 @@
 {
   "unique" : {
-    "licenses" : 25
+    "licenses" : 26
   },
   "total" : {
-    "participants" : 96,
+    "participants" : 118,
     "categories" : {
       "license" : {
-        "licensed" : 38,
-        "unlicensed" : 58
+        "licensed" : 52,
+        "unlicensed" : 66
       },
       "ageGroup" : {
-        "40-49" : 10,
-        "18-29" : 6,
-        "30-39" : 14,
-        "50+" : 8
+        "40-49" : 14,
+        "18-29" : 9,
+        "30-39" : 20,
+        "50+" : 9
       },
       "club" : {
-        "Anaerobe" : 1,
+        "Anaerobe" : 2,
         "RunStudio" : 2,
         "Прочерк" : 2,
-        "БФТ" : 1,
-        "FARTLEK RUNNING CLUB" : 2,
+        "БФТ" : 2,
+        "FARTLEK RUNNING CLUB" : 3,
         "Виктория/DRC" : 2,
-        "-" : 12,
+        "-" : 16,
         "TRISTYLE" : 1,
-        "Падабайка-RUN" : 2,
-        "Tristyle" : 5,
-        "Altius" : 3,
-        "—" : 2,
+        "Падабайка-RUN" : 3,
+        "Tristyle" : 9,
+        "Altius" : 4,
+        "—" : 3,
         "Grebenstar" : 3
       }
     }
@@ -100,13 +100,13 @@
       "participants" : 41,
       "categories" : {
         "license" : {
-          "licensed" : 13,
-          "unlicensed" : 28
+          "licensed" : 14,
+          "unlicensed" : 27
         },
         "ageGroup" : {
           "40-49" : 2,
           "18-29" : 3,
-          "30-39" : 5,
+          "30-39" : 6,
           "50+" : 3
         },
         "club" : {
@@ -116,7 +116,7 @@
           "Виктория/DRC" : 1,
           "-" : 3,
           "TRISTYLE" : 1,
-          "Tristyle" : 2,
+          "Tristyle" : 3,
           "Altius" : 1,
           "—" : 1,
           "Grebenstar" : 1
@@ -128,22 +128,48 @@
       "participants" : 22,
       "categories" : {
         "license" : {
-          "licensed" : 9,
-          "unlicensed" : 13
+          "licensed" : 10,
+          "unlicensed" : 12
         },
         "ageGroup" : {
           "40-49" : 3,
           "18-29" : 2,
-          "30-39" : 2,
+          "30-39" : 3,
           "50+" : 2
         },
         "club" : {
           "FARTLEK RUNNING CLUB" : 1,
           "-" : 4,
-          "Tristyle" : 1,
+          "Tristyle" : 2,
           "Altius" : 1,
           "—" : 1,
           "Grebenstar" : 1
+        }
+      }
+    },
+    {
+      "name" : "Триатлон МогиЛев",
+      "participants" : 22,
+      "categories" : {
+        "license" : {
+          "licensed" : 12,
+          "unlicensed" : 10
+        },
+        "ageGroup" : {
+          "40-49" : 4,
+          "18-29" : 3,
+          "30-39" : 4,
+          "50+" : 1
+        },
+        "club" : {
+          "Anaerobe" : 1,
+          "БФТ" : 1,
+          "FARTLEK RUNNING CLUB" : 1,
+          "-" : 4,
+          "—" : 1,
+          "Падабайка-RUN" : 1,
+          "Tristyle" : 2,
+          "Altius" : 1
         }
       }
     }
@@ -151,29 +177,30 @@
   "amountOfParticipations" : {
     "histogram" : {
       "0" : 6,
-      "1" : 5,
-      "2" : 9,
-      "3" : 5
+      "1" : 3,
+      "2" : 5,
+      "3" : 9,
+      "4" : 3
     },
     "bestParticipants" : [
+      {
+        "fioInRussian" : "Науменко Анна Александровна",
+        "participations" : 4
+      },
+      {
+        "fioInRussian" : "Кузнецова Марина Алексеевна",
+        "participations" : 4
+      },
+      {
+        "fioInRussian" : "Марзан Ольга Леонидовна",
+        "participations" : 4
+      },
       {
         "fioInRussian" : "Врублевская Юлия Николаевна",
         "participations" : 3
       },
       {
-        "fioInRussian" : "Науменко Анна Александровна",
-        "participations" : 3
-      },
-      {
-        "fioInRussian" : "Кузнецова Марина Алексеевна",
-        "participations" : 3
-      },
-      {
-        "fioInRussian" : "Попова Светлана Владимировна",
-        "participations" : 3
-      },
-      {
-        "fioInRussian" : "Марзан Ольга Леонидовна",
+        "fioInRussian" : "Клебанович Виктория Николаевна",
         "participations" : 3
       }
     ]

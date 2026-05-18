@@ -1,60 +1,60 @@
 {
   "unique" : {
-    "licenses" : 101
+    "licenses" : 106
   },
   "total" : {
-    "participants" : 284,
+    "participants" : 376,
     "categories" : {
       "license" : {
-        "licensed" : 135,
-        "unlicensed" : 149
+        "licensed" : 184,
+        "unlicensed" : 192
       },
       "ageGroup" : {
-        "30-34" : 11,
-        "40-44" : 38,
-        "35-39" : 30,
-        "50-54" : 8,
+        "30-34" : 16,
+        "40-44" : 55,
+        "35-39" : 41,
+        "50-54" : 10,
         "60+" : 2,
-        "55-59" : 4,
-        "18-24" : 11,
-        "25-29" : 11,
-        "45-49" : 20
+        "55-59" : 6,
+        "18-24" : 13,
+        "25-29" : 13,
+        "45-49" : 28
       },
       "club" : {
         "S-sportas" : 1,
         "Без клуба" : 1,
         "UTribe" : 1,
-        "Grebenstar" : 2,
-        "TRISTYLE" : 1,
-        "ON-BIKE" : 3,
-        "Arza Running Club" : 1,
-        "Yellow submarine" : 3,
-        "SQMINSK" : 4,
-        "-----" : 2,
-        "ALTIUS!" : 1,
-        "Tristyle" : 27,
+        "Grebenstar" : 3,
+        "TRISTYLE" : 2,
+        "ON-BIKE" : 4,
+        "Arza Running Club" : 2,
+        "Yellow submarine" : 4,
+        "SQMINSK" : 5,
+        "-----" : 3,
+        "ALTIUS!" : 2,
+        "Tristyle" : 43,
         "Altius" : 1,
         "RUN4FUN.BY" : 4,
-        "Runstudio" : 2,
+        "Runstudio" : 3,
         "TriStyle" : 1,
         "Yellow Submarine" : 4,
-        "Многобор" : 6,
-        "СК Сож" : 3,
-        "Altius!" : 4,
-        "Крынiца" : 1,
-        "TRIVIDA" : 3,
-        "Тристайл" : 4,
+        "Многобор" : 8,
+        "СК Сож" : 4,
+        "Altius!" : 7,
+        "Крынiца" : 2,
+        "TRIVIDA" : 4,
+        "Тристайл" : 5,
         "Runonline.by" : 2,
-        "-" : 35,
+        "-" : 45,
         "Clown’s Triathlon team" : 2,
-        "БелНовация" : 2,
+        "БелНовация" : 3,
         "Blackberry Crew" : 1,
-        "Жёлтая Субмарина" : 2,
+        "Жёлтая Субмарина" : 3,
         "Magicsport" : 3,
-        "Biketourist.club" : 3,
+        "Biketourist.club" : 4,
         "Каяк" : 1,
-        "nedmotorsport" : 2,
-        "tristale.club" : 2
+        "nedmotorsport" : 3,
+        "tristale.club" : 3
       }
     }
   },
@@ -156,13 +156,13 @@
       "participants" : 109,
       "categories" : {
         "license" : {
-          "licensed" : 46,
-          "unlicensed" : 63
+          "licensed" : 48,
+          "unlicensed" : 61
         },
         "ageGroup" : {
           "30-34" : 5,
-          "40-44" : 12,
-          "35-39" : 14,
+          "40-44" : 13,
+          "35-39" : 15,
           "50-54" : 2,
           "18-24" : 4,
           "25-29" : 3,
@@ -170,9 +170,9 @@
         },
         "club" : {
           "S-sportas" : 1,
-          "Tristyle" : 7,
+          "Tristyle" : 8,
           "Grebenstar" : 1,
-          "TRISTYLE" : 1,
+          "TRISTYLE" : 2,
           "Biketourist.club" : 1,
           "ON-BIKE" : 1,
           "Arza Running Club" : 1,
@@ -239,35 +239,79 @@
           "БелНовация" : 1
         }
       }
+    },
+    {
+      "name" : "Триатлон МогиЛев",
+      "participants" : 92,
+      "categories" : {
+        "license" : {
+          "licensed" : 47,
+          "unlicensed" : 45
+        },
+        "ageGroup" : {
+          "30-34" : 5,
+          "40-44" : 16,
+          "35-39" : 10,
+          "50-54" : 2,
+          "55-59" : 2,
+          "18-24" : 2,
+          "25-29" : 2,
+          "45-49" : 8
+        },
+        "club" : {
+          "Runstudio" : 1,
+          "-" : 10,
+          "Grebenstar" : 1,
+          "БелНовация" : 1,
+          "Жёлтая Субмарина" : 1,
+          "Biketourist.club" : 1,
+          "ON-BIKE" : 1,
+          "Arza Running Club" : 1,
+          "Yellow submarine" : 1,
+          "SQMINSK" : 1,
+          "-----" : 1,
+          "ALTIUS!" : 1,
+          "Tristyle" : 15,
+          "Многобор" : 2,
+          "СК Сож" : 1,
+          "Altius!" : 3,
+          "Крынiца" : 1,
+          "TRIVIDA" : 1,
+          "Тристайл" : 1,
+          "nedmotorsport" : 1,
+          "tristale.club" : 1
+        }
+      }
     }
   ],
   "amountOfParticipations" : {
     "histogram" : {
-      "0" : 34,
-      "1" : 25,
-      "2" : 21,
-      "3" : 16,
-      "4" : 5
+      "0" : 30,
+      "5" : 3,
+      "1" : 24,
+      "2" : 16,
+      "3" : 19,
+      "4" : 14
     },
     "bestParticipants" : [
       {
         "fioInRussian" : "Гуштын Никита Александрович",
-        "participations" : 4
-      },
-      {
-        "fioInRussian" : "Петровичев Валентин Сергеевич",
-        "participations" : 4
+        "participations" : 5
       },
       {
         "fioInRussian" : "Гацко Дмитрий Михайлович",
-        "participations" : 4
-      },
-      {
-        "fioInRussian" : "Бузо Александр Владимирович",
-        "participations" : 4
+        "participations" : 5
       },
       {
         "fioInRussian" : "Юрков Александр Сергеевич",
+        "participations" : 5
+      },
+      {
+        "fioInRussian" : "Шинкарёв Алексей Васильевич",
+        "participations" : 4
+      },
+      {
+        "fioInRussian" : "Коротыш Федор Дмитриевич",
         "participations" : 4
       }
     ]
