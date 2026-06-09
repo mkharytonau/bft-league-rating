@@ -6,11 +6,11 @@
     "participants" : 448,
     "categories" : {
       "license" : {
-        "licensed" : 229,
-        "unlicensed" : 219
+        "licensed" : 230,
+        "unlicensed" : 218
       },
       "ageGroup" : {
-        "30-34" : 20,
+        "30-34" : 21,
         "40-44" : 64,
         "35-39" : 55,
         "50-54" : 13,
@@ -45,7 +45,7 @@
         "TRIVIDA" : 5,
         "Тристайл" : 7,
         "Runonline.by" : 2,
-        "-" : 58,
+        "-" : 59,
         "Clown’s Triathlon team" : 3,
         "БелНовация" : 3,
         "Blackberry Crew" : 1,
@@ -246,11 +246,11 @@
       "participants" : 92,
       "categories" : {
         "license" : {
-          "licensed" : 47,
-          "unlicensed" : 45
+          "licensed" : 48,
+          "unlicensed" : 44
         },
         "ageGroup" : {
-          "30-34" : 5,
+          "30-34" : 6,
           "40-44" : 15,
           "35-39" : 10,
           "50-54" : 2,
@@ -261,7 +261,7 @@
         },
         "club" : {
           "Runstudio" : 1,
-          "-" : 10,
+          "-" : 11,
           "Grebenstar" : 1,
           "БелНовация" : 1,
           "Жёлтая Субмарина" : 1,
@@ -331,9 +331,9 @@
   ],
   "amountOfParticipations" : {
     "histogram" : {
-      "0" : 26,
+      "0" : 25,
       "5" : 13,
-      "1" : 23,
+      "1" : 24,
       "6" : 3,
       "2" : 18,
       "3" : 17,
