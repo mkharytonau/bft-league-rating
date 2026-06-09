@@ -1,34 +1,35 @@
 {
   "unique" : {
-    "licenses" : 26
+    "licenses" : 28
   },
   "total" : {
-    "participants" : 118,
+    "participants" : 128,
     "categories" : {
       "license" : {
-        "licensed" : 52,
-        "unlicensed" : 66
+        "licensed" : 59,
+        "unlicensed" : 69
       },
       "ageGroup" : {
-        "40-49" : 14,
+        "40-49" : 18,
         "18-29" : 9,
-        "30-39" : 20,
-        "50+" : 9
+        "30-39" : 22,
+        "50+" : 10
       },
       "club" : {
-        "Anaerobe" : 2,
+        "Anaerobe" : 3,
         "RunStudio" : 2,
         "Прочерк" : 2,
         "БФТ" : 2,
-        "FARTLEK RUNNING CLUB" : 3,
         "Виктория/DRC" : 2,
-        "-" : 16,
+        "-" : 18,
         "TRISTYLE" : 1,
         "Падабайка-RUN" : 3,
         "Tristyle" : 9,
-        "Altius" : 4,
+        "Altius" : 5,
+        "FARTLEK RUNNING CLUB" : 4,
+        "Тристайл" : 1,
         "—" : 3,
-        "Grebenstar" : 3
+        "Grebenstar" : 4
       }
     }
   },
@@ -128,20 +129,21 @@
       "participants" : 22,
       "categories" : {
         "license" : {
-          "licensed" : 10,
-          "unlicensed" : 12
+          "licensed" : 11,
+          "unlicensed" : 11
         },
         "ageGroup" : {
-          "40-49" : 3,
+          "40-49" : 4,
           "18-29" : 2,
           "30-39" : 3,
           "50+" : 2
         },
         "club" : {
-          "FARTLEK RUNNING CLUB" : 1,
           "-" : 4,
           "Tristyle" : 2,
           "Altius" : 1,
+          "FARTLEK RUNNING CLUB" : 1,
+          "Тристайл" : 1,
           "—" : 1,
           "Grebenstar" : 1
         }
@@ -172,17 +174,52 @@
           "Altius" : 1
         }
       }
+    },
+    {
+      "name" : "Олимпийка. Брест",
+      "participants" : 10,
+      "categories" : {
+        "license" : {
+          "licensed" : 6,
+          "unlicensed" : 4
+        },
+        "ageGroup" : {
+          "40-49" : 3,
+          "30-39" : 2,
+          "50+" : 1
+        },
+        "club" : {
+          "Anaerobe" : 1,
+          "Altius" : 1,
+          "FARTLEK RUNNING CLUB" : 1,
+          "-" : 2,
+          "Grebenstar" : 1
+        }
+      }
     }
   ],
   "amountOfParticipations" : {
     "histogram" : {
-      "0" : 6,
-      "1" : 3,
-      "2" : 5,
-      "3" : 9,
-      "4" : 3
+      "0" : 7,
+      "5" : 1,
+      "1" : 4,
+      "2" : 4,
+      "3" : 6,
+      "4" : 6
     },
     "bestParticipants" : [
+      {
+        "fioInRussian" : "Марзан Ольга Леонидовна",
+        "participations" : 5
+      },
+      {
+        "fioInRussian" : "Врублевская Юлия Николаевна",
+        "participations" : 4
+      },
+      {
+        "fioInRussian" : "Викентьева Елена Александровна",
+        "participations" : 4
+      },
       {
         "fioInRussian" : "Науменко Анна Александровна",
         "participations" : 4
@@ -190,18 +227,6 @@
       {
         "fioInRussian" : "Кузнецова Марина Алексеевна",
         "participations" : 4
-      },
-      {
-        "fioInRussian" : "Марзан Ольга Леонидовна",
-        "participations" : 4
-      },
-      {
-        "fioInRussian" : "Врублевская Юлия Николаевна",
-        "participations" : 3
-      },
-      {
-        "fioInRussian" : "Клебанович Виктория Николаевна",
-        "participations" : 3
       }
     ]
   }
