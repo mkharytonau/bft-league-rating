@@ -1,32 +1,33 @@
 {
   "unique" : {
-    "licenses" : 28
+    "licenses" : 30
   },
   "total" : {
-    "participants" : 128,
+    "participants" : 141,
     "categories" : {
       "license" : {
-        "licensed" : 59,
-        "unlicensed" : 69
+        "licensed" : 69,
+        "unlicensed" : 72
       },
       "ageGroup" : {
-        "40-49" : 18,
-        "18-29" : 9,
-        "30-39" : 22,
-        "50+" : 10
+        "40-49" : 22,
+        "18-29" : 10,
+        "30-39" : 26,
+        "50+" : 11
       },
       "club" : {
-        "Anaerobe" : 3,
+        "Anaerobe" : 4,
         "RunStudio" : 2,
         "Прочерк" : 2,
-        "БФТ" : 2,
         "Виктория/DRC" : 2,
-        "-" : 18,
+        "-" : 19,
         "TRISTYLE" : 1,
         "Падабайка-RUN" : 3,
-        "Tristyle" : 9,
-        "Altius" : 5,
-        "FARTLEK RUNNING CLUB" : 4,
+        "Tristyle" : 13,
+        "Altius" : 6,
+        "СК Сож" : 2,
+        "БФТ" : 2,
+        "FARTLEK RUNNING CLUB" : 5,
         "Тристайл" : 1,
         "—" : 3,
         "Grebenstar" : 4
@@ -39,11 +40,11 @@
       "participants" : 22,
       "categories" : {
         "license" : {
-          "licensed" : 12,
-          "unlicensed" : 10
+          "licensed" : 13,
+          "unlicensed" : 9
         },
         "ageGroup" : {
-          "40-49" : 3,
+          "40-49" : 4,
           "18-29" : 1,
           "30-39" : 5,
           "50+" : 3
@@ -56,7 +57,7 @@
           "-" : 3,
           "Grebenstar" : 1,
           "Падабайка-RUN" : 1,
-          "Tristyle" : 2,
+          "Tristyle" : 3,
           "Altius" : 1
         }
       }
@@ -101,11 +102,11 @@
       "participants" : 41,
       "categories" : {
         "license" : {
-          "licensed" : 14,
-          "unlicensed" : 27
+          "licensed" : 15,
+          "unlicensed" : 26
         },
         "ageGroup" : {
-          "40-49" : 2,
+          "40-49" : 3,
           "18-29" : 3,
           "30-39" : 6,
           "50+" : 3
@@ -117,7 +118,7 @@
           "Виктория/DRC" : 1,
           "-" : 3,
           "TRISTYLE" : 1,
-          "Tristyle" : 3,
+          "Tristyle" : 4,
           "Altius" : 1,
           "—" : 1,
           "Grebenstar" : 1
@@ -129,16 +130,17 @@
       "participants" : 22,
       "categories" : {
         "license" : {
-          "licensed" : 11,
-          "unlicensed" : 11
+          "licensed" : 12,
+          "unlicensed" : 10
         },
         "ageGroup" : {
           "40-49" : 4,
           "18-29" : 2,
-          "30-39" : 3,
+          "30-39" : 4,
           "50+" : 2
         },
         "club" : {
+          "СК Сож" : 1,
           "-" : 4,
           "Tristyle" : 2,
           "Altius" : 1,
@@ -180,20 +182,45 @@
       "participants" : 10,
       "categories" : {
         "license" : {
-          "licensed" : 6,
-          "unlicensed" : 4
+          "licensed" : 8,
+          "unlicensed" : 2
         },
         "ageGroup" : {
-          "40-49" : 3,
+          "40-49" : 4,
+          "30-39" : 3,
+          "50+" : 1
+        },
+        "club" : {
+          "Anaerobe" : 1,
+          "СК Сож" : 1,
+          "FARTLEK RUNNING CLUB" : 1,
+          "-" : 2,
+          "Grebenstar" : 1,
+          "Tristyle" : 1,
+          "Altius" : 1
+        }
+      }
+    },
+    {
+      "name" : "Кросс-триатлон. У Ганны",
+      "participants" : 13,
+      "categories" : {
+        "license" : {
+          "licensed" : 5,
+          "unlicensed" : 8
+        },
+        "ageGroup" : {
+          "40-49" : 1,
+          "18-29" : 1,
           "30-39" : 2,
           "50+" : 1
         },
         "club" : {
           "Anaerobe" : 1,
-          "Altius" : 1,
           "FARTLEK RUNNING CLUB" : 1,
-          "-" : 2,
-          "Grebenstar" : 1
+          "-" : 1,
+          "Tristyle" : 1,
+          "Altius" : 1
         }
       }
     }
@@ -201,15 +228,24 @@
   "amountOfParticipations" : {
     "histogram" : {
       "0" : 7,
-      "5" : 1,
+      "5" : 2,
       "1" : 4,
-      "2" : 4,
-      "3" : 6,
+      "6" : 1,
+      "2" : 5,
+      "3" : 5,
       "4" : 6
     },
     "bestParticipants" : [
       {
         "fioInRussian" : "Марзан Ольга Леонидовна",
+        "participations" : 6
+      },
+      {
+        "fioInRussian" : "Кузнецова Марина Алексеевна",
+        "participations" : 5
+      },
+      {
+        "fioInRussian" : "Гаврилова Алла Владиславовна",
         "participations" : 5
       },
       {
@@ -217,15 +253,7 @@
         "participations" : 4
       },
       {
-        "fioInRussian" : "Викентьева Елена Александровна",
-        "participations" : 4
-      },
-      {
-        "fioInRussian" : "Науменко Анна Александровна",
-        "participations" : 4
-      },
-      {
-        "fioInRussian" : "Кузнецова Марина Алексеевна",
+        "fioInRussian" : "Черемисинова Анна Александровна",
         "participations" : 4
       }
     ]
