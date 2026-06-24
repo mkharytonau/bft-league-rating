@@ -58,6 +58,13 @@
 
     <form id="rating-form">
         <div class="form-group">
+            <label for="gender">Пол:</label>
+            <select id="gender" name="Пол">
+                <option value="men">Мужчины</option>
+                <option value="women">Женщины</option>
+            </select>
+        </div>
+        <div class="form-group">
             <label for="ImperialIndoorTriathlon">Империал Индор Триатлон:</label>
             <input type="number" id="ImperialIndoorTriathlon" name="Империал Индор Триатлон" min="0" max="700">
         </div>
@@ -136,7 +143,7 @@
                 <div><b>Ст</b>аерская: <span id="calculated-stayer-value"></span></div>
                 <div><b>Д</b>уатлон: <span id="calculated-duathlon-value"></span></div>
                 <div><b>М</b>ульти: <span id="calculated-multi-value"></span></div>
-                <div><b>Лучшие 4 результата, за исключением вышеперечисленных Сп, Ст, Д, М:</b></div>
+                <div><b id="calculated-other-events-label"></b></div>
                 <span id="calculated-other-events-value"></span>
                 <div><b>Сумма:</b> <span id="total-value"></span> </div>
             </output>
@@ -179,6 +186,16 @@
         };
 
         const queryParams = getQueryParams();
+        const rawQueryParams = new URLSearchParams(window.location.search);
+        const genderElement = document.getElementById('gender');
+        genderElement.value = rawQueryParams.get('gender') === 'women' ? 'women' : 'men';
+        genderElement.addEventListener('change', () => {
+            const params = new URLSearchParams(window.location.search);
+            params.set('gender', genderElement.value);
+            const newUrl = `${window.location.pathname}?${params.toString()}`;
+            window.history.replaceState({}, '', newUrl);
+            calculateTotalPoints();
+        });
 
         Object.keys(events).forEach(event => {
             const inputElement = document.getElementById(event);
@@ -250,16 +267,16 @@
             }, {});
 
             console.log('Other event values:', otherEventValues);
-            // Leave only 4 max values from otherEventValues
+            const otherCount = genderElement.value === 'women' ? 1 : 3;
             const topOtherEventValues = Object.entries(otherEventValues)
                 .sort(([, a], [, b]) => b - a) // Sort by value descending
-                .slice(0, 3) // Take the top 3. TODO for women it should be 1
+                .slice(0, otherCount)
                 .reduce((acc, [event, value]) => {
                     acc[event] = value;
                     return acc;
                 }, {});
 
-            console.log('Top 3 other event values:', topOtherEventValues);
+            console.log(`Top ${otherCount} other event values:`, topOtherEventValues);
 
             function getEventName(event) {
                 return document.getElementById(event).name;
@@ -269,6 +286,7 @@
             document.getElementById('calculated-stayer-value').textContent = prioritisedCategoriesMax['Stayer'] ? `${prioritisedCategoriesMax['Stayer'].value} на ${getEventName(prioritisedCategoriesMax['Stayer'].event)}` : "Не участвовал";
             document.getElementById('calculated-duathlon-value').textContent = prioritisedCategoriesMax['Duathlon'] ? `${prioritisedCategoriesMax['Duathlon'].value} на ${getEventName(prioritisedCategoriesMax['Duathlon'].event)}` : "Не участвовал";
             document.getElementById('calculated-multi-value').textContent = prioritisedCategoriesMax['Multi'] ? `${prioritisedCategoriesMax['Multi'].value} на ${getEventName(prioritisedCategoriesMax['Multi'].event)}` : "Не участвовал";
+            document.getElementById('calculated-other-events-label').textContent = `Лучшие ${otherCount} результата, за исключением вышеперечисленных Сп, Ст, Д, М:`;
             document.getElementById('calculated-other-events-value').innerHTML = Object.entries(topOtherEventValues)
                 .map(([event, value]) => `<div style="padding-left: 10px;">${getEventName(event)}: ${value}</div>`)
                 .join('');

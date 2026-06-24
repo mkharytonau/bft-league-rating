@@ -79,6 +79,10 @@ object RatingWriter {
             s"${eventPoints.eventName.jsCalculatorName}=${eventPoints.pointsMaybe.map(_.value.toString).getOrElse("")}"
           )
           .mkString("&")
+        val genderParam = license.gender match {
+          case Gender.Men   => "men"
+          case Gender.Women => "women"
+        }
         val totalPointsStr = f"${ratingRow.totalPoints.value}%.2f"
         val place = ratingRow.place.value match {
           case 1                           => span("🥇")
@@ -116,7 +120,7 @@ object RatingWriter {
         } ++ List(
           td(
             a(
-              href := s"./rating_points_calculator.html?$jsCaluclatorPath&scalaTotalValue=$totalPointsStr"
+              href := s"./rating_points_calculator.html?$jsCaluclatorPath&gender=$genderParam&scalaTotalValue=$totalPointsStr"
             )(totalPointsStr)
           )
         )
