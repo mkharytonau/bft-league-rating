@@ -117,6 +117,19 @@ object Main extends App {
         )
       )
     ),
+    CompetitionConfig(
+      name = CompetitionName("Спринт. Гомель"),
+      events = List(
+        EventConfig(
+          EventName("Спринт. Гомель", "KubokPolesiaGomel"),
+          EventCategory.Sprint,
+          ResourcePath("2026/KubokPolesiaGomel"),
+          EventResultsReader.Configured("Фамилия Имя", ParseResult.HoursMinutesSecondsMillisOrTens("Результат"), ParseGender.ByField("Пол", "М", "Ж")),
+          EventResultsCalculator.Standart,
+          700.0
+        )
+      )
+    ),
   )
 
   List[Gender](Men, Women).foreach { gender => 

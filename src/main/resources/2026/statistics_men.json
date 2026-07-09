@@ -3,22 +3,22 @@
     "licenses" : 112
   },
   "total" : {
-    "participants" : 473,
+    "participants" : 546,
     "categories" : {
       "license" : {
-        "licensed" : 252,
-        "unlicensed" : 221
+        "licensed" : 276,
+        "unlicensed" : 270
       },
       "ageGroup" : {
-        "30-34" : 22,
-        "40-44" : 75,
-        "35-39" : 57,
+        "30-34" : 24,
+        "40-44" : 81,
+        "35-39" : 65,
         "50-54" : 14,
         "60+" : 2,
-        "55-59" : 9,
+        "55-59" : 10,
         "18-24" : 17,
-        "25-29" : 17,
-        "45-49" : 39
+        "25-29" : 20,
+        "45-49" : 43
       },
       "club" : {
         "S-sportas" : 1,
@@ -26,32 +26,32 @@
         "UTribe" : 1,
         "Grebenstar" : 6,
         "TRISTYLE" : 3,
-        "NE PROFI" : 5,
-        "ON-BIKE" : 6,
+        "NE PROFI" : 6,
+        "ON-BIKE" : 7,
         "Arza Running Club" : 3,
-        "Yellow submarine" : 6,
+        "Yellow submarine" : 7,
         "SQMINSK" : 6,
         "-----" : 4,
-        "ALTIUS!" : 3,
-        "Tristyle" : 54,
+        "ALTIUS!" : 4,
+        "Tristyle" : 57,
         "Altius" : 2,
-        "RUN4FUN.BY" : 5,
+        "RUN4FUN.BY" : 6,
         "Runstudio" : 3,
         "TriStyle" : 1,
-        "Yellow Submarine" : 5,
-        "Многобор" : 9,
-        "СК Сож" : 8,
-        "Altius!" : 11,
-        "Крынiца" : 3,
-        "TRIVIDA" : 5,
+        "Yellow Submarine" : 6,
+        "Многобор" : 12,
+        "СК Сож" : 9,
+        "Altius!" : 12,
+        "Крынiца" : 4,
+        "TRIVIDA" : 6,
         "Тристайл" : 7,
         "Runonline.by" : 2,
-        "-" : 62,
+        "-" : 69,
         "Triatyle" : 1,
         "Clown’s Triathlon team" : 3,
         "БелНовация" : 3,
         "Blackberry Crew" : 1,
-        "Жёлтая Субмарина" : 4,
+        "Жёлтая Субмарина" : 5,
         "Magicsport" : 5,
         "Biketourist.club" : 5,
         "Каяк" : 1,
@@ -362,38 +362,72 @@
           "Yellow submarine" : 1
         }
       }
+    },
+    {
+      "name" : "Спринт. Гомель",
+      "participants" : 73,
+      "categories" : {
+        "license" : {
+          "licensed" : 24,
+          "unlicensed" : 49
+        },
+        "ageGroup" : {
+          "30-34" : 2,
+          "40-44" : 6,
+          "35-39" : 8,
+          "55-59" : 1,
+          "25-29" : 3,
+          "45-49" : 4
+        },
+        "club" : {
+          "RUN4FUN.BY" : 1,
+          "-" : 7,
+          "NE PROFI" : 1,
+          "Жёлтая Субмарина" : 1,
+          "ON-BIKE" : 1,
+          "Yellow submarine" : 1,
+          "ALTIUS!" : 1,
+          "Tristyle" : 3,
+          "Yellow Submarine" : 1,
+          "Многобор" : 3,
+          "СК Сож" : 1,
+          "Altius!" : 1,
+          "Крынiца" : 1,
+          "TRIVIDA" : 1
+        }
+      }
     }
   ],
   "amountOfParticipations" : {
     "histogram" : {
-      "0" : 25,
-      "5" : 15,
-      "1" : 23,
-      "6" : 4,
-      "2" : 17,
-      "7" : 1,
-      "3" : 19,
-      "4" : 8
+      "0" : 24,
+      "5" : 12,
+      "1" : 21,
+      "6" : 7,
+      "2" : 15,
+      "7" : 3,
+      "3" : 18,
+      "4" : 12
     },
     "bestParticipants" : [
       {
-        "fioInRussian" : "Гацко Дмитрий Михайлович",
+        "fioInRussian" : "Шинкарёв Алексей Васильевич",
         "participations" : 7
       },
       {
-        "fioInRussian" : "Шинкарёв Алексей Васильевич",
-        "participations" : 6
+        "fioInRussian" : "Шипуль Андрей Анатольевич",
+        "participations" : 7
+      },
+      {
+        "fioInRussian" : "Гацко Дмитрий Михайлович",
+        "participations" : 7
       },
       {
         "fioInRussian" : "Гуштын Никита Александрович",
         "participations" : 6
       },
       {
-        "fioInRussian" : "Шипуль Андрей Анатольевич",
-        "participations" : 6
-      },
-      {
-        "fioInRussian" : "Юрков Александр Сергеевич",
+        "fioInRussian" : "Петровичев Валентин Сергеевич",
         "participations" : 6
       }
     ]
