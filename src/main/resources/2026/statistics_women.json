@@ -3,28 +3,28 @@
     "licenses" : 30
   },
   "total" : {
-    "participants" : 157,
+    "participants" : 165,
     "categories" : {
       "license" : {
-        "licensed" : 74,
-        "unlicensed" : 83
+        "licensed" : 79,
+        "unlicensed" : 86
       },
       "ageGroup" : {
-        "40-49" : 24,
-        "18-29" : 10,
-        "30-39" : 29,
+        "40-49" : 26,
+        "18-29" : 11,
+        "30-39" : 31,
         "50+" : 11
       },
       "club" : {
         "Anaerobe" : 4,
         "RunStudio" : 2,
-        "Прочерк" : 2,
+        "Прочерк" : 3,
         "Виктория/DRC" : 2,
-        "-" : 21,
+        "-" : 24,
         "TRISTYLE" : 1,
         "Падабайка-RUN" : 4,
         "Tristyle" : 13,
-        "Altius" : 7,
+        "Altius" : 8,
         "СК Сож" : 3,
         "БФТ" : 2,
         "FARTLEK RUNNING CLUB" : 5,
@@ -243,38 +243,59 @@
           "Падабайка-RUN" : 1
         }
       }
+    },
+    {
+      "name" : "Спринт. Святск",
+      "participants" : 8,
+      "categories" : {
+        "license" : {
+          "licensed" : 5,
+          "unlicensed" : 3
+        },
+        "ageGroup" : {
+          "40-49" : 2,
+          "18-29" : 1,
+          "30-39" : 2
+        },
+        "club" : {
+          "Altius" : 1,
+          "Прочерк" : 1,
+          "-" : 3
+        }
+      }
     }
   ],
   "amountOfParticipations" : {
     "histogram" : {
       "0" : 7,
-      "5" : 3,
+      "5" : 2,
       "1" : 3,
-      "2" : 5,
-      "7" : 1,
-      "3" : 5,
-      "4" : 6
+      "6" : 2,
+      "2" : 4,
+      "3" : 6,
+      "8" : 1,
+      "4" : 5
     },
     "bestParticipants" : [
       {
         "fioInRussian" : "Марзан Ольга Леонидовна",
-        "participations" : 7
+        "participations" : 8
       },
       {
         "fioInRussian" : "Науменко Анна Александровна",
-        "participations" : 5
+        "participations" : 6
       },
       {
         "fioInRussian" : "Кузнецова Марина Алексеевна",
+        "participations" : 6
+      },
+      {
+        "fioInRussian" : "Викентьева Елена Александровна",
         "participations" : 5
       },
       {
         "fioInRussian" : "Гаврилова Алла Владиславовна",
         "participations" : 5
-      },
-      {
-        "fioInRussian" : "Врублевская Юлия Николаевна",
-        "participations" : 4
       }
     ]
   }

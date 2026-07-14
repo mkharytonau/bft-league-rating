@@ -129,9 +129,9 @@ object domain {
       eventCategory: EventCategory,
       resultsPath: ResourcePath,
       resultsLoader: EventResultsReader,
-      resultCalculator: EventResultsCalculator,
       ratingBase: Double,
-      locatedInInnerFolder: Boolean = false
+      locatedInInnerFolder: Boolean = false,
+      qualificationConfig: Option[EventConfig] = None
   )
   final case class CompetitionConfig(
       name: CompetitionName,

@@ -4,7 +4,6 @@ import com.mkharytonau.rating.domain._
 import com.mkharytonau.rating.domain.License.FIOInRussian
 import com.mkharytonau.rating.domain.License.FIOInEnglish
 import scala.concurrent.duration.FiniteDuration
-import java.awt.Event
 
 trait EventResultsCalculator {
   def calculate(
@@ -38,13 +37,16 @@ object EventResultsCalculator {
         .distinct
 
     val byName = licenses.filter { license =>
-      nameCandidates(license).exists { cand => 
+      nameCandidates(license).exists { cand =>
         val matched = NameMatcher(cand, result.nickname.value)
         // if (b) println(s"nickname: ${result.nickname.value}, nameCandidate: $a, result: $b")
         matched
       }
     }
-    require(byName.size <= 1, s"nickname: ${result.nickname.value}, byName: $byName")
+    require(
+      byName.size <= 1,
+      s"nickname: ${result.nickname.value}, byName: $byName"
+    )
 
     val byNickname = { // result contains custom nickname, try to map it to FIO in russian and find license for it
       val fiosInRussian = nameMapping.collect {
@@ -54,14 +56,14 @@ object EventResultsCalculator {
       require(fiosInRussian.size <= 1, s"fiosInRussian: $fiosInRussian")
       licenses.filter(lic => fiosInRussian.contains(lic.fioInRussian))
     }
-    require(byNickname.size <= 1,s"byNickname: $byNickname")
+    require(byNickname.size <= 1, s"byNickname: $byNickname")
 
     val byAll = (byName ++ byNickname).distinct
     if (byAll.size > 1) {
       println(s"byName: $byName")
       println(s"byNickname: $byNickname")
     }
-    require(byAll.size <= 1,s"byAll: $byAll")
+    require(byAll.size <= 1, s"byAll: $byAll")
     byAll.headOption
   }
 
@@ -117,6 +119,44 @@ object EventResultsCalculator {
       val pointsRounded =
         BigDecimal(points).setScale(2, BigDecimal.RoundingMode.HALF_UP).toDouble
       Points(pointsRounded)
+    }
+  }
+
+  class FinalWithQualification(qualificationResults: EventResultsCalculated)
+      extends EventResultsCalculator {
+
+    def calculate(
+        results: EventResults,
+        eventConfig: EventConfig,
+        licenses: List[License],
+        nameMapping: Map[FIOInRussian, List[Nickname]]
+    ): EventResultsCalculated = {
+      val finalCalculated =
+        Standart.calculate(results, eventConfig, licenses, nameMapping)
+      val finalistsAmount = finalCalculated.calculated.size
+      val qualificationTail =
+        qualificationResults.calculated.drop(finalistsAmount)
+      val lowerBoundPoints =
+        qualificationTail.flatMap(_.calculation.map(_.points)).headOption
+
+      val finalRows = finalCalculated.calculated.map { row =>
+        val clampedCalculation = row.calculation.map { calculation =>
+          val points = lowerBoundPoints
+            .map(lowerBound =>
+              Points(math.max(calculation.points.value, lowerBound.value))
+            )
+            .getOrElse(calculation.points)
+
+          calculation.copy(points = points)
+        }
+
+        row.copy(calculation = clampedCalculation)
+      }
+
+      EventResultsCalculated(
+        results,
+        finalRows ++ qualificationTail
+      )
     }
   }
 }

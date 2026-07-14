@@ -12,6 +12,8 @@ import com.mkharytonau.rating.EventResultsReader.ParseGender
 import com.mkharytonau.rating.domain.Gender.Women
 import com.mkharytonau.rating.domain.Gender.Men
 import cats.syntax.show._
+import com.mkharytonau.rating.EventResultsCalculator.Standart
+import com.mkharytonau.rating.EventResultsCalculator.FinalWithQualification
 
 object Main extends App {
   val nameMapping = NameMapping.load(ResourcePath("2026/name_mapping.csv"))
@@ -24,8 +26,11 @@ object Main extends App {
           EventName("Империал Индор Триатлон", "ImperialIndoorTriathlon"),
           EventCategory.Multi,
           ResourcePath("2026/ImperialIndoorTriathlon"),
-          EventResultsReader.Configured("ФИО", ParseResult.IndoorTriathlon, ParseGender.ByField("Пол", "М", "Ж")),
-          EventResultsCalculator.Standart,
+          EventResultsReader.Configured(
+            "ФИО",
+            ParseResult.IndoorTriathlon,
+            ParseGender.ByField("Пол", "М", "Ж")
+          ),
           700.0
         )
       )
@@ -37,16 +42,22 @@ object Main extends App {
           EventName("Зимний триатлон. Логойск", "LogoiskWinterTri"),
           EventCategory.Multi,
           ResourcePath("2026/Logoisk_Winter_Triathlon"),
-          EventResultsReader.Configured("Фамилия Имя", ParseResult.HoursMinutesSecondsMillisOrTens("Время"), ParseGender.ByField("Пол", "М", "Ж")),
-          EventResultsCalculator.Standart,
+          EventResultsReader.Configured(
+            "Фамилия Имя",
+            ParseResult.HoursMinutesSecondsMillisOrTens("Время"),
+            ParseGender.ByField("Пол", "М", "Ж")
+          ),
           700.0
         ),
         EventConfig(
           EventName("Зимний дуатлон. Логойск", "LogoiskWinterDuo"),
           EventCategory.Duathlon,
           ResourcePath("2026/Logoisk_Winter_Triathlon/duo"),
-          EventResultsReader.Configured("Фамилия Имя", ParseResult.HoursMinutesSecondsMillisOrTens("Время"), ParseGender.ByField("Пол", "М", "Ж")),
-          EventResultsCalculator.Standart,
+          EventResultsReader.Configured(
+            "Фамилия Имя",
+            ParseResult.HoursMinutesSecondsMillisOrTens("Время"),
+            ParseGender.ByField("Пол", "М", "Ж")
+          ),
           700.0,
           locatedInInnerFolder = true
         )
@@ -59,8 +70,11 @@ object Main extends App {
           EventName("Минск Индор Триатлон", "MinskIndoorTriathlon"),
           EventCategory.Multi,
           ResourcePath("2026/Minsk_Indoor_Triathlon"),
-          EventResultsReader.Configured("ФИО", ParseResult.IndoorTriathlon, ParseGender.ByField("Пол", "М", "Ж")),
-          EventResultsCalculator.Standart,
+          EventResultsReader.Configured(
+            "ФИО",
+            ParseResult.IndoorTriathlon,
+            ParseGender.ByField("Пол", "М", "Ж")
+          ),
           700.0
         )
       )
@@ -72,8 +86,11 @@ object Main extends App {
           EventName("Дуатлон. Дрогичин", "DuathlonDrogichin"),
           EventCategory.Duathlon,
           ResourcePath("2026/Duathlon_Drogichin"),
-          EventResultsReader.Configured("Фамилия Имя", ParseResult.HoursMinutesSecondsMillisOrTens("Время"), ParseGender.ByField("Пол", "М", "Ж")),
-          EventResultsCalculator.Standart,
+          EventResultsReader.Configured(
+            "Фамилия Имя",
+            ParseResult.HoursMinutesSecondsMillisOrTens("Время"),
+            ParseGender.ByField("Пол", "М", "Ж")
+          ),
           700.0
         )
       )
@@ -85,8 +102,11 @@ object Main extends App {
           EventName("Триатлон МогиЛев", "TriathlonMogiLev"),
           EventCategory.Sprint,
           ResourcePath("2026/Mogilev"),
-          EventResultsReader.Configured("Участник", ParseResult.HoursMinutesSecondsMillisOrTens("Результат"), ParseGender.ByField("Пол", "М", "Ж")),
-          EventResultsCalculator.Standart,
+          EventResultsReader.Configured(
+            "Участник",
+            ParseResult.HoursMinutesSecondsMillisOrTens("Результат"),
+            ParseGender.ByField("Пол", "М", "Ж")
+          ),
           700.0
         )
       )
@@ -98,8 +118,11 @@ object Main extends App {
           EventName("Олимпийка. Брест", "BrestOlympic"),
           EventCategory.Stayer,
           ResourcePath("2026/BrestOlympic"),
-          EventResultsReader.Configured("Участник", ParseResult.HoursMinutesSecondsMillisOrTens("Результат"), ParseGender.ByField("Пол", "М", "Ж")),
-          EventResultsCalculator.Standart,
+          EventResultsReader.Configured(
+            "Участник",
+            ParseResult.HoursMinutesSecondsMillisOrTens("Результат"),
+            ParseGender.ByField("Пол", "М", "Ж")
+          ),
           800.0
         )
       )
@@ -111,8 +134,11 @@ object Main extends App {
           EventName("Кросс-триатлон. У Ганны", "KrossTriathlonGanna"),
           EventCategory.Multi,
           ResourcePath("2026/KrossTriathlonGanna"),
-          EventResultsReader.Configured("Фамилия Имя", ParseResult.HoursMinutesSecondsMillisOrTens("Время"), ParseGender.ByField("Пол", "М", "Ж")),
-          EventResultsCalculator.Standart,
+          EventResultsReader.Configured(
+            "Фамилия Имя",
+            ParseResult.HoursMinutesSecondsMillisOrTens("Время"),
+            ParseGender.ByField("Пол", "М", "Ж")
+          ),
           700.0
         )
       )
@@ -124,56 +150,119 @@ object Main extends App {
           EventName("Спринт. Гомель", "KubokPolesiaGomel"),
           EventCategory.Sprint,
           ResourcePath("2026/KubokPolesiaGomel"),
-          EventResultsReader.Configured("Фамилия Имя", ParseResult.HoursMinutesSecondsMillisOrTens("Результат"), ParseGender.ByField("Пол", "М", "Ж")),
-          EventResultsCalculator.Standart,
+          EventResultsReader.Configured(
+            "Фамилия Имя",
+            ParseResult.HoursMinutesSecondsMillisOrTens("Результат"),
+            ParseGender.ByField("Пол", "М", "Ж")
+          ),
           700.0
         )
       )
     ),
+    CompetitionConfig(
+      name = CompetitionName("Спринт. Святск"),
+      events = List(
+        EventConfig(
+          EventName("Спринт. Святск", "SvyatskSprint"),
+          EventCategory.Sprint,
+          ResourcePath("2026/SvyatskSprint"),
+          EventResultsReader.Configured(
+            "Участник",
+            ParseResult.HoursMinutesSecondsMillisOrTens("Результат"),
+            ParseGender.ByField("Пол", "М", "Ж")
+          ),
+          700.0,
+          qualificationConfig = Some(
+            EventConfig(
+              EventName(
+                "Спринт. Святск. Квалификация",
+                "SvyatskSprintQualification"
+              ),
+              EventCategory.Sprint,
+              ResourcePath("2026/SvyatskSprint/qualification"),
+              EventResultsReader.Configured(
+                "Участник",
+                ParseResult.HoursMinutesSecondsMillisOrTens("Результат"),
+                ParseGender.ByField("Пол", "М", "Ж")
+              ),
+              700.0,
+              locatedInInnerFolder = true
+            )
+          )
+        )
+      )
+    )
   )
 
-  List[Gender](Men, Women).foreach { gender => 
-
+  List[Gender](Men, Women).foreach { gender =>
     val licenses = Licenses.load(ResourcePath("2026/licenses.csv"), gender)
 
-  val competitionsCalculated = competitionConfigs.map { competitionConfig =>
-    val eventsCalculated = competitionConfig.events.map { eventConfig =>
-      val eventCalculated = eventConfig.resultCalculator.calculate(
-        eventConfig.resultsLoader.read(eventConfig.resultsPath, gender),
-        eventConfig,
-        licenses,
-        nameMapping,
-      )
-      EventResultsWriter.CSV.write( // TODO implicit side effect
-        eventCalculated,
-        eventConfig,
-        s"${gender.show}_calculated"
-      )
-      EventResultsWriter.HTML.write( // TODO implicit side effect
-        eventCalculated,
-        eventConfig,
-        s"${gender.show}_calculated"
-      )
+    val competitionsCalculated = competitionConfigs.map { competitionConfig =>
+      val eventsCalculated = competitionConfig.events.map { eventConfig =>
+        val eventCalculated = eventConfig.qualificationConfig match {
+          case Some(qualificationConfig) =>
+            val qualificationCalculated = Standart.calculate(
+              qualificationConfig.resultsLoader
+                .read(qualificationConfig.resultsPath, gender),
+              qualificationConfig,
+              licenses,
+              nameMapping
+            )
+            new FinalWithQualification(qualificationCalculated).calculate(
+              eventConfig.resultsLoader.read(eventConfig.resultsPath, gender),
+              eventConfig,
+              licenses,
+              nameMapping
+            )
+          case None =>
+            Standart.calculate(
+              eventConfig.resultsLoader.read(eventConfig.resultsPath, gender),
+              eventConfig,
+              licenses,
+              nameMapping
+            )
+        }
 
-      EventCalculated(
-        eventConfig.name,
-        eventConfig.eventCategory,
-        eventCalculated
-      )
+        EventResultsWriter.CSV.write( // TODO implicit side effect
+          eventCalculated,
+          eventConfig,
+          s"${gender.show}_calculated"
+        )
+        EventResultsWriter.HTML.write( // TODO implicit side effect
+          eventCalculated,
+          eventConfig,
+          s"${gender.show}_calculated"
+        )
+
+        EventCalculated(
+          eventConfig.name,
+          eventConfig.eventCategory,
+          eventCalculated
+        )
+      }
+
+      CompetitionCalculated(eventsCalculated)
     }
 
-    CompetitionCalculated(eventsCalculated)
-  }
+    val rating = RatingCalculator.Standart2026.calculate(
+      licenses,
+      competitionsCalculated
+    )
 
-  val rating = RatingCalculator.Standart2026.calculate(
-    licenses,
-    competitionsCalculated
-  )
+    RatingWriter.CSV.write(
+      rating,
+      ResourcePath(s"2026/rating_${gender.show}.csv")
+    )
+    RatingWriter.HTML.write(
+      rating,
+      ResourcePath(s"2026/rating_${gender.show}.html")
+    )
 
-  RatingWriter.CSV.write(rating, ResourcePath(s"2026/rating_${gender.show}.csv"))
-  RatingWriter.HTML.write(rating, ResourcePath(s"2026/rating_${gender.show}.html"))
-
-  val statistics = StatisticsCaclulator.calculate(licenses, competitionsCalculated, rating)
-  StatisticsWriter.write(statistics, ResourcePath(s"2026/statistics_${gender.show}.json"))
+    val statistics =
+      StatisticsCaclulator.calculate(licenses, competitionsCalculated, rating)
+    StatisticsWriter.write(
+      statistics,
+      ResourcePath(s"2026/statistics_${gender.show}.json")
+    )
   }
 }
