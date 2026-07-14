@@ -71,3 +71,7 @@ tr:hover {
 .yellow {
 	color: rgb(237, 208, 41);
 }
+
+.dimmed {
+	color: #bbb;
+}

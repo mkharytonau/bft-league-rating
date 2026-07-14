@@ -40,6 +40,38 @@ object RatingWriter {
   }
 
   object HTML extends RatingWriter {
+
+    private def countingEventNames(row: RatingRow): Set[EventName] = {
+      val otherCount = row.license.gender match {
+        case Gender.Men   => 3
+        case Gender.Women => 1
+      }
+
+      def bestInCategory(cat: EventCategory): Option[EventPoints] =
+        row.eventsPoints
+          .filter(ep => ep.eventCategory == cat && ep.pointsMaybe.isDefined)
+          .sortBy(-_.pointsMaybe.get.value)
+          .headOption
+
+      val priorityBests = List(
+        EventCategory.Sprint,
+        EventCategory.Stayer,
+        EventCategory.Duathlon,
+        EventCategory.Multi
+      ).flatMap(bestInCategory)
+
+      val priorityNames = priorityBests.map(_.eventName).toSet
+
+      val otherBests = row.eventsPoints
+        .filter(ep => ep.pointsMaybe.isDefined && !priorityNames.contains(ep.eventName))
+        .sortBy(-_.pointsMaybe.get.value)
+        .take(otherCount)
+        .map(_.eventName)
+        .toSet
+
+      priorityNames ++ otherBests
+    }
+
     def write(rating: Rating, path: ResourcePath): Unit = {
       val filePath =
         s"/Users/mkharytonau/Projects/bft-league-rating/src/main/resources/${path.value}" // TODO don't hardcode path to resources folder
@@ -113,10 +145,15 @@ object RatingWriter {
           td(clubStr),
           td(style := "white-space: nowrap;")(license.ag.show),
           td(agPlace)
-        ) ++ ratingRow.eventsPoints.map { eventPoints =>
-          val pointsStr =
-            eventPoints.pointsMaybe.map(_.value.toString).getOrElse("")
-          td(pointsStr)
+        ) ++ {
+          val counting = countingEventNames(ratingRow)
+          ratingRow.eventsPoints.map { eventPoints =>
+            val pointsStr =
+              eventPoints.pointsMaybe.map(_.value.toString).getOrElse("")
+            val isDimmed =
+              eventPoints.pointsMaybe.isDefined && !counting.contains(eventPoints.eventName)
+            if (isDimmed) td(cls := "dimmed")(pointsStr) else td(pointsStr)
+          }
         } ++ List(
           td(
             a(
