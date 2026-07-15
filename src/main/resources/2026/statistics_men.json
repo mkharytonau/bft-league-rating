@@ -1,18 +1,18 @@
 {
   "unique" : {
-    "licenses" : 112
+    "licenses" : 115
   },
   "total" : {
     "participants" : 590,
     "categories" : {
       "license" : {
-        "licensed" : 300,
-        "unlicensed" : 290
+        "licensed" : 306,
+        "unlicensed" : 284
       },
       "ageGroup" : {
         "30-34" : 26,
-        "40-44" : 90,
-        "35-39" : 68,
+        "40-44" : 91,
+        "35-39" : 73,
         "50-54" : 16,
         "60+" : 2,
         "55-59" : 12,
@@ -26,6 +26,7 @@
         "UTribe" : 2,
         "Grebenstar" : 6,
         "TRISTYLE" : 3,
+        "ZmitroC Team" : 3,
         "NE PROFI" : 6,
         "ON-BIKE" : 8,
         "Arza Running Club" : 3,
@@ -33,7 +34,7 @@
         "SQMINSK" : 7,
         "-----" : 5,
         "ALTIUS!" : 4,
-        "Tristyle" : 65,
+        "Tristyle" : 70,
         "Altius" : 2,
         "RUN4FUN.BY" : 8,
         "Runstudio" : 3,
@@ -41,12 +42,12 @@
         "Yellow Submarine" : 6,
         "Многобор" : 12,
         "СК Сож" : 9,
-        "Altius!" : 13,
+        "Altius!" : 14,
         "Крынiца" : 5,
         "TRIVIDA" : 7,
         "Тристайл" : 7,
         "Runonline.by" : 2,
-        "-" : 75,
+        "-" : 72,
         "Triatyle" : 1,
         "Clown’s Triathlon team" : 3,
         "БелНовация" : 3,
@@ -67,13 +68,13 @@
       "participants" : 68,
       "categories" : {
         "license" : {
-          "licensed" : 33,
-          "unlicensed" : 35
+          "licensed" : 35,
+          "unlicensed" : 33
         },
         "ageGroup" : {
           "30-34" : 3,
           "40-44" : 10,
-          "35-39" : 7,
+          "35-39" : 9,
           "50-54" : 2,
           "18-24" : 3,
           "25-29" : 4,
@@ -81,8 +82,9 @@
         },
         "club" : {
           "SQMINSK" : 1,
-          "Tristyle" : 9,
+          "Tristyle" : 10,
           "Grebenstar" : 1,
+          "ZmitroC Team" : 1,
           "NE PROFI" : 1,
           "Жёлтая Субмарина" : 1,
           "Biketourist.club" : 1,
@@ -160,13 +162,13 @@
       "participants" : 109,
       "categories" : {
         "license" : {
-          "licensed" : 51,
-          "unlicensed" : 58
+          "licensed" : 53,
+          "unlicensed" : 56
         },
         "ageGroup" : {
           "30-34" : 5,
           "40-44" : 15,
-          "35-39" : 16,
+          "35-39" : 18,
           "50-54" : 2,
           "18-24" : 4,
           "25-29" : 3,
@@ -174,9 +176,10 @@
         },
         "club" : {
           "S-sportas" : 1,
-          "Tristyle" : 8,
+          "Tristyle" : 9,
           "Grebenstar" : 2,
           "TRISTYLE" : 2,
+          "ZmitroC Team" : 1,
           "NE PROFI" : 1,
           "Biketourist.club" : 1,
           "ON-BIKE" : 1,
@@ -209,13 +212,13 @@
       "participants" : 61,
       "categories" : {
         "license" : {
-          "licensed" : 40,
-          "unlicensed" : 21
+          "licensed" : 39,
+          "unlicensed" : 22
         },
         "ageGroup" : {
           "30-34" : 3,
           "40-44" : 13,
-          "35-39" : 7,
+          "35-39" : 6,
           "50-54" : 3,
           "60+" : 1,
           "55-59" : 2,
@@ -226,7 +229,7 @@
         "club" : {
           "SQMINSK" : 1,
           "RUN4FUN.BY" : 1,
-          "-" : 12,
+          "-" : 11,
           "NE PROFI" : 1,
           "Magicsport" : 1,
           "Biketourist.club" : 1,
@@ -251,13 +254,13 @@
       "participants" : 92,
       "categories" : {
         "license" : {
-          "licensed" : 50,
-          "unlicensed" : 42
+          "licensed" : 49,
+          "unlicensed" : 43
         },
         "ageGroup" : {
           "30-34" : 6,
           "40-44" : 16,
-          "35-39" : 10,
+          "35-39" : 9,
           "50-54" : 2,
           "55-59" : 2,
           "18-24" : 3,
@@ -284,7 +287,7 @@
           "Крынiца" : 1,
           "TRIVIDA" : 1,
           "Тристайл" : 1,
-          "-" : 11,
+          "-" : 10,
           "Triatyle" : 1,
           "nedmotorsport" : 1,
           "tristale.club" : 1
@@ -296,13 +299,13 @@
       "participants" : 72,
       "categories" : {
         "license" : {
-          "licensed" : 45,
-          "unlicensed" : 27
+          "licensed" : 49,
+          "unlicensed" : 23
         },
         "ageGroup" : {
           "30-34" : 3,
-          "40-44" : 12,
-          "35-39" : 13,
+          "40-44" : 13,
+          "35-39" : 16,
           "50-54" : 3,
           "55-59" : 1,
           "18-24" : 3,
@@ -315,18 +318,19 @@
           "-" : 12,
           "Grebenstar" : 2,
           "TRISTYLE" : 1,
+          "ZmitroC Team" : 1,
           "NE PROFI" : 1,
           "Clown’s Triathlon team" : 1,
           "ON-BIKE" : 1,
           "Arza Running Club" : 1,
           "Yellow submarine" : 1,
           "ALTIUS!" : 1,
-          "Tristyle" : 6,
+          "Tristyle" : 8,
           "Altius" : 1,
           "Yellow Submarine" : 1,
           "Многобор" : 1,
           "СК Сож" : 2,
-          "Altius!" : 4,
+          "Altius!" : 5,
           "TRIVIDA" : 1,
           "Тристайл" : 2,
           "Жёлтая Субмарина" : 1,
@@ -368,20 +372,20 @@
       "participants" : 73,
       "categories" : {
         "license" : {
-          "licensed" : 24,
-          "unlicensed" : 49
+          "licensed" : 23,
+          "unlicensed" : 50
         },
         "ageGroup" : {
           "30-34" : 2,
           "40-44" : 6,
-          "35-39" : 8,
+          "35-39" : 7,
           "55-59" : 1,
           "25-29" : 3,
           "45-49" : 4
         },
         "club" : {
           "RUN4FUN.BY" : 1,
-          "-" : 7,
+          "-" : 6,
           "NE PROFI" : 1,
           "Жёлтая Субмарина" : 1,
           "ON-BIKE" : 1,
@@ -402,20 +406,20 @@
       "participants" : 44,
       "categories" : {
         "license" : {
-          "licensed" : 24,
-          "unlicensed" : 20
+          "licensed" : 25,
+          "unlicensed" : 19
         },
         "ageGroup" : {
           "30-34" : 2,
           "40-44" : 9,
-          "35-39" : 3,
+          "35-39" : 4,
           "50-54" : 2,
           "55-59" : 2,
           "25-29" : 2,
           "45-49" : 4
         },
         "club" : {
-          "Tristyle" : 8,
+          "Tristyle" : 9,
           "RUN4FUN.BY" : 2,
           "UTribe" : 1,
           "-" : 6,
@@ -434,13 +438,13 @@
     "histogram" : {
       "0" : 24,
       "5" : 10,
-      "1" : 19,
+      "1" : 21,
       "6" : 10,
       "2" : 14,
       "7" : 4,
       "3" : 17,
       "8" : 2,
-      "4" : 12
+      "4" : 13
     },
     "bestParticipants" : [
       {

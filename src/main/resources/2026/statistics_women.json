@@ -1,6 +1,6 @@
 {
   "unique" : {
-    "licenses" : 30
+    "licenses" : 31
   },
   "total" : {
     "participants" : 165,
@@ -268,7 +268,7 @@
   ],
   "amountOfParticipations" : {
     "histogram" : {
-      "0" : 7,
+      "0" : 8,
       "5" : 2,
       "1" : 3,
       "6" : 2,
