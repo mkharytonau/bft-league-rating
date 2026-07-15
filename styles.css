@@ -74,4 +74,32 @@ tr:hover {
 
 .dimmed {
 	color: #bbb;
+	cursor: help;
+	position: relative;
+}
+
+.dimmed:hover {
+	color: #999;
+}
+
+.dimmed::after {
+	content: "Не входит в итоговую сумму";
+	position: absolute;
+	bottom: calc(100% + 4px);
+	left: 50%;
+	transform: translateX(-50%);
+	background: #333;
+	color: #fff;
+	padding: 4px 8px;
+	border-radius: 4px;
+	font-size: 0.75em;
+	white-space: nowrap;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 150ms ease;
+	z-index: 10;
+}
+
+.dimmed:hover::after {
+	opacity: 1;
 }
