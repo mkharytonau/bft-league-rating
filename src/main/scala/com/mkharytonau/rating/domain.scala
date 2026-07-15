@@ -180,6 +180,7 @@ object domain {
       placeAG: Option[Place],
       eventsPoints: List[EventPoints],
       totalPoints: Points,
+      countingEventNames: Set[EventName],
       theBestTrend: Boolean
   )
 
