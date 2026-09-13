@@ -12,34 +12,115 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Калькулятор очков рейтинга</title>
     <style>
-        body {
-            margin: 20px;
+        #rating-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 10px;
+            max-width: 960px;
+            margin-bottom: 28px;
         }
 
         .form-group {
-            margin-bottom: 15px;
+            margin: 0;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            max-width: 350px;
+            gap: 8px;
+            max-width: none;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 8px 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .form-group.gender-group {
+            grid-column: 1 / -1;
+            max-width: 220px;
+        }
+
+        .form-group.result-group {
+            grid-column: 1 / -1;
+            background: none;
+            border: none;
+            box-shadow: none;
+            padding: 0;
+            display: block;
         }
 
         label {
-            display: block;
-            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0;
             flex: 1;
-            margin-right: 10px;
+            font-size: 0.88em;
+            color: var(--muted);
         }
 
         input,
         select,
         output {
-            padding: 4px;
+            padding: 6px 8px;
         }
 
         input {
-            flex: 1;
-            max-width: 75px;
+            flex: 0 0 80px;
+            max-width: 80px;
+            text-align: right;
+        }
+
+        .calc-total {
+            margin-top: 14px;
+            padding: 14px 18px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            font-size: 1.15em;
+            font-weight: 700;
+        }
+
+        .calc-total span {
+            color: var(--accent-1);
+        }
+
+        .formula-details {
+            max-width: 600px;
+            margin-bottom: 20px;
+        }
+
+        .formula-details summary {
+            display: inline-block;
+            padding: 7px 16px;
+            border-radius: 999px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            color: var(--accent-1);
+            font-weight: 600;
+            font-size: 0.92em;
+            cursor: pointer;
+            list-style: none;
+        }
+
+        .formula-details summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .formula-details summary:hover {
+            background: var(--gradient);
+            color: #fff;
+            border-color: transparent;
+        }
+
+        .formula-details img {
+            display: block;
+            margin-top: 12px;
+            max-width: 100%;
+            height: auto;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
         }
     </style>
 </head>
@@ -52,13 +133,15 @@
         согласно пункта 14.7
         <a href="https://triatlon.by/assets/images/files/federation/polozhenie-lyubitelskaya-liga-2026-podpisano.pdf"
             target="_blank" rel="noopener noreferrer">Положения</a>
-        о Любительской Лиге:
-        <img src="img/rating_points_formula.png" alt="Пункт 14.7 Положения"
-            style="max-width: 400px; width: 100%; height: auto;">
+        о Любительской Лиге.
     </p>
+    <details class="formula-details">
+        <summary>Показать текст пункта 14.7</summary>
+        <img src="img/rating_points_formula.png" alt="Пункт 14.7 Положения">
+    </details>
 
     <form id="rating-form">
-        <div class="form-group">
+        <div class="form-group gender-group">
             <label for="gender">Пол:</label>
             <select id="gender" name="Пол">
                 <option value="men">Мужчины</option>
@@ -141,16 +224,17 @@
             <label for="DuathlonRaubichi">Дуатлон. Раубичи</label>
             <input type="number" id="DuathlonRaubichi" name="Дуатлон. Раубичи" min="0" max="800">
         </div>
-        <div>
-            <label><b>Результат рассчета:</b></label>
+        <div class="form-group result-group">
             <output id="total-points" style="padding: 0;">
-                <div><b>Сп</b>ринт: <span id="calculated-sprint-value"></span> </div>
-                <div><b>Ст</b>аерская: <span id="calculated-stayer-value"></span></div>
-                <div><b>Д</b>уатлон: <span id="calculated-duathlon-value"></span></div>
-                <div><b>М</b>ульти: <span id="calculated-multi-value"></span></div>
-                <div><b id="calculated-other-events-label"></b></div>
-                <span id="calculated-other-events-value"></span>
-                <div><b>Сумма:</b> <span id="total-value"></span> </div>
+                <div class="breakdown-section">
+                    <div class="breakdown-title">Лучшие по категориям</div>
+                    <div class="chip-row" id="priority-chips"></div>
+                </div>
+                <div class="breakdown-section" id="other-section">
+                    <div class="breakdown-title" id="other-title"></div>
+                    <div class="chip-row" id="other-chips"></div>
+                </div>
+                <div class="calc-total">Сумма: <span id="total-value"></span></div>
             </output>
         </div>
     </form>
@@ -227,6 +311,28 @@
         });
 
         const prioritisedCategories = ['Sprint', 'Stayer', 'Duathlon', 'Multi'];
+        const categoryClass = {
+            Sprint: 'cat-sprint',
+            Stayer: 'cat-stayer',
+            Duathlon: 'cat-duathlon',
+            Multi: 'cat-multi'
+        };
+        const categoryLabel = {
+            Sprint: 'Спринт',
+            Stayer: 'Стайер',
+            Duathlon: 'Дуатлон',
+            Multi: 'Мульти'
+        };
+
+        // mark each event's own input with a dot matching its category, using
+        // the same palette as the rating page's per-athlete breakdown
+        Object.keys(events).forEach(event => {
+            const label = document.querySelector(`label[for="${event}"]`);
+            if (!label) return;
+            const dot = document.createElement('span');
+            dot.className = `cat-badge ${categoryClass[events[event]]}`;
+            label.prepend(dot);
+        });
 
         function calculatePrioritisedCategoryMax(events) {
             const categoryMax = {};
@@ -288,13 +394,30 @@
                 return document.getElementById(event).name;
             }
 
-            document.getElementById('calculated-sprint-value').textContent = prioritisedCategoriesMax['Sprint'] ? `${prioritisedCategoriesMax['Sprint'].value} на ${getEventName(prioritisedCategoriesMax['Sprint'].event)}` : "Не участвовал";
-            document.getElementById('calculated-stayer-value').textContent = prioritisedCategoriesMax['Stayer'] ? `${prioritisedCategoriesMax['Stayer'].value} на ${getEventName(prioritisedCategoriesMax['Stayer'].event)}` : "Не участвовал";
-            document.getElementById('calculated-duathlon-value').textContent = prioritisedCategoriesMax['Duathlon'] ? `${prioritisedCategoriesMax['Duathlon'].value} на ${getEventName(prioritisedCategoriesMax['Duathlon'].event)}` : "Не участвовал";
-            document.getElementById('calculated-multi-value').textContent = prioritisedCategoriesMax['Multi'] ? `${prioritisedCategoriesMax['Multi'].value} на ${getEventName(prioritisedCategoriesMax['Multi'].event)}` : "Не участвовал";
-            document.getElementById('calculated-other-events-label').textContent = `Лучшие ${otherCount} результата, за исключением вышеперечисленных Сп, Ст, Д, М:`;
-            document.getElementById('calculated-other-events-value').innerHTML = Object.entries(topOtherEventValues)
-                .map(([event, value]) => `<div style="padding-left: 10px;">${getEventName(event)}: ${value}</div>`)
+            function chipHtml(catClass, name, value, extraClass) {
+                return `<span class="chip ${extraClass || ''}">` +
+                    `<span class="cat-badge ${catClass}"></span>` +
+                    `<span class="chip-name">${name}</span>` +
+                    `<span class="chip-points">${value}</span>` +
+                    `</span>`;
+            }
+
+            document.getElementById('priority-chips').innerHTML = prioritisedCategories
+                .map(category => {
+                    const best = prioritisedCategoriesMax[category];
+                    const catClass = categoryClass[category];
+                    return best
+                        ? chipHtml(catClass, getEventName(best.event), best.value)
+                        : chipHtml(catClass, categoryLabel[category], 'не участвовал', 'chip-empty');
+                })
+                .join('');
+
+            document.getElementById('other-title').textContent =
+                `Лучшие остальные (${Object.keys(topOtherEventValues).length})`;
+            document.getElementById('other-section').style.display =
+                Object.keys(topOtherEventValues).length > 0 ? '' : 'none';
+            document.getElementById('other-chips').innerHTML = Object.entries(topOtherEventValues)
+                .map(([event, value]) => chipHtml(categoryClass[events[event]], getEventName(event), value))
                 .join('');
 
             const result = Object.values(prioritisedCategoriesMax).reduce((sum, item) => sum + (item ? item.value : 0), 0) + Object.values(topOtherEventValues).reduce((sum, value) => sum + value, 0)
