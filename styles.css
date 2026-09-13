@@ -259,6 +259,70 @@ body>ul ul li a:hover {
 	color: #fff;
 }
 
+/* statistics page's table of contents */
+.toc {
+	background: var(--surface);
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	box-shadow: var(--shadow);
+	padding: 18px 24px;
+	margin: 0 0 28px;
+}
+
+.toc ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.toc>ul>li {
+	margin-bottom: 4px;
+}
+
+.toc>ul>li>a {
+	display: inline-block;
+	padding: 6px 0;
+	font-weight: 700;
+	font-size: 1.02em;
+	color: var(--accent-1);
+	text-decoration: none;
+	border-bottom: 1px solid transparent;
+}
+
+.toc>ul>li>a:hover {
+	border-bottom-color: currentColor;
+}
+
+.toc ul ul {
+	margin: 2px 0 10px 9px;
+	padding-left: 16px;
+	border-left: 2px solid var(--border);
+}
+
+.toc ul ul li {
+	margin-bottom: 2px;
+}
+
+.toc ul ul li a {
+	display: inline-block;
+	padding: 4px 0;
+	color: var(--accent-1);
+	opacity: 0.8;
+	font-size: 0.9em;
+	text-decoration: none;
+	border-bottom: 1px solid transparent;
+}
+
+.toc ul ul li a::before {
+	content: "→ ";
+	color: var(--muted);
+}
+
+.toc ul ul li a:hover {
+	opacity: 1;
+	border-bottom-color: currentColor;
+}
+
 /* tables (rating + event results) */
 table {
 	width: 100%;
