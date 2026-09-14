@@ -14,7 +14,7 @@ object RatingWriter {
   object CSV extends RatingWriter {
     def write(rating: Rating, path: ResourcePath): Unit = {
       val writer = CSVWriter.open(
-        s"/Users/mkharytonau/Projects/bft-league-rating/src/main/resources/${path.value}" // TODO don't hardcode path to resources folder
+        ResourcesDir.path(path.value)
       )
 
       writer.writeRow(rating.header.value.map(_.value))
@@ -41,16 +41,32 @@ object RatingWriter {
 
   object HTML extends RatingWriter {
 
+    private val categoryLabel: EventCategory => String = {
+      case EventCategory.Sprint   => "Спринт"
+      case EventCategory.Stayer   => "Стайер"
+      case EventCategory.Duathlon => "Дуатлон"
+      case EventCategory.Multi    => "Мульти"
+    }
+
+    private val categoryClass: EventCategory => String = {
+      case EventCategory.Sprint   => "cat-sprint"
+      case EventCategory.Stayer   => "cat-stayer"
+      case EventCategory.Duathlon => "cat-duathlon"
+      case EventCategory.Multi    => "cat-multi"
+    }
+
+    // the visible summary columns; per-event points move into each row's
+    // expandable detail instead of one column per event
+    private val summaryHeader =
+      List("№", "▼▲", "ФИО", "Клуб", "AG", "Место в AG", "Сумма", "")
+
     def write(rating: Rating, path: ResourcePath): Unit = {
-      val filePath =
-        s"/Users/mkharytonau/Projects/bft-league-rating/src/main/resources/${path.value}" // TODO don't hardcode path to resources folder
+      val filePath = ResourcesDir.path(path.value)
       val writer = new java.io.PrintWriter(filePath)
 
-      val header = rating.header.value.map(_.value)
       val headerHtml = {
-        val last = header.last
-        header.init
-          .map(th(_)) :+ th(
+        val last = summaryHeader(summaryHeader.size - 2) // "Сумма"
+        summaryHeader.init.init.map(th(_)) :+ th(
           span(last),
           br(),
           span(
@@ -64,10 +80,79 @@ object RatingWriter {
           span(
             style := "font-size: 0.5em; color: gray;"
           )("объяснение")
+        ) :+ th("")
+      }
+
+      def eventChip(
+          eventPoints: EventPoints,
+          countedNames: Set[EventName]
+      ): TypedTag[String] = {
+        val counted = countedNames.contains(eventPoints.eventName)
+        val pointsStr =
+          eventPoints.pointsMaybe.map(p => f"${p.value}%.2f").getOrElse("—")
+        span(cls := (if (!counted) "chip dimmed" else "chip"))(
+          span(cls := s"cat-badge ${categoryClass(eventPoints.eventCategory)}"),
+          span(cls := "chip-name")(eventPoints.eventName.ratingName),
+          span(cls := "chip-points")(pointsStr)
         )
       }
 
-      val rows = rating.rows.map { ratingRow =>
+      def emptyCategoryChip(category: EventCategory): TypedTag[String] =
+        span(cls := "chip chip-empty")(
+          span(cls := s"cat-badge ${categoryClass(category)}"),
+          span(cls := "chip-name")(categoryLabel(category)),
+          span(cls := "chip-points")("не участвовал")
+        )
+
+      def breakdownSection(
+          title: String,
+          chips: Seq[TypedTag[String]]
+      ): TypedTag[String] =
+        div(cls := "breakdown-section")(
+          div(cls := "breakdown-title")(title),
+          div(cls := "chip-row")(chips)
+        )
+
+      def detailRow(ratingRow: RatingRow): TypedTag[String] = {
+        val breakdown = ratingRow.breakdown
+        val countedNames = breakdown.countingEventNames
+
+        // a category can have events on record with nobody's result in them
+        // (e.g. the athlete never raced a Stayer distance); those come back
+        // as Some(EventPoints(..., pointsMaybe = None)) rather than a true
+        // None, so check pointsMaybe explicitly instead of just the Option
+        val priorityChips = breakdown.priorityByCategory.map {
+          case (_, Some(eventPoints)) if eventPoints.pointsMaybe.isDefined =>
+            eventChip(eventPoints, countedNames)
+          case (category, _) => emptyCategoryChip(category)
+        }
+        val otherChips = breakdown.otherCounting
+          .filter(_.pointsMaybe.isDefined)
+          .map(eventChip(_, countedNames))
+        val notCounted = ratingRow.eventsPoints.filter(ep =>
+          ep.pointsMaybe.isDefined && !countedNames.contains(ep.eventName)
+        )
+        val notCountedChips = notCounted.map(eventChip(_, countedNames))
+
+        val sections = List(
+          Some(breakdownSection("Лучшие по категориям", priorityChips)),
+          Option.when(otherChips.nonEmpty)(
+            breakdownSection(
+              s"Лучшие остальные (${otherChips.size})",
+              otherChips
+            )
+          ),
+          Option.when(notCountedChips.nonEmpty)(
+            breakdownSection("Не учтено", notCountedChips)
+          )
+        ).flatten
+
+        tr(cls := "detail-row")(
+          td(attr("colspan") := summaryHeader.size.toString)(sections)
+        )
+      }
+
+      val rows = rating.rows.flatMap { ratingRow =>
         val license = ratingRow.license
         val clubStr = license.club.map(_.value).getOrElse("")
         val agPlace = ratingRow.placeAG
@@ -92,16 +177,38 @@ object RatingWriter {
           case _ if ratingRow.theBestTrend => span("🚀")
           case _ => span(ratingRow.place.value.toString)
         }
+        val rankCls = ratingRow.place.value match {
+          case 1 => " rank-1"
+          case 2 => " rank-2"
+          case 3 => " rank-3"
+          case _ => ""
+        }
+        // the rank/trend cells show emoji/arrows, not plain numbers, so
+        // table-tools.js's numeric sort needs the real value via data-sort
         val row = List(
-          td(place), {
+          td(
+            attr("data-label") := "№",
+            attr("data-sort") := ratingRow.place.value.toString
+          )(place), {
+            val trendAttrs = Seq(
+              attr("data-label") := "▼▲",
+              attr("data-sort") := ratingRow.trend.value.toString
+            )
             ratingRow.trend.show.headOption match {
-              case Some('▲') => td(cls := "green")(ratingRow.trend.show)
-              case Some('▼') => td(cls := "red")(ratingRow.trend.show)
-              case Some('−') => td(cls := "yellow")(ratingRow.trend.show)
-              case _         => td(ratingRow.trend.show)
+              case Some('▲') =>
+                td(cls := "green", trendAttrs)(ratingRow.trend.show)
+              case Some('▼') =>
+                td(cls := "red", trendAttrs)(ratingRow.trend.show)
+              case Some('−') =>
+                td(cls := "yellow", trendAttrs)(ratingRow.trend.show)
+              case _ =>
+                td(trendAttrs)(ratingRow.trend.show)
             }
           },
-          td(style := "white-space: nowrap;")(
+          td(
+            style := "white-space: nowrap;",
+            attr("data-label") := "ФИО"
+          )(
             img(
               src := s"./img/avatars/thumbnails/${license.fioInRussian.value}.jpg",
               alt := "",
@@ -111,32 +218,35 @@ object RatingWriter {
             raw("&nbsp;"),
             span(license.fioInRussian.value)
           ),
-          td(clubStr),
-          td(style := "white-space: nowrap;")(license.ag.show),
-          td(agPlace)
-        ) ++ {
-          ratingRow.eventsPoints.map { eventPoints =>
-            val pointsStr =
-              eventPoints.pointsMaybe.map(_.value.toString).getOrElse("")
-            val isDimmed =
-              eventPoints.pointsMaybe.isDefined && !ratingRow.countingEventNames.contains(eventPoints.eventName)
-            if (isDimmed) td(cls := "dimmed")(pointsStr) else td(pointsStr)
-          }
-        } ++ List(
+          td(attr("data-label") := "Клуб")(clubStr),
           td(
+            style := "white-space: nowrap;",
+            attr("data-label") := "AG"
+          )(license.ag.show),
+          td(
+            attr("data-label") := "Место в AG",
+            attr("data-sort") := ratingRow.placeAG.map(_.value.toString).getOrElse("")
+          )(agPlace),
+          td(attr("data-label") := "Сумма")(
             a(
               href := s"./rating_points_calculator.html?$jsCaluclatorPath&gender=$genderParam&scalaTotalValue=$totalPointsStr"
             )(totalPointsStr)
-          )
+          ),
+          td(cls := "expand-toggle")("▸")
         )
 
         val gradientPct = rating.winnerPoints.map(winnerPoints =>
           ratingRow.totalPoints.value / winnerPoints.value * 100.0
         )
-        tr(attr("style") := s"--bar:${gradientPct.getOrElse(0)}%")(row)
+        val summaryRow = tr(
+          cls := s"rating-row-summary$rankCls",
+          attr("style") := s"--bar:${gradientPct.getOrElse(0)}%"
+        )(row)
+
+        List(summaryRow, detailRow(ratingRow))
       }
 
-      val htmlTable = table(
+      val htmlTable = table(cls := "enhanced-table rating-table")(
         thead(
           tr(headerHtml)
         ),

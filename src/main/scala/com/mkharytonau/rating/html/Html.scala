@@ -7,7 +7,9 @@ import com.mkharytonau.rating.domain.EventConfig
 
 object Html {
 
-  def commonHead(pageTitle: String, stylesHref: String) =
+  def commonHead(pageTitle: String, stylesHref: String) = {
+    val scriptHref = stylesHref.replace("styles.css", "table-tools.js")
+    val navScriptHref = stylesHref.replace("styles.css", "nav.js")
     head(
       link(rel := "preconnect", href := "https://fonts.googleapis.com"),
       link(
@@ -28,21 +30,43 @@ object Html {
         name := "viewport",
         content := "width=device-width, initial-scale=1.0"
       ),
-      title(pageTitle)
+      title(pageTitle),
+      script(src := navScriptHref, attr("defer") := ""),
+      script(src := scriptHref, attr("defer") := "")
+    )
+  }
+
+  /** Wraps a table with a search box that table-tools.js wires up to filter
+    * rows, and tags the table so table-tools.js makes its columns sortable
+    * and the narrow-screen CSS turns its rows into cards.
+    */
+  def tableWithToolbar(dataTable: TypedTag[String]): TypedTag[String] =
+    div(
+      div(cls := "table-toolbar")(
+        input(
+          `type` := "search",
+          cls := "table-search",
+          attr("placeholder") := "Поиск…",
+          attr("aria-label") := "Поиск по таблице"
+        )
+      ),
+      dataTable
     )
 
   def resultsTable(
       header: Seq[String],
       rows: Seq[(Option[Double], Seq[String])]
   ): TypedTag[String] =
-    table(
+    table(cls := "enhanced-table")(
       thead(
         tr(header.map(th(_)))
       ),
       tbody(
         rows.map { case (gradientPct, row) =>
           tr(attr("style") := s"--bar:${gradientPct.getOrElse(0)}%")(
-            row.map(td(_))
+            row.zip(header).map { case (value, label) =>
+              td(attr("data-label") := label)(value)
+            }
           )
         }
       )
@@ -66,7 +90,7 @@ object Html {
           "❗ По всем вопросам, пожалуйста, обращайтесь в телеграм ",
           a(href := "https://t.me/mkharytonau", "@mkharytonau")
         ),
-        resultsTable
+        tableWithToolbar(resultsTable)
       )
     )
   }
@@ -85,7 +109,7 @@ object Html {
           "❗ По всем вопросам, пожалуйста, обращайтесь в телеграм ",
           a(href := "https://t.me/mkharytonau", "@mkharytonau")
         ),
-        ratingTable
+        tableWithToolbar(ratingTable)
       )
     )
 }

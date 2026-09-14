@@ -10,6 +10,7 @@ import java.io.PrintWriter
 import com.mkharytonau.rating.html.Html
 import com.mkharytonau.rating.domain.EventConfig
 import com.mkharytonau.rating.domain.Gender
+import com.mkharytonau.rating.domain.ResourcesDir
 import cats.syntax.show._
 
 trait EventResultsWriter {
@@ -28,7 +29,7 @@ object EventResultsWriter {
         filename: String
     ): Unit = {
       val writer = CSVWriter.open(
-        s"/Users/mkharytonau/Projects/bft-league-rating/src/main/resources/${eventConfig.resultsPath.value}/$filename.csv" // TODO don't hardcode path to resources folder
+        ResourcesDir.path(s"${eventConfig.resultsPath.value}/$filename.csv")
       )
       val headerWithCalculation = calculated.results.header.value
         .map(_.value) ++ List("Место", "Очки в рейтинг")
@@ -55,7 +56,7 @@ object EventResultsWriter {
     ): Unit = {
 
       val filePath =
-        s"/Users/mkharytonau/Projects/bft-league-rating/src/main/resources/${eventConfig.resultsPath.value}/$filename.html" // TODO don't hardcode path to resources folder
+        ResourcesDir.path(s"${eventConfig.resultsPath.value}/$filename.html")
       val writer = new PrintWriter(filePath)
 
       val headerWithCalculation = calculated.results.header.value

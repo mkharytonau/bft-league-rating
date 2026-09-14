@@ -14,6 +14,14 @@ import cats.syntax.option._
 
 object domain {
 
+  // writers use this to resolve where to put generated output; `sbt run`
+  // always sets user.dir to the project root, so this works regardless of
+  // whose machine (or CI) it runs on
+  object ResourcesDir {
+    def path(relativePath: String): String =
+      s"${System.getProperty("user.dir")}/src/main/resources/$relativePath"
+  }
+
   sealed trait Gender
   object Gender {
     case object Men extends Gender
@@ -173,6 +181,21 @@ object domain {
       eventCategory: EventCategory,
       pointsMaybe: Option[Points]
   )
+
+  // which events count towards totalPoints, split the way the rating rule
+  // actually works: one automatic slot per category, plus a handful of the
+  // best remaining results
+  final case class RatingBreakdown(
+      priorityByCategory: List[(EventCategory, Option[EventPoints])],
+      otherCounting: List[EventPoints]
+  ) {
+    def counting: List[EventPoints] =
+      priorityByCategory.flatMap(_._2) ++ otherCounting
+
+    def countingEventNames: Set[EventName] =
+      counting.map(_.eventName).toSet
+  }
+
   final case class RatingRow(
       place: Place,
       trend: Trend,
@@ -180,7 +203,7 @@ object domain {
       placeAG: Option[Place],
       eventsPoints: List[EventPoints],
       totalPoints: Points,
-      countingEventNames: Set[EventName],
+      breakdown: RatingBreakdown,
       theBestTrend: Boolean
   )
 

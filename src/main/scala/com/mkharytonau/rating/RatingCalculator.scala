@@ -35,7 +35,7 @@ object RatingCalculator {
       val ratingRowsCurrent = ratingRows(licenses, competitions)
 
       val ratingRowsWithTrend = ratingRowsCurrent.map {
-        case (place, license, eventsPoints, totalPoints, countingNames, placeAG) =>
+        case (place, license, eventsPoints, totalPoints, breakdown, placeAG) =>
           val trend =
             if (competitions.dropRight(1).nonEmpty)
               ratingRowsPrevious.collectFirst {
@@ -44,14 +44,14 @@ object RatingCalculator {
                   Trend(place.value - placePrevious.value)
               }.get // licenses list is the same so it MUST present
             else Trend(0)
-          (place, trend, license, placeAG, eventsPoints, totalPoints, countingNames)
+          (place, trend, license, placeAG, eventsPoints, totalPoints, breakdown)
       }
       val theBestTrend = ratingRowsWithTrend
         .map { case (_, trend, _, _, _, _, _) => trend.value }
         .minOption
 
       val ratingRows0 = ratingRowsWithTrend.map {
-        case (place, trend, license, placeAG, eventsPoints, totalPoints, countingNames) =>
+        case (place, trend, license, placeAG, eventsPoints, totalPoints, breakdown) =>
           RatingRow(
             place,
             trend,
@@ -59,7 +59,7 @@ object RatingCalculator {
             placeAG,
             eventsPoints,
             totalPoints,
-            countingNames,
+            breakdown,
             theBestTrend.contains(trend.value) && trend.value < 0
           )
       }
@@ -87,8 +87,8 @@ object RatingCalculator {
             )
           }
         }.flatten // TODO do we need to only keep one event per competition?
-        val (totalPoints, countingNames) = calculateTotalPoints(license, eventsPoints)
-        (license, eventsPoints, totalPoints, countingNames)
+        val (totalPoints, breakdown) = calculateTotalPoints(license, eventsPoints)
+        (license, eventsPoints, totalPoints, breakdown)
       }
 
       val ratingRowsWithIndex = ratingRows
@@ -114,14 +114,14 @@ object RatingCalculator {
 
       val ratingRowsWithPlaces = ratingRowsWithIndex
         .flatMap { case ((_, rows), index) =>
-          rows.map { case (license, eventsPoints, totalPoints, countingNames) =>
+          rows.map { case (license, eventsPoints, totalPoints, breakdown) =>
             val absolutePlace = Place(index + 1)
             (
               absolutePlace,
               license,
               eventsPoints,
               totalPoints,
-              countingNames,
+              breakdown,
               Option.when(absolutePlace.value > 3)(
                 Place(indexInAG(license.ag)(totalPoints) + 1)
               )
@@ -132,10 +132,17 @@ object RatingCalculator {
       ratingRowsWithPlaces
     }
 
+    private val categoryOrder = List(
+      EventCategory.Sprint,
+      EventCategory.Stayer,
+      EventCategory.Duathlon,
+      EventCategory.Multi
+    )
+
     private def countingEvents(
         license: License,
         eventsPoints: List[EventPoints]
-    ): List[EventPoints] = {
+    ): RatingBreakdown = {
       // see p.14.7 of https://triatlon.by/assets/images/files/federation/polozhenie-lyubitelskaya-liga-2026-podpisano.pdf
       val otherCount = license.gender match {
         case Men   => 3
@@ -148,12 +155,8 @@ object RatingCalculator {
           .sortBy(-_.pointsMaybe.map(_.value).getOrElse(0d))
           .headOption
 
-      val priorityBests = List(
-        EventCategory.Sprint,
-        EventCategory.Stayer,
-        EventCategory.Duathlon,
-        EventCategory.Multi
-      ).flatMap(bestInCategory)
+      val priorityByCategory = categoryOrder.map(cat => (cat, bestInCategory(cat)))
+      val priorityBests = priorityByCategory.flatMap { case (_, ep) => ep }
 
       val takenWithPriority = priorityBests.map(ep => (ep.eventName, ep.pointsMaybe))
 
@@ -166,13 +169,13 @@ object RatingCalculator {
         .sortBy(-_.pointsMaybe.map(_.value).getOrElse(0d))
         .take(otherCount)
 
-      priorityBests ++ other
+      RatingBreakdown(priorityByCategory, other)
     }
 
     def calculateTotalPoints(
         license: License,
         eventsPoints: List[EventPoints]
-    ): (Points, Set[EventName]) = {
+    ): (Points, RatingBreakdown) = {
       require(
         eventsPoints
           .map(ep => (ep.eventName, ep.pointsMaybe))
@@ -180,9 +183,9 @@ object RatingCalculator {
           .size == eventsPoints.size,
         "There are duplicate event names with points in the eventsPoints list"
       )
-      val counting = countingEvents(license, eventsPoints)
-      val totalPoints = counting.flatMap(_.pointsMaybe).map(_.value).sum
-      (Points(totalPoints), counting.map(_.eventName).toSet)
+      val breakdown = countingEvents(license, eventsPoints)
+      val totalPoints = breakdown.counting.flatMap(_.pointsMaybe).map(_.value).sum
+      (Points(totalPoints), breakdown)
     }
   }
 }

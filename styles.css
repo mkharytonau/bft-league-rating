@@ -1,3 +1,31 @@
+:root {
+	--bg: #f5f7fb;
+	--surface: #ffffff;
+	--text: #1f2430;
+	--muted: #6b7280;
+	--border: #e5e9f0;
+	--accent-1: #2563eb;
+	--accent-2: #7c3aed;
+	--accent-3: #f97316;
+	--gradient: linear-gradient(120deg, #2563eb 0%, #4f46e5 100%);
+	--radius: 12px;
+	--shadow: 0 2px 10px rgba(15, 23, 42, 0.08);
+	--gold: #f5c542;
+	--silver: #b9c1cc;
+	--bronze: #cd7f32;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html {
+	/* keeps anchor-jump targets (e.g. the statistics page's table of
+	   contents) from landing underneath the sticky .site-nav */
+	scroll-padding-top: 90px;
+	scroll-behavior: smooth;
+}
+
 body {
 	font-family: 'Roboto Flex', sans-serif;
 	font-optical-sizing: auto;
@@ -15,50 +43,439 @@ body {
 		"YTFI" 738,
 		"YTLC" 514,
 		"YTUC" 712;
+	background: var(--bg);
+	color: var(--text);
+	max-width: 1100px;
+	margin: 0 auto;
+	padding: 20px 20px 60px;
+	line-height: 1.45;
 }
 
+a {
+	color: var(--accent-1);
+}
+
+/* persistent site nav, injected by nav.js as the first element in <body> */
+.site-nav {
+	margin: 0 0 16px;
+	padding: 8px;
+	background: var(--surface);
+	border: 1px solid var(--border);
+	border-radius: 999px;
+	box-shadow: var(--shadow);
+	position: sticky;
+	top: 10px;
+	z-index: 30;
+}
+
+.nav-toggle {
+	display: none;
+}
+
+.nav-links {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+}
+
+.site-nav a,
+.site-nav summary {
+	display: inline-block;
+	padding: 7px 16px;
+	border-radius: 999px;
+	text-decoration: none;
+	color: var(--text);
+	font-weight: 600;
+	font-size: 0.92em;
+	cursor: pointer;
+	list-style: none;
+}
+
+.site-nav summary::-webkit-details-marker {
+	display: none;
+}
+
+.site-nav a:hover,
+.site-nav summary:hover {
+	background: var(--gradient);
+	color: #fff;
+}
+
+.site-nav a[aria-current="page"] {
+	background: var(--gradient);
+	color: #fff;
+}
+
+.site-nav .nav-dropdown {
+	position: relative;
+}
+
+.site-nav .nav-dropdown>div {
+	position: absolute;
+	top: calc(100% + 6px);
+	left: 0;
+	display: flex;
+	flex-direction: column;
+	min-width: 210px;
+	padding: 6px;
+	background: var(--surface);
+	border: 1px solid var(--border);
+	border-radius: 10px;
+	box-shadow: var(--shadow);
+}
+
+.site-nav .nav-dropdown>div a {
+	border-radius: 6px;
+	padding: 8px 10px;
+	color: var(--text);
+}
+
+.site-nav .nav-dropdown>div a:hover {
+	background: #eef2f9;
+	color: var(--text);
+}
+
+.site-nav .nav-dropdown[open]>div a[aria-current="page"] {
+	background: var(--gradient);
+	color: #fff;
+}
+
+/* back link ("← Все старты" / "← Все года"): whatever page markup authored
+   as body's first element, now pushed one slot down by nav.js's injected
+   .site-nav, when present */
+body>nav.site-nav+a {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	margin-bottom: 14px;
+	padding: 6px 14px;
+	border-radius: 999px;
+	background: var(--surface);
+	border: 1px solid var(--border);
+	color: var(--text);
+	font-weight: 600;
+	font-size: 0.9em;
+	text-decoration: none;
+	box-shadow: var(--shadow);
+	transition: background 150ms ease, color 150ms ease, border-color 150ms ease;
+}
+
+body>nav.site-nav+a:hover {
+	background: var(--gradient);
+	color: #fff;
+	border-color: transparent;
+}
+
+/* page title banner */
+body>h1 {
+	background: var(--gradient);
+	color: #fff;
+	margin: 0 0 20px;
+	padding: 22px 26px;
+	border-radius: var(--radius);
+	box-shadow: var(--shadow);
+	font-size: 1.6em;
+	line-height: 1.25;
+}
+
+h2 {
+	color: var(--text);
+	border-bottom: 3px solid var(--accent-1);
+	display: inline-block;
+	padding-bottom: 4px;
+	margin-top: 2.2em;
+}
+
+p {
+	color: var(--muted);
+	max-width: 780px;
+}
+
+/* top-level nav list: root/season/rating/event index pages (plain <ul><li><a>) */
+body>ul {
+	list-style: none;
+	margin: 0 0 20px;
+	padding: 0;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+	gap: 12px;
+}
+
+body>ul>li>a {
+	display: block;
+	padding: 14px 16px;
+	background: var(--surface);
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	text-decoration: none;
+	color: var(--text);
+	font-weight: 600;
+	box-shadow: var(--shadow);
+	transition: transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease;
+}
+
+body>ul>li>a:hover {
+	transform: translateY(-2px);
+	border-color: var(--accent-1);
+	box-shadow: 0 8px 18px rgba(14, 165, 233, 0.22);
+}
+
+body>ul>li>p {
+	margin: 0 0 6px;
+	padding: 8px 4px 0;
+	font-weight: 700;
+	color: var(--muted);
+	text-transform: uppercase;
+	font-size: 0.8em;
+	letter-spacing: 0.04em;
+	grid-column: 1 / -1;
+}
+
+/* nested event lists (e.g. season index "Результаты стартов" sub-list) */
+body>ul ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	grid-column: 1 / -1;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	gap: 10px;
+}
+
+body>ul ul li a {
+	display: block;
+	padding: 10px 14px;
+	background: #eef2f9;
+	border-radius: 8px;
+	text-decoration: none;
+	color: var(--text);
+	font-size: 0.92em;
+	font-weight: 500;
+	transition: background 150ms ease, color 150ms ease;
+}
+
+body>ul ul li a:hover {
+	background: var(--accent-1);
+	color: #fff;
+}
+
+/* statistics page's table of contents */
+.toc {
+	background: var(--surface);
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	box-shadow: var(--shadow);
+	padding: 18px 24px;
+	margin: 0 0 28px;
+}
+
+.toc ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.toc>ul>li {
+	margin-bottom: 4px;
+}
+
+.toc>ul>li>a {
+	display: inline-block;
+	padding: 6px 0;
+	font-weight: 700;
+	font-size: 1.02em;
+	color: var(--accent-1);
+	text-decoration: none;
+	border-bottom: 1px solid transparent;
+}
+
+.toc>ul>li>a:hover {
+	border-bottom-color: currentColor;
+}
+
+.toc ul ul {
+	margin: 2px 0 10px 9px;
+	padding-left: 16px;
+	border-left: 2px solid var(--border);
+}
+
+.toc ul ul li {
+	margin-bottom: 2px;
+}
+
+.toc ul ul li a {
+	display: inline-block;
+	padding: 4px 0;
+	color: var(--accent-1);
+	opacity: 0.8;
+	font-size: 0.9em;
+	text-decoration: none;
+	border-bottom: 1px solid transparent;
+}
+
+.toc ul ul li a::before {
+	content: "→ ";
+	color: var(--muted);
+}
+
+.toc ul ul li a:hover {
+	opacity: 1;
+	border-bottom-color: currentColor;
+}
+
+/* tables (rating + event results) */
 table {
-	border: 1px solid #ccc;
 	width: 100%;
-	border-collapse: collapse;
+	border-collapse: separate;
+	border-spacing: 0;
+	background: var(--surface);
+	box-shadow: var(--shadow);
+	border-radius: var(--radius);
 }
 
 th,
 td {
-	padding: 5px;
+	padding: 9px 12px;
 	text-align: left;
+	border-bottom: 1px solid var(--border);
 }
 
 th {
-	background-color: #f4f4f4;
-	font-weight: 600;
+	/* background lives on thead tr (below) so the gradient flows smoothly
+	   across the whole header row instead of repeating in every cell */
+	background: transparent;
+	color: #fff;
+	font-weight: 700;
+	font-size: 0.78em;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+	white-space: nowrap;
+}
+
+thead tr {
+	background: var(--gradient);
+	border-top-left-radius: var(--radius);
+	border-top-right-radius: var(--radius);
+}
+
+tbody tr:last-child td {
+	border-bottom: none;
+}
+
+tbody tr:last-child td:first-child {
+	border-bottom-left-radius: var(--radius);
+}
+
+tbody tr:last-child td:last-child {
+	border-bottom-right-radius: var(--radius);
+}
+
+tbody tr:nth-child(even) {
+	background-color: #fafbff;
 }
 
 /* result's row gradient bar emulating bar chart */
 tbody tr {
 	--bar: 0%;
-	--bar-color: rgba(66, 135, 245, 0.18);
-	/* semi-opaque blue */
+	--bar-color: rgba(14, 165, 233, 0.16);
+	/* semi-opaque accent blue */
 	/* gradient: solid color from 0 -> var(--bar), then transparent */
 	background-image:
 		linear-gradient(to right,
 			var(--bar-color) 0 var(--bar),
 			transparent var(--bar) 100%);
-	transition: background 300ms ease;
+	transition: background-color 150ms ease, background-image 300ms ease;
 }
 
 /* optional: stronger highlight on hover */
 tbody tr:hover {
-	--bar-color: rgba(66, 135, 245, 0.30);
+	--bar-color: rgba(14, 165, 233, 0.28);
 }
 
-/* tr:nth-child(even) {
-	background-color: #f9f9f9;
+/* top-3 rating rows, set via cls "rank-1"/"rank-2"/"rank-3" on <tr> */
+tr.rank-1 {
+	--bar-color: rgba(245, 197, 66, 0.35);
+	box-shadow: inset 3px 0 0 var(--gold);
 }
 
-tr:hover {
-	background-color: #f1f1f1;
-} */
+tr.rank-2 {
+	--bar-color: rgba(185, 193, 204, 0.35);
+	box-shadow: inset 3px 0 0 var(--silver);
+}
+
+tr.rank-3 {
+	--bar-color: rgba(205, 127, 50, 0.35);
+	box-shadow: inset 3px 0 0 var(--bronze);
+}
+
+/* collapsible rating rows: a summary <tr> followed by a hidden .detail-row,
+   toggled by table-tools.js */
+tr.rating-row-summary.has-detail {
+	cursor: pointer;
+}
+
+td.expand-toggle {
+	color: var(--muted);
+	text-align: center;
+	transition: transform 200ms ease;
+}
+
+tr.rating-row-summary.expanded td.expand-toggle {
+	transform: rotate(90deg);
+}
+
+tr.detail-row td {
+	background: #fafbff;
+	padding: 14px 18px;
+}
+
+.breakdown-section+.breakdown-section {
+	margin-top: 12px;
+}
+
+.breakdown-title {
+	font-size: 0.78em;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+	color: var(--muted);
+	margin-bottom: 6px;
+}
+
+.chip-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 6px 12px;
+	background: var(--surface);
+	border: 1px solid var(--border);
+	border-radius: 999px;
+	font-size: 0.88em;
+	white-space: nowrap;
+}
+
+.chip-name {
+	font-weight: 600;
+}
+
+.chip-points {
+	color: var(--muted);
+}
+
+.chip.chip-empty {
+	opacity: 0.6;
+	border-style: dashed;
+}
+
+.chip.dimmed {
+	background: transparent;
+}
 
 .red {
 	color: red;
@@ -102,4 +519,331 @@ tr:hover {
 
 .dimmed:hover::after {
 	opacity: 1;
+}
+
+/* event category badge, set via cls "cat-sprint"/"cat-stayer"/"cat-duathlon"/"cat-multi" */
+.cat-badge {
+	display: inline-block;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	margin-right: 6px;
+	vertical-align: middle;
+}
+
+.cat-sprint {
+	background: var(--accent-3);
+}
+
+.cat-stayer {
+	background: var(--accent-2);
+}
+
+.cat-duathlon {
+	background: var(--accent-1);
+}
+
+.cat-multi {
+	background: #16a34a;
+}
+
+/* search box above a table, added via Html.tableToolbar */
+.table-toolbar {
+	margin-bottom: 10px;
+}
+
+.table-search {
+	width: 100%;
+	max-width: 320px;
+	padding: 9px 14px;
+	border: 1px solid var(--border);
+	border-radius: 999px;
+	background: var(--surface);
+	box-shadow: var(--shadow);
+	font-size: 0.95em;
+}
+
+.table-search:focus {
+	outline: 2px solid var(--accent-1);
+	outline-offset: 1px;
+}
+
+/* sortable column headers, marked with .sortable by table-tools.js (blank
+   headers, e.g. the row-expand chevron column, are left alone) */
+table.enhanced-table thead th.sortable {
+	cursor: pointer;
+	user-select: none;
+}
+
+table.enhanced-table thead th.sortable::after {
+	content: "↕";
+	opacity: 0.5;
+	margin-left: 6px;
+	font-size: 0.9em;
+}
+
+table.enhanced-table thead th.sortable[aria-sort="ascending"]::after {
+	content: "↑";
+	opacity: 1;
+}
+
+table.enhanced-table thead th.sortable[aria-sort="descending"]::after {
+	content: "↓";
+	opacity: 1;
+}
+
+/* wide-table horizontal scroll on narrow screens, works even without JS */
+@media (max-width: 900px) {
+	table {
+		display: block;
+		overflow-x: auto;
+	}
+
+	table thead,
+	table tbody {
+		display: table;
+		width: 100%;
+	}
+}
+
+/* full card layout on narrow screens for tables whose cells carry data-label (added by Html.scala/RatingWriter) */
+@media (max-width: 640px) {
+	.site-nav {
+		border-radius: var(--radius);
+		padding: 6px 10px;
+	}
+
+	.nav-toggle {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		width: 100%;
+		background: none;
+		border: none;
+		padding: 8px 6px;
+		font: inherit;
+		font-weight: 700;
+		font-size: 0.95em;
+		color: var(--text);
+		cursor: pointer;
+	}
+
+	.nav-toggle-icon {
+		font-size: 1.1em;
+	}
+
+	.nav-links {
+		display: none;
+		flex-direction: column;
+		gap: 2px;
+		padding-top: 6px;
+		margin-top: 4px;
+		border-top: 1px solid var(--border);
+	}
+
+	.site-nav.open .nav-links {
+		display: flex;
+	}
+
+	.nav-links a,
+	.nav-links summary {
+		width: 100%;
+	}
+
+	.nav-dropdown>div {
+		position: static;
+		box-shadow: none;
+		border: none;
+		padding: 0 0 0 14px;
+		margin-top: 2px;
+	}
+
+	table.enhanced-table {
+		display: block;
+		overflow-x: visible;
+	}
+
+	table.enhanced-table thead {
+		display: none;
+	}
+
+	table.enhanced-table,
+	table.enhanced-table tbody,
+	table.enhanced-table tr,
+	table.enhanced-table td {
+		display: block;
+		width: 100%;
+	}
+
+	table.enhanced-table tbody tr {
+		margin-bottom: 12px;
+		border: 1px solid var(--border);
+		border-radius: var(--radius);
+		box-shadow: var(--shadow);
+	}
+
+	table.enhanced-table tbody tr:last-child {
+		border-bottom: 1px solid var(--border);
+	}
+
+	table.enhanced-table td {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 10px;
+		border-bottom: 1px solid var(--border);
+		white-space: normal;
+	}
+
+	table.enhanced-table td:last-child {
+		border-bottom: none;
+	}
+
+	table.enhanced-table td[data-label]::before {
+		content: attr(data-label);
+		font-weight: 700;
+		color: var(--muted);
+		font-size: 0.78em;
+		text-transform: uppercase;
+		letter-spacing: 0.03em;
+		margin-right: 10px;
+	}
+
+	/* the expandable detail row is a single wide cell, not a label/value pair */
+	table.enhanced-table tbody tr.detail-row {
+		margin-top: -12px;
+		border: none;
+		box-shadow: none;
+		background: transparent;
+	}
+
+	table.enhanced-table tbody tr.detail-row td {
+		display: block;
+		border: 1px solid var(--border);
+		border-top: none;
+		border-radius: 0 0 var(--radius) var(--radius);
+		box-shadow: var(--shadow);
+		background: #fafbff;
+	}
+
+	/* rating rows get a bespoke compact 2-line card (rank/name/chevron, then
+	   club/AG/trend/total) instead of one field per line */
+	table.rating-table.enhanced-table tbody tr.rating-row-summary {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 4px 10px;
+		padding: 10px 12px;
+		/* the points-vs-leader bar fill reads fine behind a full-width desktop
+		   row, but its hard cutoff looks like a glitch against a card's own
+		   border, so drop it here and rely on the rank-N edge stripe instead */
+		--bar-color: transparent;
+	}
+
+	/* .rank-1/2/3 alone loses this specificity fight against the generic
+	   "table.enhanced-table tbody tr" card box-shadow above, so restate the
+	   accent here with the card's own selector */
+	table.rating-table.enhanced-table tbody tr.rating-row-summary.rank-1 {
+		box-shadow: var(--shadow), inset 4px 0 0 var(--gold);
+		background: rgba(245, 197, 66, 0.12);
+	}
+
+	table.rating-table.enhanced-table tbody tr.rating-row-summary.rank-2 {
+		box-shadow: var(--shadow), inset 4px 0 0 var(--silver);
+		background: rgba(185, 193, 204, 0.12);
+	}
+
+	table.rating-table.enhanced-table tbody tr.rating-row-summary.rank-3 {
+		box-shadow: var(--shadow), inset 4px 0 0 var(--bronze);
+		background: rgba(205, 127, 50, 0.12);
+	}
+
+	table.rating-table.enhanced-table tbody tr.rating-row-summary td {
+		display: block;
+		width: auto;
+		border: none;
+		padding: 0;
+		min-width: 0;
+	}
+
+	table.rating-table.enhanced-table tbody tr.rating-row-summary td[data-label]::before {
+		content: none;
+	}
+
+	table.rating-table.enhanced-table tbody tr.rating-row-summary td:nth-child(1) {
+		order: 1;
+		font-size: 1.15em;
+	}
+
+	table.rating-table.enhanced-table tbody tr.rating-row-summary td:nth-child(3) {
+		order: 2;
+		flex: 1 1 auto;
+		min-width: 0;
+		overflow: hidden;
+	}
+
+	table.rating-table.enhanced-table tbody tr.rating-row-summary td:nth-child(3) span:last-child {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		display: inline-block;
+		max-width: calc(100% - 2em);
+		vertical-align: middle;
+	}
+
+	table.rating-table.enhanced-table tbody tr.rating-row-summary td.expand-toggle {
+		order: 3;
+		margin-left: auto;
+	}
+
+	/* forces the line break: a generated pseudo-element flex item */
+	table.rating-table.enhanced-table tbody tr.rating-row-summary::after {
+		content: "";
+		flex-basis: 100%;
+		order: 4;
+	}
+
+	table.rating-table.enhanced-table tbody tr.rating-row-summary td:nth-child(2) {
+		order: 5;
+	}
+
+	table.rating-table.enhanced-table tbody tr.rating-row-summary td:nth-child(4),
+	table.rating-table.enhanced-table tbody tr.rating-row-summary td:nth-child(5),
+	table.rating-table.enhanced-table tbody tr.rating-row-summary td:nth-child(6) {
+		order: 6;
+		font-size: 0.85em;
+		color: var(--muted);
+	}
+
+	table.rating-table.enhanced-table tbody tr.rating-row-summary td:nth-child(2)::after,
+	table.rating-table.enhanced-table tbody tr.rating-row-summary td:nth-child(4)::after,
+	table.rating-table.enhanced-table tbody tr.rating-row-summary td:nth-child(5)::after {
+		content: "·";
+		margin-left: 8px;
+		color: var(--border);
+	}
+
+	table.rating-table.enhanced-table tbody tr.rating-row-summary td:nth-child(7) {
+		order: 7;
+		margin-left: auto;
+		font-weight: 700;
+		font-size: 0.95em;
+	}
+}
+
+/* form controls used by the calculator pages */
+input,
+select,
+button {
+	font-family: inherit;
+	border: 1px solid var(--border);
+	border-radius: 8px;
+	background: var(--surface);
+	color: var(--text);
+}
+
+input:focus,
+select:focus {
+	outline: 2px solid var(--accent-1);
+	outline-offset: 1px;
 }
