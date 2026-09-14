@@ -52,6 +52,11 @@ tbody tr:hover {
 	--bar-color: rgba(66, 135, 245, 0.30);
 }
 
+.rating-table tbody tr {
+	background-size: var(--summary-width, 0px) 100%;
+	background-repeat: no-repeat;
+}
+
 /* tr:nth-child(even) {
 	background-color: #f9f9f9;
 }
@@ -102,4 +107,58 @@ tr:hover {
 
 .dimmed:hover::after {
 	opacity: 1;
+}
+
+.reference-details {
+	box-sizing: border-box;
+	max-width: 600px;
+	width: 100%;
+	margin-bottom: 24px;
+	padding: 10px 14px;
+	border: 1px solid #c8c8c8;
+	border-radius: 8px;
+	background: #f3f3f3;
+}
+
+.reference-details summary {
+	cursor: pointer;
+	color: #444;
+	font-weight: 600;
+}
+
+.reference-details[open] img {
+	display: block;
+	margin-top: 12px;
+}
+
+@media (max-width: 600px) and (orientation: portrait) {
+	.rating-table {
+		font-size: 12px;
+	}
+
+	.rating-table th,
+	.rating-table td {
+		padding: 2px;
+	}
+
+	.rating-table td:nth-child(3) {
+		min-width: 140px;
+		max-width: 160px;
+		white-space: normal !important;
+	}
+
+	.rating-table td:nth-child(4) {
+		min-width: 70px;
+		max-width: 85px;
+	}
+
+	.rating-table td:nth-child(6) {
+		min-width: 55px;
+		max-width: 65px;
+	}
+
+	.rating-table th:nth-child(7) span:not(:first-child),
+	.rating-table th:nth-child(7) br {
+		display: none;
+	}
 }

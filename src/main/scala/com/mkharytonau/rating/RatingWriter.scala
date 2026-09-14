@@ -27,10 +27,11 @@ object RatingWriter {
           license.fioInRussian.value,
           license.club.map(_.value).getOrElse(""),
           license.ag.show,
-          ratingRow.placeAG.map(_.value.toString).getOrElse("")
+          ratingRow.placeAG.map(_.value.toString).getOrElse(""),
+          f"${ratingRow.totalPoints.value}%.2f"
         ) ++ ratingRow.eventsPoints.map(
           _.pointsMaybe.map(_.value.toString).getOrElse("")
-        ) ++ List(f"${ratingRow.totalPoints.value}%.2f")
+        )
 
         writer.writeRow(row)
       }
@@ -47,24 +48,17 @@ object RatingWriter {
       val writer = new java.io.PrintWriter(filePath)
 
       val header = rating.header.value.map(_.value)
-      val headerHtml = {
-        val last = header.last
-        header.init
-          .map(th(_)) :+ th(
-          span(last),
-          br(),
-          span(
-            style := "font-size: 0.5em; color: gray;"
-          )("Нажмите,"),
-          raw("&nbsp;"),
-          span(
-            style := "font-size: 0.5em; color: gray;"
-          )("чтобы получить"),
-          raw("&nbsp;"),
-          span(
-            style := "font-size: 0.5em; color: gray;"
-          )("объяснение")
-        )
+      val headerHtml = header.map {
+        case "Сумма" => th(
+            span("Сумма"),
+            br(),
+            span(style := "font-size: 0.5em; color: gray;")("Нажмите,"),
+            raw("&nbsp;"),
+            span(style := "font-size: 0.5em; color: gray;")("чтобы получить"),
+            raw("&nbsp;"),
+            span(style := "font-size: 0.5em; color: gray;")("объяснение")
+          )
+        case name => th(name)
       }
 
       val rows = rating.rows.map { ratingRow =>
@@ -113,7 +107,12 @@ object RatingWriter {
           ),
           td(clubStr),
           td(style := "white-space: nowrap;")(license.ag.show),
-          td(agPlace)
+          td(agPlace),
+          td(
+            a(
+              href := s"./rating_points_calculator.html?$jsCaluclatorPath&gender=$genderParam&scalaTotalValue=$totalPointsStr"
+            )(totalPointsStr)
+          )
         ) ++ {
           ratingRow.eventsPoints.map { eventPoints =>
             val pointsStr =
@@ -122,13 +121,7 @@ object RatingWriter {
               eventPoints.pointsMaybe.isDefined && !ratingRow.countingEventNames.contains(eventPoints.eventName)
             if (isDimmed) td(cls := "dimmed")(pointsStr) else td(pointsStr)
           }
-        } ++ List(
-          td(
-            a(
-              href := s"./rating_points_calculator.html?$jsCaluclatorPath&gender=$genderParam&scalaTotalValue=$totalPointsStr"
-            )(totalPointsStr)
-          )
-        )
+        }
 
         val gradientPct = rating.winnerPoints.map(winnerPoints =>
           ratingRow.totalPoints.value / winnerPoints.value * 100.0
@@ -136,7 +129,7 @@ object RatingWriter {
         tr(attr("style") := s"--bar:${gradientPct.getOrElse(0)}%")(row)
       }
 
-      val htmlTable = table(
+      val htmlTable = table(cls := "rating-table")(
         thead(
           tr(headerHtml)
         ),

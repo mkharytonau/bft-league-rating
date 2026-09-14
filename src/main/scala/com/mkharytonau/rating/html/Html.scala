@@ -85,7 +85,8 @@ object Html {
           "❗ По всем вопросам, пожалуйста, обращайтесь в телеграм ",
           a(href := "https://t.me/mkharytonau", "@mkharytonau")
         ),
-        ratingTable
+        ratingTable,
+        script(src := "../../../../rating-mobile.js")
       )
     )
 }

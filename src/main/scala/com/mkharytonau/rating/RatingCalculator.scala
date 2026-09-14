@@ -25,9 +25,10 @@ object RatingCalculator {
           "ФИО",
           "Клуб",
           "AG",
-          "Место в AG"
+          "Место в AG",
+          "Сумма"
         ) ++ events
-          .map(_.name.ratingName) ++ List("Сумма"))
+          .map(_.name.ratingName))
           .map(ColumnName(_))
       )
 
