@@ -34,12 +34,11 @@ th {
 	font-weight: 600;
 }
 
-/* result's row gradient bar emulating bar chart */
+/* Point bars and alternating row backgrounds for result and rating tables. */
 tbody tr {
 	--bar: 0%;
 	--bar-color: rgba(66, 135, 245, 0.18);
-	/* semi-opaque blue */
-	/* gradient: solid color from 0 -> var(--bar), then transparent */
+	background-color: #fff;
 	background-image:
 		linear-gradient(to right,
 			var(--bar-color) 0 var(--bar),
@@ -47,23 +46,25 @@ tbody tr {
 	transition: background 300ms ease;
 }
 
-/* optional: stronger highlight on hover */
-tbody tr:hover {
+tbody tr:nth-child(even) {
 	--bar-color: rgba(66, 135, 245, 0.30);
+	background-color: #f2f4f8;
+}
+
+tbody tr:nth-child(odd):hover {
+	--bar-color: rgba(66, 135, 245, 0.32);
+	background-color: #f5f8fd;
+}
+
+tbody tr:nth-child(even):hover {
+	--bar-color: rgba(66, 135, 245, 0.42);
+	background-color: #e9eef6;
 }
 
 .rating-table tbody tr {
 	background-size: var(--summary-width, 0px) 100%;
 	background-repeat: no-repeat;
 }
-
-/* tr:nth-child(even) {
-	background-color: #f9f9f9;
-}
-
-tr:hover {
-	background-color: #f1f1f1;
-} */
 
 .red {
 	color: red;
