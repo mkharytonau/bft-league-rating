@@ -3,59 +3,59 @@
     "licenses" : 117
   },
   "total" : {
-    "participants" : 1364,
+    "participants" : 1399,
     "categories" : {
       "license" : {
-        "licensed" : 437,
-        "unlicensed" : 927
+        "licensed" : 460,
+        "unlicensed" : 939
       },
       "ageGroup" : {
-        "30-34" : 37,
-        "40-44" : 128,
-        "35-39" : 112,
-        "50-54" : 21,
+        "30-34" : 38,
+        "40-44" : 137,
+        "35-39" : 118,
+        "50-54" : 22,
         "60+" : 4,
         "55-59" : 16,
         "18-24" : 22,
-        "25-29" : 31,
-        "45-49" : 66
+        "25-29" : 33,
+        "45-49" : 70
       },
       "club" : {
         "S-sportas" : 2,
         "Аист" : 1,
         "Без клуба" : 1,
-        "UTribe" : 3,
+        "UTribe" : 4,
         "Grebenstar" : 8,
         "TRISTYLE" : 5,
         "ZmitroC Team" : 5,
-        "NE PROFI" : 8,
+        "NE PROFI" : 9,
         "ON-BIKE" : 10,
         "Arza Running Club" : 5,
         "Yellow submarine" : 10,
-        "SQMINSK" : 9,
-        "-----" : 7,
+        "SQMINSK" : 10,
+        "-----" : 8,
         "ALTIUS!" : 7,
-        "Tristyle" : 101,
+        "Tristyle" : 104,
         "Altius" : 2,
-        "RUN4FUN.BY" : 11,
+        "RUN4FUN.BY" : 12,
         "Runstudio" : 4,
         "TriStyle" : 1,
         "Yellow Submarine" : 9,
-        "Многобор" : 17,
+        "Многобор" : 20,
         "СК Сож" : 14,
-        "Altius!" : 19,
+        "Altius!" : 20,
         "Крынiца" : 7,
         "TRIVIDA" : 8,
         "Тристайл" : 8,
         "Runonline.by" : 3,
-        "-" : 106,
+        "-" : 114,
         "Triatyle" : 2,
         "Clown’s Triathlon team" : 3,
         "БелНовация" : 3,
         "Blackberry Crew" : 2,
-        "Жёлтая Субмарина" : 8,
-        "Magicsport" : 7,
-        "Biketourist.club" : 8,
+        "Жёлтая Субмарина" : 9,
+        "Magicsport" : 8,
+        "Biketourist.club" : 9,
         "Каяк" : 2,
         "DreamStack" : 2,
         "ТРИ-О" : 1,
@@ -669,21 +669,53 @@
           "Tristyle" : 5
         }
       }
+    },
+    {
+      "name" : "Дуатлон. Логойск",
+      "participants" : 35,
+      "categories" : {
+        "license" : {
+          "licensed" : 23,
+          "unlicensed" : 12
+        },
+        "ageGroup" : {
+          "30-34" : 1,
+          "40-44" : 9,
+          "35-39" : 6,
+          "50-54" : 1,
+          "25-29" : 2,
+          "45-49" : 4
+        },
+        "club" : {
+          "Tristyle" : 3,
+          "RUN4FUN.BY" : 1,
+          "Многобор" : 3,
+          "UTribe" : 1,
+          "Altius!" : 1,
+          "-" : 8,
+          "NE PROFI" : 1,
+          "Biketourist.club" : 1,
+          "SQMINSK" : 1,
+          "-----" : 1,
+          "Жёлтая Субмарина" : 1,
+          "Magicsport" : 1
+        }
+      }
     }
   ],
   "amountOfParticipations" : {
     "histogram" : {
       "0" : 15,
-      "5" : 13,
-      "10" : 2,
-      "1" : 15,
-      "6" : 9,
-      "9" : 4,
-      "2" : 23,
-      "7" : 10,
-      "3" : 8,
+      "5" : 12,
+      "10" : 3,
+      "1" : 14,
+      "6" : 6,
+      "9" : 8,
+      "2" : 24,
+      "7" : 13,
+      "3" : 6,
       "11" : 1,
-      "8" : 7,
+      "8" : 5,
       "4" : 10
     },
     "bestParticipants" : [
@@ -700,11 +732,11 @@
         "participations" : 10
       },
       {
-        "fioInRussian" : "Петровичев Валентин Сергеевич",
-        "participations" : 9
+        "fioInRussian" : "Юрков Александр Сергеевич",
+        "participations" : 10
       },
       {
-        "fioInRussian" : "Гуштын Никита Александрович",
+        "fioInRussian" : "Петровичев Валентин Сергеевич",
         "participations" : 9
       }
     ]

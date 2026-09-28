@@ -305,6 +305,22 @@ object Main extends App {
         )
       )
     ),
+    CompetitionConfig(
+      name = CompetitionName("Дуатлон. Логойск"),
+      events = List(
+        EventConfig(
+          EventName("Дуатлон. Логойск", "DuathlonLogoisk"),
+          EventCategory.Duathlon,
+          ResourcePath("2026/DuathlonLogoisk"),
+          EventResultsReader.Configured(
+            "Участник",
+            ParseResult.HoursMinutesSecondsMillisOrTens("Финиш"),
+            ParseGender.ByField("Пол", "М", "Ж")
+          ),
+          800.0
+        )
+      )
+    ),
   )
 
   List[Gender](Men, Women).foreach { gender =>

@@ -3,34 +3,34 @@
     "licenses" : 32
   },
   "total" : {
-    "participants" : 383,
+    "participants" : 393,
     "categories" : {
       "license" : {
-        "licensed" : 119,
-        "unlicensed" : 264
+        "licensed" : 126,
+        "unlicensed" : 267
       },
       "ageGroup" : {
-        "40-49" : 41,
-        "18-29" : 14,
-        "30-39" : 49,
+        "40-49" : 44,
+        "18-29" : 15,
+        "30-39" : 52,
         "50+" : 15
       },
       "club" : {
-        "Anaerobe" : 6,
+        "Anaerobe" : 7,
         "RunStudio" : 5,
         "Прочерк" : 4,
         "Виктория/DRC" : 3,
-        "-" : 38,
+        "-" : 41,
         "TRISTYLE" : 2,
-        "Падабайка-RUN" : 8,
-        "Tristyle" : 18,
+        "Падабайка-RUN" : 9,
+        "Tristyle" : 19,
         "Altius" : 10,
         "СК Сож" : 5,
         "БФТ" : 2,
         "FARTLEK RUNNING CLUB" : 7,
         "Тристайл" : 2,
         "—" : 4,
-        "Grebenstar" : 5
+        "Grebenstar" : 6
       }
     }
   },
@@ -428,19 +428,42 @@
           "Падабайка-RUN" : 1
         }
       }
+    },
+    {
+      "name" : "Дуатлон. Логойск",
+      "participants" : 10,
+      "categories" : {
+        "license" : {
+          "licensed" : 7,
+          "unlicensed" : 3
+        },
+        "ageGroup" : {
+          "40-49" : 3,
+          "18-29" : 1,
+          "30-39" : 3
+        },
+        "club" : {
+          "Anaerobe" : 1,
+          "Tristyle" : 1,
+          "-" : 3,
+          "Grebenstar" : 1,
+          "Падабайка-RUN" : 1
+        }
+      }
     }
   ],
   "amountOfParticipations" : {
     "histogram" : {
       "0" : 7,
-      "5" : 7,
+      "5" : 5,
       "10" : 1,
       "1" : 2,
-      "6" : 2,
+      "6" : 3,
+      "9" : 3,
       "2" : 4,
       "7" : 2,
       "3" : 2,
-      "8" : 3,
+      "8" : 1,
       "4" : 2
     },
     "bestParticipants" : [
@@ -450,19 +473,19 @@
       },
       {
         "fioInRussian" : "Науменко Анна Александровна",
-        "participations" : 8
+        "participations" : 9
       },
       {
         "fioInRussian" : "Кузнецова Марина Алексеевна",
-        "participations" : 8
+        "participations" : 9
       },
       {
         "fioInRussian" : "Моисеева Вероника Сергеевна",
-        "participations" : 8
+        "participations" : 9
       },
       {
         "fioInRussian" : "Викентьева Елена Александровна",
-        "participations" : 7
+        "participations" : 8
       }
     ]
   }
